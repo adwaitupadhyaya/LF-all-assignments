@@ -368,12 +368,42 @@ body {
   padding: 10px;
 }
 
+.trends__container--title {
+  color: #fff;
+  font-family: "Proxima Nova";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+  letter-spacing: 0.32px;
+}
+
 .trends__container--button {
   display: flex;
   justify-content: center;
   gap: 3px;
 }
 
+.trends__container--list--item {
+  color: #fff;
+  font-family: "Proxima Nova";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 300% */
+  letter-spacing: 0.24px;
+  margin-left: 5px;
+}
+
+.trends__container--price {
+  color: #fc9918;
+  font-family: "Proxima Nova";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 36px; /* 180% */
+  letter-spacing: 0.4px;
+}
 .trends__button {
   width: 100px;
   border-radius: 20px;
