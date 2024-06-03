@@ -1495,3 +1495,15 @@ body {
   }
   /* offer responsive */
 }
+
+@media (min-width: 800px) and (max-width: 1000px) {
+  .accessories__photos {
+    justify-content: center;
+    align-items: center;
+  }
+  .accessories__photos--image {
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+  }
+}
