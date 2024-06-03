@@ -47,21 +47,18 @@ body {
   letter-spacing: 0.242px;
 }
 
-.image-wrapper {
+.sidebar__image {
   aspect-ratio: 2.2/1;
   overflow: hidden;
 }
 
-.image-wrapper img {
+.sidebar__image img {
   object-fit: cover;
   object-position: 50%;
-}
-
-.profile-image {
   width: 100%;
 }
 
-.profile {
+.sidebar__profile {
   margin-left: 48px;
   margin-right: 48px;
 }
@@ -84,7 +81,7 @@ body {
   justify-content: end;
 }
 
-.profile-info {
+.sidebar__profile--info {
   display: flex;
   flex-direction: column;
   justify-content: stretch;
@@ -196,7 +193,7 @@ body {
   align-items: center;
 }
 
-.contact,
+.sidebar__contact,
 .socials {
   width: 75%;
   margin: 0px auto;
@@ -217,7 +214,7 @@ body {
   letter-spacing: 0.121px;
 }
 
-.contact-method,
+.sidebar__contact--method,
 .social,
 .language {
   display: flex;
@@ -321,14 +318,14 @@ body {
   gap: 48px;
 }
 
-.experience-section {
+.experiences {
   display: flex;
   flex-direction: column;
   gap: 32px;
   justify-content: flex-start;
 }
 
-.experience {
+.experiences__wrapper--item {
   display: flex;
   justify-content: space-around;
   gap: 8px;
@@ -376,7 +373,7 @@ body {
   line-height: 18.182px; /* 128.571% */
 }
 
-.education-section {
+.education {
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -397,7 +394,7 @@ body {
   gap: 16px;
 }
 
-.education-card {
+.education__wrapper--item {
   display: flex;
   padding: 16px 24px;
   flex-direction: column;
@@ -415,13 +412,13 @@ body {
   width: 30%;
 }
 
-.experience-wrapper-inside {
+.experiences__wrapper--inside {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.experience-wrapper {
+.experiences__wrapper {
   display: flex;
   gap: 12px;
 }
@@ -507,12 +504,12 @@ body {
   gap: 32px;
 }
 
-.project-wrapper {
+.projects__wrapper {
   display: flex;
   gap: 8px;
 }
 
-.project-sections {
+.projects__wrapper--item {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -582,15 +579,22 @@ body {
   gap: 12px;
 }
 
-.skill-section {
+.skills {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.skill-row {
+.skills__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.skills-wrapper--item {
   display: flex;
   align-items: flex-start;
+  margin: 10px;
 }
 
 .skill-domain {
@@ -682,7 +686,7 @@ body {
   line-height: 18.182px; /* 128.571% */
 }
 
-.skill-wrapper {
+.skills__wrapper {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -761,13 +765,13 @@ body {
   letter-spacing: 0.101px;
 }
 
-.tools-section {
+.tools {
   display: flex;
   flex-direction: column;
   gap: 32px;
 }
 
-.tools-row {
+.tools__wrapper--item {
   display: flex;
   gap: 8px;
 }
@@ -783,7 +787,7 @@ body {
   background: var(--Gray-Lightest-2, #f7f9fc);
 }
 
-.tools-wrapper {
+.tools__wrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -846,11 +850,11 @@ body {
     width: 40%;
   }
 
-  .skill-wrapper {
+  .skills__wrapper {
     margin: auto;
   }
   .profile,
-  .contact {
+  .sidebar__contact {
     flex-direction: row;
     flex-wrap: wrap;
     width: 90%;
@@ -866,7 +870,7 @@ body {
     font-size: 0.8rem;
   }
 
-  .contact-method {
+  .sidebar__contact--method {
     flex-basis: 228px;
   }
 
@@ -883,22 +887,22 @@ body {
     margin: auto;
   }
 
-  .project-wrapper,
+  .projects__wrapper,
   .education-wrapper {
     flex-direction: column;
   }
 
-  .experience-section,
-  .education-section,
-  .tools-section,
-  .skills-section,
+  .experiences,
+  .education,
+  .tools,
+  .skills,
   .project-sections {
     width: 90%;
     margin: auto;
     flex-wrap: wrap;
   }
 
-  .experience {
+  .experiences__wrapper--item {
     justify-content: center;
     align-content: center;
     width: 90%;
@@ -906,7 +910,7 @@ body {
     flex-wrap: wrap;
   }
 
-  .experience-wrapper {
+  .experiences__wrapper {
     width: 276px;
     margin: auto;
   }
@@ -931,7 +935,7 @@ body {
     width: 276px;
   }
 
-  .tools-row {
+  .tools__wrapper--item {
     flex-wrap: wrap;
     width: 100%;
   }
@@ -940,7 +944,7 @@ body {
     width: 35%;
   }
 
-  .tools-wrapper {
+  .tools__wrapper {
     width: 100%;
   }
 

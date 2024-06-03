@@ -37,13 +37,13 @@
     <div class="container">
       <!-- sidebar start  -->
       <aside class="sidebar">
-        <div class="image-wrapper">
+        <div class="sidebar__image">
           <img class="profile-image" src="./img/image.png" alt="" />
         </div>
 
         <!-- profile part -->
-        <section class="profile">
-          <div class="profile-info">
+        <section class="sidebar__profile">
+          <div class="sidebar__profile--info">
             <div class="profile-name-position">
               <div class="name">Chiara Bianchi</div>
               <div class="name-title">Product Designer</div>
@@ -102,9 +102,9 @@
         <!-- contact section start -->
         <div class="divider"></div>
 
-        <section class="contact">
+        <section class="sidebar__contact">
           <!-- email -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="rectangle">
                 <svg
@@ -128,7 +128,7 @@
           </div>
 
           <!-- website -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="rectangle">
                 <svg
@@ -154,7 +154,7 @@
           </div>
 
           <!-- phone -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="rectangle">
                 <svg
@@ -180,7 +180,7 @@
           </div>
 
           <!-- address -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="rectangle">
                 <svg
@@ -208,11 +208,11 @@
         <div class="divider"></div>
 
         <!-- socials section -->
-        <section class="contact">
+        <section class="sidebar__contact">
           <div class="social-title">Socials</div>
           <!-- instagram -->
 
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="rectangle">
                 <svg
@@ -281,7 +281,7 @@
           </div>
 
           <!-- dribble -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="dribble">
                 <svg
@@ -308,7 +308,7 @@
           </div>
 
           <!-- twitter -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="twitter">
                 <svg
@@ -332,7 +332,7 @@
           </div>
 
           <!-- linkedin -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <div class="linkedin">
                 <svg
@@ -359,10 +359,10 @@
 
         <div class="divider"></div>
         <!-- languages section -->
-        <section class="contact">
+        <section class="sidebar__contact">
           <div class="social-title">Languages</div>
           <!-- italian -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -446,7 +446,7 @@
           </div>
 
           <!-- Greek -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -492,7 +492,7 @@
           </div>
 
           <!-- English -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -568,7 +568,7 @@
           </div>
 
           <!-- Spanish -->
-          <div class="contact-method">
+          <div class="sidebar__contact--method">
             <div class="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -806,8 +806,8 @@
           <section class="projects">
             <h2 class="section-title">Latest Projects</h2>
 
-            <div class="project-wrapper">
-              <div class="project-sections">
+            <div class="projects__wrapper">
+              <div class="projects__wrapper--item">
                 <div class="upper-project">
                   <div class="project-left">
                     <img
@@ -848,7 +848,7 @@
                   </div>
                 </div>
               </div>
-              <div class="project-sections">
+              <div class="projects__wrapper--item">
                 <div class="upper-project">
                   <div class="project-left">
                     <img
@@ -893,9 +893,9 @@
           <!-- project section end -->
 
           <!-- experience section start -->
-          <section class="experience-section">
+          <section class="experiences">
             <div class="section-title">Experience</div>
-            <div class="experience-wrapper">
+            <div class="experiences__wrapper">
               <div class="timeline">
                 <div class="dots">
                   <i class="fa-2xs fa-solid fa-circle-dot"></i>
@@ -1004,9 +1004,9 @@
                 </div>
               </div>
 
-              <div class="experience-wrapper-inside">
+              <div class="experiences__wrapper--inside">
                 <!-- Apple part -->
-                <div class="experience">
+                <div class="experiences__wrapper--item">
                   <div class="left-experience">
                     <p class="experience-date-location">
                       Jul 20 - Jan 2022
@@ -1070,7 +1070,7 @@
                 </div>
 
                 <!-- Tesla Part -->
-                <div class="experience">
+                <div class="experiences__wrapper--item">
                   <div class="left-experience">
                     <p class="experience-date-location">
                       Oct 2015 - Mar 2020
@@ -1133,7 +1133,7 @@
                 </div>
 
                 <!-- Google Part -->
-                <div class="experience">
+                <div class="experiences__wrapper--item">
                   <div class="left-experience">
                     <p class="experience-date-location">
                       Sep 2014 - Aug 2015
@@ -1195,7 +1195,7 @@
                 </div>
 
                 <!-- Vectornator -->
-                <div class="experience">
+                <div class="experiences__wrapper--item">
                   <div class="left-experience">
                     <p class="experience-date-location">
                       Sep 2010 - Jul 2013
@@ -1265,11 +1265,11 @@
           <!-- experience section end -->
 
           <!-- education section start -->
-          <section class="education-section">
+          <section class="education">
             <h2 class="section-title">Education</h2>
             <div class="education-wrapper">
               <!-- memorisely -->
-              <div class="education-card">
+              <div class="education__wrapper--item">
                 <div class="education-header">
                   <figure class="education-logo">
                     <img
@@ -1287,7 +1287,7 @@
               </div>
 
               <!-- ux academy -->
-              <div class="education-card">
+              <div class="education__wrapper--item">
                 <div class="education-header">
                   <figure class="education-logo">
                     <img
@@ -1305,7 +1305,7 @@
               </div>
 
               <!-- Coursera -->
-              <div class="education-card">
+              <div class="education__wrapper--item">
                 <div class="education-header">
                   <figure class="education-logo">
                     <img
@@ -1326,11 +1326,11 @@
           <!-- education section end -->
 
           <!-- skills section start -->
-          <section class="skills-section">
+          <section class="skills">
             <h2 class="section-title">Skills</h2>
 
-            <div class="skill-wrapper">
-              <div class="skill-row">
+            <div class="skills-wrapper">
+              <div class="skills-wrapper--item">
                 <div class="skill-domain">
                   <div class="skill-logo">
                     <svg
@@ -1364,7 +1364,7 @@
                   <div class="skill">Design System</div>
                 </div>
               </div>
-              <div class="skill-row" id="#blue">
+              <div class="skills-wrapper--item" id="#blue">
                 <div class="skill-domain">
                   <div class="skill-logo">
                     <svg
@@ -1403,11 +1403,11 @@
           <!-- skills section end -->
 
           <!-- tools section start -->
-          <section class="tools-section">
+          <section class="tools">
             <h2 class="section-title">Tools</h2>
-            <div class="tools-wrapper">
+            <div class="tools__wrapper">
               <!-- row 1 -->
-              <div class="tools-row">
+              <div class="tools__wrapper--item">
                 <!-- figma -->
                 <div class="tool">
                   <div class="tool-logo">
@@ -1454,7 +1454,7 @@
               </div>
 
               <!-- row 2 -->
-              <div class="tools-row">
+              <div class="tools__wrapper--item">
                 <!-- Vectornator -->
                 <div class="tool">
                   <div class="tool-logo">
