@@ -33,9 +33,16 @@
   font-weight: normal;
   font-style: normal;
 }
+
 html {
   scroll-behavior: smooth;
 }
+
+.light-mode {
+  background-color: #e5e5e5;
+  color: black;
+}
+
 body {
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
   display: flex;
@@ -44,6 +51,8 @@ body {
   gap: 32px;
   background-color: var(--bg-dark);
   position: relative;
+  overflow-x: hidden;
+  transition: background-color 0.3s ease;
 }
 
 .ellipse {
@@ -66,7 +75,7 @@ body {
   border-radius: 443.813px;
   background: #370665;
   filter: blur(300px);
-  width: 443.813px;
+  width: 387px;
   height: 443.813px;
   flex-shrink: 0;
   top: 0px;
@@ -130,6 +139,11 @@ body {
   justify-content: center;
   align-items: center;
   gap: 38px;
+}
+
+.btn input[type="checkbox"] {
+  border-radius: 20px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
 /* navbar section end */
@@ -874,6 +888,9 @@ body {
 } /* footer section end */
 
 @media (min-width: 1400px) {
+  body {
+    overflow-x: hidden;
+  }
   /* downloads responsive */
   section {
     margin-bottom: 100px;
@@ -1144,11 +1161,12 @@ body {
   }
 
   #purple {
-    width: 954px;
+    width: 840px;
     height: 954px;
     flex-shrink: 0;
     left: 900px;
     top: -100px;
+    filter: blur(300px);
   }
 
   .hero__description {
@@ -1445,6 +1463,9 @@ body {
 }
 
 @media (min-width: 1025px) {
+  body {
+    overflow-x: hidden;
+  }
   /* offer responsive */
   .offer {
     flex-direction: column;
@@ -1497,6 +1518,9 @@ body {
 }
 
 @media (min-width: 800px) and (max-width: 1000px) {
+  body {
+    overflow-x: hidden;
+  }
   .accessories__photos {
     justify-content: center;
     align-items: center;

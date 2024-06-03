@@ -46,12 +46,15 @@
 
         <div class="navbar__right--second">
           <ul class="navbar__items">
-            <li class="navbar__item navbar__item--underline">Home</li>
+            <li class="navbar__item navbar__item--underline toggle">Home</li>
             <li class="navbar__item">Explore</li>
             <li class="navbar__item">Contact Us</li>
           </ul>
           <div class="navbar__converter">
             <img src="./assets/Converter.svg" alt="Converter" />
+            <div class="btn">
+              <input type="checkbox" name="" id="lightModeButton" />
+            </div>
           </div>
           <div class="navbar__search">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -90,7 +93,7 @@
         <img src="./assets/desktop-bg.png" alt="" />
       </div>
       <div class="hero__description">
-        <p class="hero__description-title">
+        <p class="hero__description-title toggle">
           Let's Dive in
           <span class="hero__description-title-colorful">Music</span> World
         </p>
@@ -670,5 +673,7 @@
       </div>
     </section>
     <!-- footer section end -->
+
+    <script src="./scripts.js"></script>
   </body>
 </html>
