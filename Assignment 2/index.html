@@ -38,14 +38,30 @@
         />
       </div>
       <div class="navbar__right">
-        <div class="navbar__logo">
-          <img src="./assets/musify.svg" alt="Logo" />
+        <div class="navbar__right--first">
+          <div class="navbar__logo">
+            <img src="./assets/musify.svg" alt="Logo" />
+          </div>
         </div>
-        <div class="navbar__converter">
-          <img src="./assets/Converter.svg" alt="Converter" />
-        </div>
-        <div class="navbar__cart">
-          <img src="./assets/cart.svg" alt="Cart" />
+
+        <div class="navbar__right--second">
+          <ul class="navbar__items">
+            <li class="navbar__item navbar__item--underline">Home</li>
+            <li class="navbar__item">Explore</li>
+            <li class="navbar__item">Contact Us</li>
+          </ul>
+          <div class="navbar__converter">
+            <img src="./assets/Converter.svg" alt="Converter" />
+          </div>
+          <div class="navbar__search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <div class="navbar__cart">
+            <img src="./assets/cart.svg" alt="Cart" />
+          </div>
+          <div class="navbar__login">
+            <button>Login</button>
+          </div>
         </div>
       </div>
     </nav>
@@ -70,14 +86,22 @@
 
     <!-- hero section start -->
     <section class="hero">
+      <div class="hero__image">
+        <img src="./assets/desktop-bg.png" alt="" />
+      </div>
       <div class="hero__description">
         <p class="hero__description-title">
           Let's Dive in
           <span class="hero__description-title-colorful">Music</span> World
         </p>
-        <p class="hero__description-content">
+        <p class="hero__description-content-small">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
           pharetra, phasellus
+        </p>
+        <p class="hero__description-content-large">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
+          pharetra, phasellus imperdiet fringilla turpis lectus risus erat.
+          Commodo purus, eu sed suspendisse fermentum
         </p>
       </div>
       <div class="hero__buttons">
@@ -85,7 +109,7 @@
 
         <button class="hero__button hero__button--right">
           <i class="hero__button-icon fa-solid fa-cart-shopping"></i>
-          &nbsp; Add to cart
+          Add to cart
         </button>
       </div>
     </section>
@@ -93,74 +117,75 @@
 
     <!-- headphones section start -->
     <section class="headphones">
-      <div class="headphones__container">
-        <div class="headphones__image">
-          <img
-            class="headphones__image--item"
-            src="./assets/headphones.png"
-            alt="Headphones"
-          />
+      <div class="headphones__wrapper">
+        <div class="headphones__container">
+          <div class="headphones__image">
+            <img
+              class="headphones__image--item"
+              src="./assets/headphones.png"
+              alt="Headphones"
+            />
+          </div>
+          <div class="headphones__box">
+            <div class="headphones__box--text">
+              <p class="headphones__box--text--title">Wireless Headphones</p>
+              <p class="headphones__box--text--pricing">
+                <span class="headphones__pricing-left">$120</span>
+                &nbsp;
+                <span class="headphones__pricing-right">$185</span>
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="headphones__box">
-          <div class="headphones__box--text">
-            <p class="headphones__box--text--title">Wireless Headphones</p>
-            <p class="headphones__box--text--pricing">
-              <span class="headphones__pricing-left">$120</span>
-              &nbsp;
-              <span class="headphones__pricing-right">$185</span>
-            </p>
+        <div class="headphones__container">
+          <div class="headphones__image">
+            <img
+              class="headphones__image--item"
+              src="./assets/headphones.png"
+              alt="Headphones"
+            />
+          </div>
+          <div class="headphones__box">
+            <div class="headphones__box--text">
+              <p class="headphones__box--text--title">Wireless Headphones</p>
+              <p class="headphones__box--text--pricing">
+                <span class="headphones__pricing-left">$120</span>
+                &nbsp;
+                <span class="headphones__pricing-right">$185</span>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="headphones__container">
+          <div class="headphones__image">
+            <img
+              class="headphones__image--item"
+              src="./assets/headphones.png"
+              alt="Headphones"
+            />
+          </div>
+          <div class="headphones__box">
+            <div class="headphones__box--text">
+              <p class="headphones__box--text--title">Wireless Headphones</p>
+              <p class="headphones__box--text--pricing">
+                <span class="headphones__pricing-left">$120</span>
+                &nbsp;
+                <span class="headphones__pricing-right">$185</span>
+              </p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="headphones__container">
-        <div class="headphones__image">
-          <img
-            class="headphones__image--item"
-            src="./assets/headphones.png"
-            alt="Headphones"
-          />
-        </div>
-        <div class="headphones__box">
-          <div class="headphones__box--text">
-            <p class="headphones__box--text--title">Wireless Headphones</p>
-            <p class="headphones__box--text--pricing">
-              <span class="headphones__pricing-left">$120</span>
-              &nbsp;
-              <span class="headphones__pricing-right">$185</span>
-            </p>
-          </div>
-        </div>
+      <!-- scroll down -->
+      <div class="scroller">
+        <a href="#trends-section"> <img src="./assets/scroll.svg" alt="" /></a>
       </div>
-      <div class="headphones__container">
-        <div class="headphones__image">
-          <img
-            class="headphones__image--item"
-            src="./assets/headphones.png"
-            alt="Headphones"
-          />
-        </div>
-        <div class="headphones__box">
-          <div class="headphones__box--text">
-            <p class="headphones__box--text--title">Wireless Headphones</p>
-            <p class="headphones__box--text--pricing">
-              <span class="headphones__pricing-left">$120</span>
-              &nbsp;
-              <span class="headphones__pricing-right">$185</span>
-            </p>
-          </div>
-        </div>
-      </div>
+      <!-- scroll down end -->
     </section>
     <!-- headphones section end-->
 
-    <!-- scroll down -->
-    <div class="scroller">
-      <img src="./assets/scroll.svg" alt="" />
-    </div>
-    <!-- scroll down end -->
-
     <!-- trends section start -->
-    <section class="trends">
+    <section class="trends" id="trends-section">
       <h1 class="trends__title">Popular Trends</h1>
       <div class="trends__boxes">
         <div class="trends__box">
@@ -549,7 +574,7 @@
         <div class="download__text-icons">
           <div class="icons">
             <div class="icons__image">
-              <i class="fa-brands fa-google-play"></i>
+              <img src="./assets/google-icon.png" alt="" />
             </div>
             <div class="icons__text">
               GET IT ON <br />
@@ -558,7 +583,7 @@
           </div>
           <div class="icons">
             <div class="icons__image">
-              <i class="fa-brands fa-apple"></i>
+              <img src="./assets/apple.png" alt="" />
             </div>
             <div class="icons__text">
               Download on the <br />
@@ -572,7 +597,8 @@
 
     <!-- footer section start -->
     <section class="footer">
-      <div class="footer__item">
+      <!-- Shop + Country -->
+      <div class="footer__item shop">
         <div class="footer__item-title"><strong>Shop</strong></div>
         <div class="footer__item-text">Wireless</div>
         <div class="footer__item-text">Headphone</div>
@@ -581,8 +607,13 @@
         <div class="footer__item-text">Soundbars</div>
         <div class="footer__item-text">Professionals</div>
         <div class="footer__item-text">Offer Zone</div>
+        <div class="footer__item-title" id="footer-country">
+          <strong>Country</strong>
+        </div>
+        <div class="footer__item-text" id="footer-country-text">India</div>
       </div>
-      <div class="footer__item">
+      <!-- Support -->
+      <div class="footer__item support">
         <div class="footer__item-title"><strong>Support</strong></div>
         <div class="footer__item-text">Order Status</div>
         <div class="footer__item-text">Bulk Purchase Program</div>
@@ -593,44 +624,49 @@
         <div class="footer__item-text">Service Center</div>
         <div class="footer__item-text">Brand Stores</div>
       </div>
-      <div class="footer__item">
+      <!-- about + contact + manufactured + social media -->
+      <div class="footer__item about">
         <div class="footer__item-title"><strong>About Us</strong></div>
         <div class="footer__item-text">Harman Corporate</div>
         <div class="footer__item-text">Privacy Policy</div>
         <div class="footer__item-text">Terms of Use</div>
         <div class="footer__item-text">Why Buy Direct</div>
         <div class="footer__item-text">JBL Sound Partners</div>
-      </div>
-      <div class="footer__item">
         <div class="footer__item-title"><strong>Contact Us</strong></div>
         <div class="footer__item-text">1800-102-0525</div>
         <div class="footer__item-text">Mon-Sun- 10AM-7PM</div>
-      </div>
-
-      <div class="footer__item">
+        <div class="footer__item-title">
+          <strong>Share on Social Media </strong>
+        </div>
+        <div class="footer__item-icons">
+          <img src="./assets/social-media.png" alt="" />
+        </div>
         <div class="footer__item-title"><strong>Manufactured by:</strong></div>
-        <div class="footer__item-text">Harman International</div>
-        <div class="footer__item-text">Industries, Inc.</div>
-        <div class="footer__item-text">8500, Balboa Blvd,</div>
-        <div class="footer__item-text">Northridge,CA 91329,USA</div>
+        <div class="footer__item-text">
+          Harman International Industries, Inc. 8500, Balboa Blvd, Northridge,CA
+          91329,USA
+        </div>
       </div>
 
-      <div class="footer__item">
+      <!-- newsletter -->
+      <div class="footer__item newsletter">
         <div class="footer__item-title">
           <strong>Subscribe to our Newsletter</strong>
         </div>
-        <div class="footer__item-text" id="input">Enter your mail id</div>
-        <div class="footer__item-text" id="button">Subscribe</div>
+        <div class="footer__item-wrapper">
+          <div class="footer__item-text" id="input">Enter your mail id</div>
+          <div class="footer__item-text" id="button">Subscribe</div>
+        </div>
       </div>
 
-      <div class="footer__item">
+      <div class="footer__item footer__logo">
         <div class="footer__item-logo">
           <img src="./assets/musify.svg" alt="" />
         </div>
       </div>
 
-      <div class="footer__item" id="copyright">
-        © 2022.Musify.All Rights Reserved
+      <div class="footer__item footer__item--full">
+        <p id="copyright">© 2022.Musify.All Rights Reserved</p>
       </div>
     </section>
     <!-- footer section end -->
