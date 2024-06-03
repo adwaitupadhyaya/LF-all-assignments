@@ -873,7 +873,7 @@ body {
   letter-spacing: 0.48px;
 } /* footer section end */
 
-@media (min-width: 1728px) {
+@media (min-width: 1400px) {
   /* downloads responsive */
   section {
     margin-bottom: 100px;
@@ -1076,7 +1076,7 @@ body {
     flex-direction: column;
     gap: 3px;
     flex-wrap: wrap;
-    height: 660px;
+    height: 540px;
     gap: 107px;
     justify-content: center;
   }
@@ -1442,4 +1442,56 @@ body {
   .about {
     width: 538px;
   }
+}
+
+@media (min-width: 1025px) {
+  /* offer responsive */
+  .offer {
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 540px;
+    gap: 107px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .offer__image {
+    width: 600px;
+    height: 600px;
+    flex-shrink: 0;
+    order: -2;
+  }
+
+  .offer__buttons {
+    width: 40%;
+    height: 75px;
+  }
+
+  .offer__buttons--left {
+    color: #f14a16;
+    font-family: "Proxima Nova";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.04px;
+  }
+  .offer__buttons--right {
+    color: #fff;
+    font-family: "Proxima Nova";
+    font-size: 26px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 1.04px;
+  }
+
+  .offer__time {
+    width: 25%;
+  }
+
+  .searchbar {
+    display: none;
+  }
+  /* offer responsive */
 }
