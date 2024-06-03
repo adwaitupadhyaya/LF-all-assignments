@@ -43,6 +43,10 @@ html {
   color: black;
 }
 
+.dark-text-color {
+  color: black !important;
+}
+
 body {
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
   display: flex;
@@ -611,7 +615,7 @@ body {
 }
 
 .offer__buttons--left {
-  background: var(--bg-dark);
+  background: transparent;
   border: 3px solid var(--brand-color);
 }
 
