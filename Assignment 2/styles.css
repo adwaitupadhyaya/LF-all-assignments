@@ -42,6 +42,10 @@ html {
   background-color: #e5e5e5;
 }
 
+.light-mode .navbar .navbar__left img {
+  filter: brightness(0%);
+}
+
 body.light-mode {
   color: var(--bg-dark);
 }
