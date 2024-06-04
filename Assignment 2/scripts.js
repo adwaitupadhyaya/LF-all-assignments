@@ -29,6 +29,8 @@ const enableLightMode = () => {
 
   const divsWithTextColor = document.querySelectorAll(".change-text-color");
   divsWithTextColor.forEach((div) => div.classList.add("dark-text-color"));
+  const divsWithBgColor = document.querySelectorAll(".change-bg-color");
+  divsWithBgColor.forEach((div) => div.classList.add("dark-bg-color"));
 };
 
 const disableLightMode = () => {
@@ -39,4 +41,7 @@ const disableLightMode = () => {
 
   const divsWithTextColor = document.querySelectorAll(".change-text-color");
   divsWithTextColor.forEach((div) => div.classList.remove("dark-text-color"));
+
+  const divsWithBgColor = document.querySelectorAll(".change-bg-color");
+  divsWithBgColor.forEach((div) => div.classList.remove("dark-bg-color"));
 };

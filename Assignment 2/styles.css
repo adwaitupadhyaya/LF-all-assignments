@@ -40,13 +40,15 @@ html {
 
 .light-mode {
   background-color: #e5e5e5;
-  color: black;
 }
 
 .dark-text-color {
-  color: black !important;
+  color: var(--bg-dark) !important;
 }
 
+.dark-bg-color {
+  background-color: var(--bg-dark) !important;
+}
 body {
   font-family: "Proxima Nova", Helvetica, Arial, sans-serif;
   display: flex;
