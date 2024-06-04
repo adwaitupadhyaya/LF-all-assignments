@@ -1,4 +1,4 @@
-let lightModeEnabled = true;
+let lightModeEnabled = false;
 let removedDivs = [];
 
 const lightModeButton = document.getElementById("lightModeButton");
