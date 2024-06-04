@@ -46,6 +46,10 @@ html {
   filter: brightness(0%);
 }
 
+.light-mode .navbar .navbar__cart img {
+  filter: brightness(0%);
+}
+
 body.light-mode {
   color: var(--bg-dark);
 }
@@ -1333,7 +1337,6 @@ input:checked + .slider:before {
     font-weight: 400;
     line-height: 40px; /* 222.222% */
     letter-spacing: 0.36px;
-    text-decoration-line: strikethrough;
   }
 
   .hero__buttons {
@@ -1464,7 +1467,6 @@ input:checked + .slider:before {
     font-family: "Proxima Nova";
     font-size: 32px;
     font-style: normal;
-    font-weight: 700px;
     line-height: 64px; /* 200% */
     letter-spacing: 0.96px;
   }
