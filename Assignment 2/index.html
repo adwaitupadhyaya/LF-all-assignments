@@ -46,11 +46,11 @@
 
         <div class="navbar__right--second">
           <ul class="navbar__items">
-            <li class="navbar__item navbar__item--underline change-text-color">
+            <a class="navbar__item navbar__item--underline change-text-color">
               Home
-            </li>
-            <li class="navbar__item change-text-color">Explore</li>
-            <li class="navbar__item change-text-color">Contact Us</li>
+            </a>
+            <a class="navbar__item change-text-color">Explore</a>
+            <a class="navbar__item change-text-color">Contact Us</a>
           </ul>
           <div class="navbar__converter">
             <div class="btn">
@@ -61,9 +61,9 @@
           <div class="navbar__search change-text-color">
             <i class="fa-solid fa-magnifying-glass"></i>
           </div>
-          <div class="navbar__cart change-text-color">
+          <a class="navbar__cart change-text-color">
             <img src="./assets/cart.svg" alt="Cart" />
-          </div>
+          </a>
           <div class="navbar__login">
             <button>Login</button>
           </div>
@@ -644,47 +644,49 @@
     <section class="footer">
       <!-- Shop + Country -->
       <div class="footer__item shop">
-        <div class="footer__item-title"><strong>Shop</strong></div>
-        <div class="footer__item-text">Wireless</div>
-        <div class="footer__item-text">Headphone</div>
-        <div class="footer__item-text">Gaming</div>
-        <div class="footer__item-text">Speakers</div>
-        <div class="footer__item-text">Soundbars</div>
-        <div class="footer__item-text">Professionals</div>
-        <div class="footer__item-text">Offer Zone</div>
-        <div class="footer__item-title" id="footer-country">
+        <a class="footer__item-title"><strong>Shop</strong></a>
+        <a class="footer__item-text">Wireless</a>
+        <a class="footer__item-text">Headphone</a>
+        <a class="footer__item-text">Gaming</a>
+        <a class="footer__item-text">Speakers</a>
+        <a class="footer__item-text">Soundbars</a>
+        <a class="footer__item-text">Professionals</a>
+        <a class="footer__item-text">Offer Zone</a>
+        <a class="footer__item-title" id="footer-country">
           <strong>Country</strong>
-        </div>
-        <div class="footer__item-text" id="footer-country-text">India</div>
+        </a>
+        <a class="footer__item-text" id="footer-country-text">India</a>
       </div>
       <!-- Support -->
       <div class="footer__item support">
-        <div class="footer__item-title"><strong>Support</strong></div>
-        <div class="footer__item-text">Order Status</div>
-        <div class="footer__item-text">Bulk Purchase Program</div>
-        <div class="footer__item-text">Buy Authentic</div>
-        <div class="footer__item-text">Product Support</div>
-        <div class="footer__item-text">Shopping & Delivery Policy</div>
-        <div class="footer__item-text">Cancellation & Refund Policy</div>
-        <div class="footer__item-text">Service Center</div>
-        <div class="footer__item-text">Brand Stores</div>
+        <a class="footer__item-title"><strong>Support</strong></a>
+        <a class="footer__item-text">Order Status</a>
+        <a class="footer__item-text">Bulk Purchase Program</a>
+        <a class="footer__item-text">Buy Authentic</a>
+        <a class="footer__item-text">Product Support</a>
+        <a class="footer__item-text">Shopping & Delivery Policy</a>
+        <a class="footer__item-text">Cancellation & Refund Policy</a>
+        <a class="footer__item-text">Service Center</a>
+        <a class="footer__item-text">Brand Stores</a>
       </div>
       <!-- about + contact + manufactured + social media -->
       <div class="footer__item about">
-        <div class="footer__item-title"><strong>About Us</strong></div>
-        <div class="footer__item-text">Harman Corporate</div>
-        <div class="footer__item-text">Privacy Policy</div>
-        <div class="footer__item-text">Terms of Use</div>
-        <div class="footer__item-text">Why Buy Direct</div>
-        <div class="footer__item-text">JBL Sound Partners</div>
-        <div class="footer__item-title"><strong>Contact Us</strong></div>
-        <div class="footer__item-text">1800-102-0525</div>
-        <div class="footer__item-text">Mon-Sun- 10AM-7PM</div>
-        <div class="footer__item-title">
+        <a class="footer__item-title"><strong>About Us</strong></a>
+        <a class="footer__item-text">Harman Corporate</a>
+        <a class="footer__item-text">Privacy Policy</a>
+        <a class="footer__item-text">Terms of Use</a>
+        <a class="footer__item-text">Why Buy Direct</a>
+        <a class="footer__item-text">JBL Sound Partners</a>
+        <a class="footer__item-title"><strong>Contact Us</strong></a>
+        <a class="footer__item-text">1800-102-0525</a>
+        <a class="footer__item-text">Mon-Sun- 10AM-7PM</a>
+        <a class="footer__item-title">
           <strong>Share on Social Media </strong>
-        </div>
+        </a>
         <div class="footer__item-icons">
-          <img src="./assets/social-media.png" alt="" />
+          <i class="fa-2x fa-brands fa-google"></i>
+          <i class="fa-2x fa-brands fa-instagram"></i>
+          <i class="fa-2x fa-brands fa-twitter"></i>
         </div>
         <div class="footer__item-title"><strong>Manufactured by:</strong></div>
         <div class="footer__item-text">
@@ -699,8 +701,12 @@
           <strong>Subscribe to our Newsletter</strong>
         </div>
         <div class="footer__item-wrapper">
-          <div class="footer__item-text" id="input">Enter your mail id</div>
-          <div class="footer__item-text" id="button">Subscribe</div>
+          <input
+            class="footer__item-text"
+            id="input"
+            placeholder="Enter your mail id"
+          />
+          <button class="footer__item-text" id="button">Subscribe</button>
         </div>
       </div>
 
