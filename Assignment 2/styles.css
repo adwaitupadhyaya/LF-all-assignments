@@ -34,6 +34,9 @@
   font-style: normal;
 }
 
+button {
+  cursor: pointer;
+}
 a {
   text-decoration: none;
   cursor: pointer;
@@ -60,6 +63,10 @@ html {
 }
 
 .light-mode .navbar .navbar__cart img {
+  filter: brightness(0%);
+}
+
+.light-mode .scroller a img {
   filter: brightness(0%);
 }
 
