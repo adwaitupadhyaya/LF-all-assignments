@@ -1287,7 +1287,7 @@ input:checked + .slider:before {
   }
 
   #purple {
-    width: 840px;
+    width: 550px;
     height: 954px;
     flex-shrink: 0;
     left: 900px;
