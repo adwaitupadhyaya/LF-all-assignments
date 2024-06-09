@@ -1,8 +1,7 @@
 // metadata
 const BALL_BOX_HEIGHT = 100;
 const BALL_BOX_WIDTH = 100;
-const NUMBER_OF_BALLS = 20;
-const FRAMES_PER_SECOND = 20;
+const NUMBER_OF_BALLS = 40;
 
 class Ball {
   constructor(x, y, radius, color, dy, dx) {
@@ -29,16 +28,26 @@ class Ball {
 }
 
 const BALL_COLORS_ARRAY = [
-  "red",
-  "green",
-  "yellow",
-  "purple",
-  "black",
-  "gray",
-  "orange",
-  "aqua",
-  "chocolate",
-  "darkkhaki",
+  "#FF5733",
+  "#33FF57",
+  "#5733FF",
+  "#FFC300",
+  "#C70039",
+  "#900C3F",
+  "#581845",
+  "#FF69B4",
+  "#8A2BE2",
+  "#00CED1",
+  "#FFD700",
+  "#FF4500",
+  "#2E8B57",
+  "#FF1493",
+  "#7FFF00",
+  "#DC143C",
+  "#4682B4",
+  "#DAA520",
+  "#FF8C00",
+  "#ADFF2F",
 ];
 
 // give styling to box
@@ -47,38 +56,61 @@ ballBox.style.position = "relative";
 ballBox.style.height = `${BALL_BOX_HEIGHT}%`;
 ballBox.style.width = `${BALL_BOX_WIDTH}%`;
 
-const ballsArray = [];
+// store ball objects
+const balls = [];
+
+// Function to check if two balls overlap
+const doBallsOverlap = (ball1, ball2) => {
+  const dx = ball1.x - ball2.x;
+  const dy = ball1.y - ball2.y;
+  const distance = Math.sqrt(dx * dx + dy * dy);
+  return distance <= ball1.radius + ball2.radius;
+};
+
 // randomize creation of ball
-
 for (let i = 0; i < NUMBER_OF_BALLS; i++) {
-  const randomColor = Math.round(Math.random() * 7);
-  const randomRadius = Math.round(Math.random() * (30 - 10) + 10);
-  const randomTop = Math.round(Math.random() * window.innerHeight);
-  const randomLeft = Math.round(Math.random() * window.innerHeight);
-  const randomDx = Math.round(Math.random() * 10);
-  const randomDy = Math.round(Math.random() * 10);
+  let randomColor = Math.round(Math.random() * BALL_COLORS_ARRAY.length);
+  let randomRadius = Math.round(Math.random() * (40 - 10) + 10);
+  let randomDy = Math.round(Math.random() * 10) + 1;
+  let randomDx = Math.round(Math.random() * 10) + 1;
+  let randomTop, randomLeft;
+  let ballObject, overlaps;
 
-  const ballObject = new Ball(
-    randomTop,
-    randomLeft,
-    randomRadius,
-    BALL_COLORS_ARRAY[randomColor],
-    randomDx,
-    randomDy
-  );
+  do {
+    overlaps = false;
+    randomTop = Math.round(Math.random() * window.innerHeight);
+    randomLeft = Math.round(Math.random() * window.innerWidth);
+    ballObject = new Ball(
+      randomLeft,
+      randomTop,
+      randomRadius,
+      BALL_COLORS_ARRAY[randomColor],
+      randomDx,
+      randomDy
+    );
+
+    // Check for overlaps
+    for (let j = 0; j < balls.length; j++) {
+      if (doBallsOverlap(ballObject, balls[j])) {
+        overlaps = true;
+        break;
+      }
+    }
+  } while (overlaps);
+
   // add balls to box
   ballBox.appendChild(ballObject.newBall);
-  // draw the initial state of the balls
   ballObject.drawBall();
-  ballsArray.push(ballObject);
+  balls.push(ballObject);
   setInterval(() => {
     moveBall(ballObject);
-  }, FRAMES_PER_SECOND);
+  }, 20);
 }
 
 const moveBall = (ballToMove) => {
   ballToMove.y += ballToMove.dy;
   ballToMove.x += ballToMove.dx;
+
   // Check for collisions with walls
   if (ballToMove.y + ballToMove.radius > window.innerHeight) {
     ballToMove.y = window.innerHeight - ballToMove.radius;
@@ -97,17 +129,15 @@ const moveBall = (ballToMove) => {
     ballToMove.dx = -ballToMove.dx;
   }
 
-  // collision with other balls
-  for (let i in ballsArray) {
-    const ball = ballsArray[i];
-    // checking of not the same ball
+  // Check for collisions with other balls
+  for (let i = 0; i < balls.length; i++) {
+    const ball = balls[i];
     if (ball !== ballToMove) {
-      const distanceX = ballToMove.x - ball.x;
-      const distanceY = ballToMove.y - ball.y;
-      const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
-      console.log(distance);
-      if (distance < ball.radius + ballToMove.radius) {
-        // give velocity + direction of one ball to another
+      const dx = ballToMove.x - ball.x;
+      const dy = ballToMove.y - ball.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+      if (distance <= ballToMove.radius + ball.radius) {
+        //exchange velocities
         const tempDx = ballToMove.dx;
         const tempDy = ballToMove.dy;
         ballToMove.dx = ball.dx;
@@ -117,5 +147,6 @@ const moveBall = (ballToMove) => {
       }
     }
   }
+
   ballToMove.drawBall();
 };
