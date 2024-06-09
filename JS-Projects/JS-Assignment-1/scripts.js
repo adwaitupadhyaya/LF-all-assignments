@@ -1,7 +1,7 @@
 // metadata
 const BALL_BOX_HEIGHT = 100;
 const BALL_BOX_WIDTH = 100;
-const NUMBER_OF_BALLS = 40;
+const NUMBER_OF_BALLS = 30;
 
 class Ball {
   constructor(x, y, radius, color, dy, dx) {
