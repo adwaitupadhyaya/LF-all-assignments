@@ -1,7 +1,7 @@
 // metadata
 const BALL_BOX_HEIGHT = 100;
 const BALL_BOX_WIDTH = 100;
-const NUMBER_OF_BALLS = 30;
+const NUMBER_OF_BALLS = 50;
 
 class Ball {
   constructor(x, y, radius, color, dy, dx) {
@@ -70,7 +70,7 @@ const doBallsOverlap = (ball1, ball2) => {
 // randomize creation of ball
 for (let i = 0; i < NUMBER_OF_BALLS; i++) {
   let randomColor = Math.round(Math.random() * BALL_COLORS_ARRAY.length);
-  let randomRadius = Math.round(Math.random() * (40 - 10) + 10);
+  let randomRadius = Math.round(Math.random() * (20 - 10) + 10);
   let randomDy = Math.round(Math.random() * 10) + 1;
   let randomDx = Math.round(Math.random() * 10) + 1;
   let randomTop, randomLeft;
