@@ -1,7 +1,7 @@
 // metadata
 const BALL_BOX_HEIGHT = 100;
 const BALL_BOX_WIDTH = 100;
-const NUMBER_OF_BALLS = 10;
+const NUMBER_OF_BALLS = 20;
 const FRAMES_PER_SECOND = 20;
 
 class Ball {
@@ -52,7 +52,7 @@ const ballsArray = [];
 
 for (let i = 0; i < NUMBER_OF_BALLS; i++) {
   const randomColor = Math.round(Math.random() * 7);
-  const randomRadius = Math.round(Math.random() * (50 - 20) + 20);
+  const randomRadius = Math.round(Math.random() * (30 - 10) + 10);
   const randomTop = Math.round(Math.random() * window.innerHeight);
   const randomLeft = Math.round(Math.random() * window.innerHeight);
   const randomDx = Math.round(Math.random() * 10);
@@ -79,18 +79,22 @@ for (let i = 0; i < NUMBER_OF_BALLS; i++) {
 const moveBall = (ballToMove) => {
   ballToMove.y += ballToMove.dy;
   ballToMove.x += ballToMove.dx;
-  // collision with walls
-  if (
-    ballToMove.y + ballToMove.radius > window.innerHeight ||
-    ballToMove.y - ballToMove.radius < 0
-  ) {
-    ballToMove.dy = -1 * ballToMove.dy;
+  // Check for collisions with walls
+  if (ballToMove.y + ballToMove.radius > window.innerHeight) {
+    ballToMove.y = window.innerHeight - ballToMove.radius;
+    ballToMove.dy = -ballToMove.dy;
   }
-  if (
-    ballToMove.x + ballToMove.radius > window.innerWidth ||
-    ballToMove.x - ballToMove.radius < 0
-  ) {
-    ballToMove.dx = -1 * ballToMove.dx;
+  if (ballToMove.y - ballToMove.radius < 0) {
+    ballToMove.y = ballToMove.radius;
+    ballToMove.dy = -ballToMove.dy;
+  }
+  if (ballToMove.x + ballToMove.radius > window.innerWidth) {
+    ballToMove.x = window.innerWidth - ballToMove.radius;
+    ballToMove.dx = -ballToMove.dx;
+  }
+  if (ballToMove.x - ballToMove.radius < 0) {
+    ballToMove.x = ballToMove.radius;
+    ballToMove.dx = -ballToMove.dx;
   }
 
   // collision with other balls
@@ -103,6 +107,7 @@ const moveBall = (ballToMove) => {
       const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
       console.log(distance);
       if (distance < ball.radius + ballToMove.radius) {
+        // give velocity + direction of one ball to another
         const tempDx = ballToMove.dx;
         const tempDy = ballToMove.dy;
         ballToMove.dx = ball.dx;
