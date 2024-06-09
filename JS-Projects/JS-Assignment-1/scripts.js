@@ -1,7 +1,7 @@
 // metadata
 const BALL_BOX_HEIGHT = 100;
 const BALL_BOX_WIDTH = 100;
-const NUMBER_OF_BALLS = 50;
+const NUMBER_OF_BALLS = 30;
 
 class Ball {
   constructor(x, y, radius, color, dy, dx) {
@@ -56,7 +56,6 @@ ballBox.style.position = "relative";
 ballBox.style.height = `${BALL_BOX_HEIGHT}%`;
 ballBox.style.width = `${BALL_BOX_WIDTH}%`;
 
-// store ball objects
 const balls = [];
 
 // Function to check if two balls overlap
@@ -64,15 +63,33 @@ const doBallsOverlap = (ball1, ball2) => {
   const dx = ball1.x - ball2.x;
   const dy = ball1.y - ball2.y;
   const distance = Math.sqrt(dx * dx + dy * dy);
-  return distance <= ball1.radius + ball2.radius;
+  return distance < ball1.radius + ball2.radius;
+};
+
+const handleBallCollision = (ball1, ball2) => {
+  const distanceX = ball1.x - ball2.x;
+  const distanceY = ball1.y - ball2.y;
+  const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+  const overlap = ball1.radius + ball2.radius - distance;
+
+  ball1.x += overlap;
+  ball1.y += overlap;
+  ball2.x -= overlap;
+  ball2.y -= overlap;
+
+  //exchange velocities
+  const tempDx = ball1.dx;
+  const tempDy = ball1.dy;
+  ball1.dx = ball2.dx;
+  ball1.dy = ball2.dy;
+  ball2.dx = tempDx;
+  ball2.dy = tempDy;
 };
 
 // randomize creation of ball
 for (let i = 0; i < NUMBER_OF_BALLS; i++) {
   let randomColor = Math.round(Math.random() * BALL_COLORS_ARRAY.length);
-  let randomRadius = Math.round(Math.random() * (20 - 10) + 10);
-  let randomDy = Math.round(Math.random() * 10) + 1;
-  let randomDx = Math.round(Math.random() * 10) + 1;
+  let randomRadius = Math.round(Math.random() * (30 - 10) + 10);
   let randomTop, randomLeft;
   let ballObject, overlaps;
 
@@ -85,11 +102,11 @@ for (let i = 0; i < NUMBER_OF_BALLS; i++) {
       randomTop,
       randomRadius,
       BALL_COLORS_ARRAY[randomColor],
-      randomDx,
-      randomDy
+      Math.round(Math.random() * 10) + 1,
+      Math.round(Math.random() * 10) + 1
     );
 
-    // Check for overlaps
+    // Check for overlaps with existing balls
     for (let j = 0; j < balls.length; j++) {
       if (doBallsOverlap(ballObject, balls[j])) {
         overlaps = true;
@@ -98,7 +115,6 @@ for (let i = 0; i < NUMBER_OF_BALLS; i++) {
     }
   } while (overlaps);
 
-  // add balls to box
   ballBox.appendChild(ballObject.newBall);
   ballObject.drawBall();
   balls.push(ballObject);
@@ -132,19 +148,8 @@ const moveBall = (ballToMove) => {
   // Check for collisions with other balls
   for (let i = 0; i < balls.length; i++) {
     const ball = balls[i];
-    if (ball !== ballToMove) {
-      const dx = ballToMove.x - ball.x;
-      const dy = ballToMove.y - ball.y;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-      if (distance <= ballToMove.radius + ball.radius) {
-        //exchange velocities
-        const tempDx = ballToMove.dx;
-        const tempDy = ballToMove.dy;
-        ballToMove.dx = ball.dx;
-        ballToMove.dy = ball.dy;
-        ball.dx = tempDx;
-        ball.dy = tempDy;
-      }
+    if (ball !== ballToMove && doBallsOverlap(ballToMove, ball)) {
+      handleBallCollision(ballToMove, ball);
     }
   }
 
