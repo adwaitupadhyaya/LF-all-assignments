@@ -89,7 +89,7 @@ const handleBallCollision = (ball1, ball2) => {
 // randomize creation of ball
 for (let i = 0; i < NUMBER_OF_BALLS; i++) {
   let randomColor = Math.round(Math.random() * BALL_COLORS_ARRAY.length);
-  let randomRadius = Math.round(Math.random() * (10 - 5) + 5);
+  let randomRadius = Math.round(Math.random() * (7 - 4) + 4);
   let randomTop, randomLeft;
   let ballObject, overlaps;
 
@@ -102,8 +102,8 @@ for (let i = 0; i < NUMBER_OF_BALLS; i++) {
       randomTop,
       randomRadius,
       BALL_COLORS_ARRAY[randomColor],
-      Math.round(Math.random() * 10) + 1,
-      Math.round(Math.random() * 10) + 1
+      Math.round(Math.random() * 10 - 5) + 1,
+      Math.round(Math.random() * 10 - 5) + 1
     );
 
     // Check for overlaps with existing balls
