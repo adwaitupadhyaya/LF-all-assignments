@@ -2,6 +2,12 @@ import "./style.css";
 
 const prevButton = document.querySelector(".prev");
 const nextButton = document.querySelector(".next");
+const firstDot = document.getElementById("first");
+const secondDot = document.getElementById("second");
+const thirdDot = document.getElementById("third");
+const fourthDot = document.getElementById("fourth");
+
+console.log(firstDot, secondDot, thirdDot, fourthDot);
 
 const slides = document.querySelectorAll(".container__images img");
 
@@ -37,6 +43,34 @@ if (prevButton) {
 if (nextButton) {
   nextButton.addEventListener("click", () => {
     slideIndex = (slideIndex + 1) % slides.length;
+    showSlide(slideIndex);
+  });
+}
+
+if (firstDot) {
+  firstDot.addEventListener("click", () => {
+    slideIndex = 0;
+    showSlide(slideIndex);
+  });
+}
+
+if (secondDot) {
+  secondDot.addEventListener("click", () => {
+    slideIndex = 1;
+    showSlide(slideIndex);
+  });
+}
+
+if (thirdDot) {
+  thirdDot.addEventListener("click", () => {
+    slideIndex = 2;
+    showSlide(slideIndex);
+  });
+}
+
+if (fourthDot) {
+  fourthDot.addEventListener("click", () => {
+    slideIndex = 3;
     showSlide(slideIndex);
   });
 }

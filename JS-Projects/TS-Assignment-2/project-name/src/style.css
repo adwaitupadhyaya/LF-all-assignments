@@ -32,8 +32,9 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  display: none;
-  transition: transform 0.5s ease-in-out;
+  opacity: 0;
+  transition: all 1.5s ease;
+  visibility: hidden;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -41,7 +42,9 @@ body {
 }
 
 .container__images img.displaySlide {
-  display: block;
+  visibility: visible;
+  opacity: 1;
+  transition: all 1.5s ease;
   position: relative;
 }
 
