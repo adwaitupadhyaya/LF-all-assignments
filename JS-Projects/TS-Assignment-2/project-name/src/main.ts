@@ -5,7 +5,6 @@ const nextButton = document.querySelector(".next");
 
 const slides = document.querySelectorAll(".container__images img");
 
-console.log(slides);
 let slideIndex: number = 0;
 let intervalId: number | undefined;
 
@@ -30,8 +29,7 @@ const showSlide = (index: number) => {
 
 if (prevButton) {
   prevButton.addEventListener("click", () => {
-    slideIndex = (slideIndex - 1) % slides.length;
-    console.log(slideIndex);
+    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
     showSlide(slideIndex);
   });
 }
@@ -39,7 +37,6 @@ if (prevButton) {
 if (nextButton) {
   nextButton.addEventListener("click", () => {
     slideIndex = (slideIndex + 1) % slides.length;
-    console.log(slideIndex);
     showSlide(slideIndex);
   });
 }

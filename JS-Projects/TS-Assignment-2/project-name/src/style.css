@@ -1,20 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background-color: #e9e9e9;
+  overflow: hidden;
+  background-color: #ffffff;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 90 90'%3E%3Ccircle fill-opacity='0.23' fill='%23BBBBBB' cx='45' cy='45' r='5'/%3E%3Cg fill='%23888888' fill-opacity='0.23'%3E%3Ccircle cx='0' cy='90' r='5'/%3E%3Ccircle cx='90' cy='90' r='5'/%3E%3Ccircle cx='90' cy='0' r='5'/%3E%3Ccircle cx='0' cy='0' r='5'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .container {
+  margin: 40px;
   position: relative;
+  display: flex;
+}
+
+.container__images {
+  position: relative;
+  width: 900px;
+  display: flex;
+  justify-content: center;
 }
 
 .container__images img {
   height: 500px;
-  width: 900px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
   display: none;
+  transition: transform 0.5s ease-in-out;
   border-radius: 20px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -23,21 +42,23 @@ body {
 
 .container__images img.displaySlide {
   display: block;
+  position: relative;
 }
 
 .container__buttons {
   position: absolute;
-  width: 90%;
-  top: 50%;
+  width: 100%;
+  top: 105%;
   display: flex;
-  justify-content: space-between;
-  margin: auto 50px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }
 
 button {
   padding: 6px;
-  color: rgb(205, 205, 205);
-  background-color: rgba(255, 255, 255, 0.4);
+  color: rgb(110, 110, 110);
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -45,8 +66,21 @@ button {
 }
 
 button:hover {
-  color: rgb(89, 89, 89);
-  background-color: rgba(255, 255, 255, 0.9);
+  color: rgb(0, 0, 0);
+  background-color: rgba(255, 255, 255, 0);
   border: none;
   cursor: pointer;
+  transition: 0.2s ease-in;
+}
+
+.container__button--dots {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(138, 138, 138);
+  border-radius: 50%;
+}
+
+.container__button--dots:hover {
+  background-color: black;
+  transition: 0.2s ease-in;
 }
