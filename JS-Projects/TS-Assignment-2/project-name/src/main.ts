@@ -2,75 +2,86 @@ import "./style.css";
 
 const prevButton = document.querySelector(".prev");
 const nextButton = document.querySelector(".next");
-const firstDot = document.getElementById("first");
-const secondDot = document.getElementById("second");
-const thirdDot = document.getElementById("third");
-const fourthDot = document.getElementById("fourth");
-
-console.log(firstDot, secondDot, thirdDot, fourthDot);
-
-const slides = document.querySelectorAll(".container__images img");
+const slidesContainer = document.querySelector(
+  ".slides-container"
+) as HTMLElement;
+const dots = document.querySelectorAll(".container__button--dots");
 
 let slideIndex: number = 0;
-let intervalId: number | undefined;
+const slideWidth: number = slidesContainer ? slidesContainer.clientWidth : 0;
+const totalSlides: number = slidesContainer
+  ? slidesContainer.children.length
+  : 0;
 
-// initialize slider
+// Initialize slider
 const initializeSlider = () => {
-  if (slides.length > 0) {
-    slides[slideIndex].classList.add("displaySlide");
-    intervalId = setInterval(() => {
-      slideIndex = (slideIndex + 1) % slides.length;
-      showSlide(slideIndex);
-    }, 5000);
+  if (slidesContainer && slideWidth) {
+    slidesContainer.style.transform = `translateX(-${
+      slideIndex * slideWidth
+    }px)`;
+    updateDots();
+    startAutoSlide();
   }
 };
 document.addEventListener("DOMContentLoaded", initializeSlider);
 
-const showSlide = (index: number) => {
-  slides.forEach((slide) => {
-    slide.classList.remove("displaySlide");
+// Update dots
+const updateDots = () => {
+  dots.forEach((dot, index) => {
+    dot.classList.remove("active");
+    if (index === slideIndex) {
+      dot.classList.add("active");
+    }
   });
-  slides[index].classList.add("displaySlide");
 };
 
-if (prevButton) {
+const goToSlide = (index: number) => {
+  slideIndex = index;
+  if (slidesContainer && slideWidth) {
+    slidesContainer.style.transform = `translateX(-${
+      slideIndex * slideWidth
+    }px)`;
+    updateDots();
+    stopAutoSlide();
+    startAutoSlide();
+  }
+};
+
+const autoSlideInterval = 5000;
+let slideInterval: number | null = null;
+
+const startAutoSlide = () => {
+  slideInterval = setInterval(() => {
+    slideIndex = (slideIndex + 1) % totalSlides;
+    goToSlide(slideIndex);
+  }, autoSlideInterval);
+};
+
+const stopAutoSlide = () => {
+  if (slideInterval) {
+    clearInterval(slideInterval);
+    slideInterval = null;
+  }
+};
+
+startAutoSlide();
+
+if (prevButton && nextButton && slidesContainer && slideWidth) {
   prevButton.addEventListener("click", () => {
-    slideIndex = (slideIndex - 1 + slides.length) % slides.length;
-    showSlide(slideIndex);
+    slideIndex = (slideIndex - 1 + totalSlides) % totalSlides;
+    goToSlide(slideIndex);
+    stopAutoSlide();
   });
-}
 
-if (nextButton) {
   nextButton.addEventListener("click", () => {
-    slideIndex = (slideIndex + 1) % slides.length;
-    showSlide(slideIndex);
+    slideIndex = (slideIndex + 1) % totalSlides;
+    goToSlide(slideIndex);
+    stopAutoSlide();
   });
 }
 
-if (firstDot) {
-  firstDot.addEventListener("click", () => {
-    slideIndex = 0;
-    showSlide(slideIndex);
+dots.forEach((dot, index) => {
+  dot.addEventListener("click", () => {
+    goToSlide(index);
   });
-}
-
-if (secondDot) {
-  secondDot.addEventListener("click", () => {
-    slideIndex = 1;
-    showSlide(slideIndex);
-  });
-}
-
-if (thirdDot) {
-  thirdDot.addEventListener("click", () => {
-    slideIndex = 2;
-    showSlide(slideIndex);
-  });
-}
-
-if (fourthDot) {
-  fourthDot.addEventListener("click", () => {
-    slideIndex = 3;
-    showSlide(slideIndex);
-  });
-}
+});

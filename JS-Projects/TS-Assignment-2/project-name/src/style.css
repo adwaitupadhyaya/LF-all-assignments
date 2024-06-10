@@ -21,37 +21,31 @@ body {
 
 .container__images {
   position: relative;
-  width: 900px;
+  width: 800px;
+  overflow: hidden;
+}
+
+img {
+  border-radius: 25px;
+}
+
+.slides-container {
   display: flex;
-  justify-content: center;
+  transition: transform 1.5s ease;
 }
 
-.container__images img {
-  height: 500px;
+.slide {
+  flex: 0 0 auto;
   width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  transition: all 1.5s ease;
-  visibility: hidden;
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
-    rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
-    rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-}
-
-.container__images img.displaySlide {
-  visibility: visible;
-  opacity: 1;
-  transition: all 1.5s ease;
-  position: relative;
+  min-width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .container__buttons {
   position: absolute;
   width: 100%;
-  top: 105%;
+  top: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,4 +80,8 @@ button:hover {
 .container__button--dots:hover {
   background-color: black;
   transition: 0.2s ease-in;
+}
+
+.container__button--dots.active {
+  background-color: black;
 }
