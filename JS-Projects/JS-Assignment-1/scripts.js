@@ -1,7 +1,7 @@
 // metadata
 const BALL_BOX_HEIGHT = 100;
 const BALL_BOX_WIDTH = 100;
-const NUMBER_OF_BALLS = 500;
+const NUMBER_OF_BALLS = 300;
 
 class Ball {
   constructor(x, y, radius, color, dy, dx) {
@@ -102,8 +102,8 @@ for (let i = 0; i < NUMBER_OF_BALLS; i++) {
       randomTop,
       randomRadius,
       BALL_COLORS_ARRAY[randomColor],
-      Math.round(Math.random() * 10 - 5) + 1,
-      Math.round(Math.random() * 10 - 5) + 1
+      Math.round(Math.random() * 7) + 1,
+      Math.round(Math.random() * 7) + 1
     );
 
     // Check for overlaps with existing balls
