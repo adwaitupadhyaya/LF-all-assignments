@@ -46,6 +46,7 @@ function initializeGame() {
     CAR_DIMENSIONS.CAR_HEIGHT
   );
   targetX = playerCar.x;
+  CAR_DIMENSIONS.CAR_SPEED = 2;
 
   enemyCar1 = new Car(
     enemyCarImage,
@@ -136,12 +137,15 @@ function initializeGame() {
 function draw() {
   ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
 
+  CAR_DIMENSIONS.CAR_SPEED *= 1.001;
+
   ctx.fillStyle = "#343434";
   ctx.fillRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
 
   carArray.forEach((car) => {
     ctx.drawImage(car.image, car.x, car.y, car.w, car.h);
-    car.y++;
+
+    car.y += CAR_DIMENSIONS.CAR_SPEED;
     if (car.y > DIMENSIONS.CANVAS_HEIGHT) {
       score++;
       displayScore.innerText = `Score: ${score}`;

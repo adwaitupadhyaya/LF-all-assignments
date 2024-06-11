@@ -11,11 +11,13 @@ export const DIMENSIONS: dimension = {
 type car = {
   CAR_WIDTH: number;
   CAR_HEIGHT: number;
+  CAR_SPEED: number;
 };
 
 export const CAR_DIMENSIONS: car = {
   CAR_WIDTH: 120,
   CAR_HEIGHT: 100,
+  CAR_SPEED: 2,
 };
 
 type lane = {
