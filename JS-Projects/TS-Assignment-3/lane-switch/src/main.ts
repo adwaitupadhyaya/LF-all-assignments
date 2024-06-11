@@ -11,12 +11,14 @@ import { Lane } from "./Classes/Lane";
 import { CAR_DIMENSIONS } from "./constants";
 import { LANE_DIMENSIONS } from "./constants";
 
+// utils
 import { getRandomInt } from "./utils";
 
 // images
 import carImage from "././assets/player-car.png";
 import enemyCarImage from "./assets/enemy-car.png";
 
+const displayScore = document.querySelector(".score") as HTMLElement;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d")!;
 
@@ -32,6 +34,7 @@ const playerCar = new Car(
 );
 
 let requestID: number;
+let score: number = 0;
 
 const enemyCar1 = new Car(
   enemyCarImage,
@@ -124,6 +127,9 @@ function draw() {
     ctx.drawImage(car.image, car.x, car.y, car.w, car.h);
     car.y++;
     if (car.y > DIMENSIONS.CANVAS_HEIGHT) {
+      score++;
+      displayScore.innerText = `Score: ${score}`;
+      console.log(score);
       car.y = getRandomInt(-600, 0);
     }
   });
@@ -138,6 +144,8 @@ function draw() {
 
   if (playerCar.detectCollision(carArray)) {
     console.log("colided");
+    score = 0;
+    displayScore.innerText = `Score: ${score}`;
     cancelAnimationFrame(requestID);
     return;
   }
@@ -151,6 +159,7 @@ function draw() {
       lane.y = -20;
     }
   });
+
   requestID = requestAnimationFrame(draw);
 }
 

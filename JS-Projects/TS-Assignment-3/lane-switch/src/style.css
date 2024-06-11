@@ -5,5 +5,11 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
+}
+
+.score {
+  font-size: 40px;
+  font-family: "Poppins";
+  text-transform: uppercase;
+  font-weight: bold;
 }
