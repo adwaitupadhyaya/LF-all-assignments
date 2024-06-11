@@ -38,12 +38,10 @@ let laneArray: Lane[];
 let requestID: number;
 let score: number;
 let targetX: number;
-let highScore: number = 0;
 
 const highScoreString = localStorage.getItem("highScore");
-highScore = highScoreString !== null ? parseInt(highScoreString, 10) : 0;
-
-console.log(highScore);
+let highScore: number =
+  highScoreString !== null ? parseInt(highScoreString, 10) : 0;
 
 function initializeGame() {
   playerCar = new Car(
@@ -147,6 +145,7 @@ function initializeGame() {
 }
 
 function draw() {
+  displayHighScore.innerHTML = `High Score: ${highScore}`;
   ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
 
   CAR_DIMENSIONS.CAR_SPEED *= 1.001;
@@ -162,7 +161,6 @@ function draw() {
       score++;
       if (score > highScore) {
         highScore = score;
-        displayHighScore.innerText = `High Score: ${highScore}`;
         localStorage.setItem("highScore", JSON.stringify(highScore));
       }
       displayScore.innerText = `Score: ${score}`;
