@@ -158,12 +158,27 @@ draw();
 window.addEventListener("keypress", (event) => {
   switch (event.key) {
     case "a": {
-      playerCar.x -= 200;
+      if (
+        playerCar.x >
+        DIMENSIONS.CANVAS_WIDTH / 2 -
+          CAR_DIMENSIONS.CAR_WIDTH / 2 -
+          DIMENSIONS.CANVAS_HEIGHT / 3
+      ) {
+        playerCar.x -= 200;
+      }
       break;
     }
 
     case "d": {
-      playerCar.x += 200;
+      if (
+        playerCar.x <
+        DIMENSIONS.CANVAS_WIDTH / 2 -
+          CAR_DIMENSIONS.CAR_WIDTH / 2 +
+          DIMENSIONS.CANVAS_HEIGHT / 3
+      ) {
+        playerCar.x += 200;
+      }
+
       break;
     }
   }
