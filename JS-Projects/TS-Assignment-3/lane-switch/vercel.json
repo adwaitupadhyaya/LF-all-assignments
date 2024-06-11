@@ -3,33 +3,18 @@
   "builds": [
     {
       "src": "index.html",
-      "use": "@vercel/static"
+      "use": "@vercel/static-build",
+      "config": { "zeroConfig": true }
     },
     {
       "src": "game.html",
-      "use": "@vercel/static"
+      "use": "@vercel/static-build",
+      "config": { "zeroConfig": true }
     },
     {
-      "src": "styles/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "scripts/*",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "assets/*",
-      "use": "@vercel/static"
+      "src": "src/**/*",
+      "use": "@vercel/node"
     }
   ],
-  "routes": [
-    {
-      "src": "/",
-      "dest": "/index.html"
-    },
-    {
-      "src": "/game.html",
-      "dest": "/game.html"
-    }
-  ]
+  "routes": [{ "handle": "filesystem" }]
 }
