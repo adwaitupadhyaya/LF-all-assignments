@@ -151,11 +151,14 @@ function draw() {
   });
 
   if (playerCar.x < targetX) {
+    playerCar.image.style.position = "absolute";
+    playerCar.image.style.transform = "rotate(45deg);";
     playerCar.x += 10;
     if (playerCar.x > targetX) {
       playerCar.x = targetX;
     }
   } else if (playerCar.x > targetX) {
+    playerCar.image.style.transform = "rotate(-45deg);";
     playerCar.x -= 10;
     if (playerCar.x < targetX) {
       playerCar.x = targetX;
