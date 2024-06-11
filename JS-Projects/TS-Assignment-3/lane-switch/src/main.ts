@@ -218,7 +218,7 @@ window.addEventListener("keypress", (event) => {
   switch (event.key) {
     case "a": {
       if (
-        playerCar.x >
+        targetX >
         DIMENSIONS.CANVAS_WIDTH / 2 -
           CAR_DIMENSIONS.CAR_WIDTH / 2 -
           DIMENSIONS.CANVAS_WIDTH / 3
@@ -230,7 +230,7 @@ window.addEventListener("keypress", (event) => {
 
     case "d": {
       if (
-        playerCar.x <
+        targetX <
         DIMENSIONS.CANVAS_WIDTH / 2 -
           CAR_DIMENSIONS.CAR_WIDTH / 2 +
           DIMENSIONS.CANVAS_WIDTH / 3
