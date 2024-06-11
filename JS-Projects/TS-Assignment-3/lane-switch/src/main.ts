@@ -12,7 +12,7 @@ import { CAR_DIMENSIONS } from "./constants";
 import { LANE_DIMENSIONS } from "./constants";
 
 // utils
-import { getRandomInt } from "./utils";
+import { getRandomInt, isSpacedApart } from "./utils";
 
 // images
 import carImage from "././assets/player-car.png";
@@ -48,35 +48,39 @@ function initializeGame() {
   targetX = playerCar.x;
   CAR_DIMENSIONS.CAR_SPEED = 2;
 
-  enemyCar1 = new Car(
-    enemyCarImage,
-    DIMENSIONS.CANVAS_WIDTH / 2 - CAR_DIMENSIONS.CAR_WIDTH / 2,
-    getRandomInt(-600, 0),
-    CAR_DIMENSIONS.CAR_HEIGHT,
-    CAR_DIMENSIONS.CAR_WIDTH
-  );
+  const carSpacing = CAR_DIMENSIONS.CAR_HEIGHT * 2;
 
-  enemyCar2 = new Car(
-    enemyCarImage,
-    DIMENSIONS.CANVAS_WIDTH / 2 -
-      CAR_DIMENSIONS.CAR_WIDTH / 2 -
-      DIMENSIONS.CANVAS_HEIGHT / 3,
-    getRandomInt(-600, 0),
-    CAR_DIMENSIONS.CAR_HEIGHT,
-    CAR_DIMENSIONS.CAR_WIDTH
-  );
+  do {
+    enemyCar1 = new Car(
+      enemyCarImage,
+      DIMENSIONS.CANVAS_WIDTH / 2 - CAR_DIMENSIONS.CAR_WIDTH / 2,
+      getRandomInt(-600, 0),
+      CAR_DIMENSIONS.CAR_HEIGHT,
+      CAR_DIMENSIONS.CAR_WIDTH
+    );
 
-  enemyCar3 = new Car(
-    enemyCarImage,
-    DIMENSIONS.CANVAS_WIDTH / 2 -
-      CAR_DIMENSIONS.CAR_WIDTH / 2 +
-      DIMENSIONS.CANVAS_HEIGHT / 3,
-    getRandomInt(-600, 0),
-    CAR_DIMENSIONS.CAR_HEIGHT,
-    CAR_DIMENSIONS.CAR_WIDTH
-  );
+    enemyCar2 = new Car(
+      enemyCarImage,
+      DIMENSIONS.CANVAS_WIDTH / 2 -
+        CAR_DIMENSIONS.CAR_WIDTH / 2 -
+        DIMENSIONS.CANVAS_HEIGHT / 3,
+      getRandomInt(-600, 0),
+      CAR_DIMENSIONS.CAR_HEIGHT,
+      CAR_DIMENSIONS.CAR_WIDTH
+    );
 
-  carArray = [enemyCar1, enemyCar2, enemyCar3];
+    enemyCar3 = new Car(
+      enemyCarImage,
+      DIMENSIONS.CANVAS_WIDTH / 2 -
+        CAR_DIMENSIONS.CAR_WIDTH / 2 +
+        DIMENSIONS.CANVAS_HEIGHT / 3,
+      getRandomInt(-600, 0),
+      CAR_DIMENSIONS.CAR_HEIGHT,
+      CAR_DIMENSIONS.CAR_WIDTH
+    );
+
+    carArray = [enemyCar1, enemyCar2, enemyCar3];
+  } while (!isSpacedApart(carArray, carSpacing));
 
   const laneElement1 = new Lane(
     (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
@@ -149,20 +153,19 @@ function draw() {
     if (car.y > DIMENSIONS.CANVAS_HEIGHT) {
       score++;
       displayScore.innerText = `Score: ${score}`;
-
-      car.y = getRandomInt(-600, 0);
+      const carSpacing = CAR_DIMENSIONS.CAR_HEIGHT * 2;
+      do {
+        car.y = getRandomInt(-600, 0);
+      } while (!isSpacedApart(carArray, carSpacing));
     }
   });
 
   if (playerCar.x < targetX) {
-    playerCar.image.style.position = "absolute";
-    playerCar.image.style.transform = "rotate(45deg);";
     playerCar.x += 10;
     if (playerCar.x > targetX) {
       playerCar.x = targetX;
     }
   } else if (playerCar.x > targetX) {
-    playerCar.image.style.transform = "rotate(-45deg);";
     playerCar.x -= 10;
     if (playerCar.x < targetX) {
       playerCar.x = targetX;
@@ -218,7 +221,7 @@ window.addEventListener("keypress", (event) => {
         playerCar.x >
         DIMENSIONS.CANVAS_WIDTH / 2 -
           CAR_DIMENSIONS.CAR_WIDTH / 2 -
-          DIMENSIONS.CANVAS_HEIGHT / 3
+          DIMENSIONS.CANVAS_WIDTH / 3
       ) {
         targetX -= 200;
       }
@@ -230,7 +233,7 @@ window.addEventListener("keypress", (event) => {
         playerCar.x <
         DIMENSIONS.CANVAS_WIDTH / 2 -
           CAR_DIMENSIONS.CAR_WIDTH / 2 +
-          DIMENSIONS.CANVAS_HEIGHT / 3
+          DIMENSIONS.CANVAS_WIDTH / 3
       ) {
         targetX += 200;
       }
