@@ -24,6 +24,8 @@ const gameOver = document.querySelector(".game__over") as HTMLElement;
 const restartButton = document.querySelector(
   ".game__over--button"
 ) as HTMLButtonElement;
+
+const displayHighScore = document.querySelector(".high-score") as HTMLElement;
 const ctx = canvas.getContext("2d")!;
 
 canvas.width = DIMENSIONS.CANVAS_WIDTH;
@@ -36,6 +38,12 @@ let laneArray: Lane[];
 let requestID: number;
 let score: number;
 let targetX: number;
+let highScore: number = 0;
+
+const highScoreString = localStorage.getItem("highScore");
+highScore = highScoreString !== null ? parseInt(highScoreString, 10) : 0;
+
+console.log(highScore);
 
 function initializeGame() {
   playerCar = new Car(
@@ -152,6 +160,11 @@ function draw() {
     car.y += CAR_DIMENSIONS.CAR_SPEED;
     if (car.y > DIMENSIONS.CANVAS_HEIGHT) {
       score++;
+      if (score > highScore) {
+        highScore = score;
+        displayHighScore.innerText = `High Score: ${highScore}`;
+        localStorage.setItem("highScore", JSON.stringify(highScore));
+      }
       displayScore.innerText = `Score: ${score}`;
       const carSpacing = CAR_DIMENSIONS.CAR_HEIGHT * 2;
       do {
