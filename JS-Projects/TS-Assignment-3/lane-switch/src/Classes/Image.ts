@@ -4,6 +4,7 @@ interface ICar {
   y: number;
   w: number;
   h: number;
+  detectCollision(carArray: Array<object>): boolean;
 }
 
 export class Car implements ICar {
@@ -19,5 +20,17 @@ export class Car implements ICar {
     this.y = y;
     this.w = w;
     this.h = h;
+  }
+
+  detectCollision(carArray: Array<ICar>): boolean {
+    for (let car of carArray) {
+      const distanceX = (car.x - this.x) ** 2;
+      const distanceY = (car.y - this.y) ** 2;
+      const distance = Math.sqrt(distanceX + distanceY);
+      if (distance < this.h) {
+        return true;
+      }
+    }
+    return false;
   }
 }

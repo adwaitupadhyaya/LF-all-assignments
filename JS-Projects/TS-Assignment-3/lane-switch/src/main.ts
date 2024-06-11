@@ -1,11 +1,20 @@
 import "./reset.css";
 import "./style.css";
+// constants
 import { DIMENSIONS } from "./constants";
+
+// classes
 import { Car } from "./Classes/Image";
+import { Lane } from "./Classes/Lane";
+
+// dimensions
 import { CAR_DIMENSIONS } from "./constants";
-import carImage from "././assets/player-car.png";
+import { LANE_DIMENSIONS } from "./constants";
+
 import { getRandomInt } from "./utils";
 
+// images
+import carImage from "././assets/player-car.png";
 import enemyCarImage from "./assets/enemy-car.png";
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -21,6 +30,8 @@ const playerCar = new Car(
   CAR_DIMENSIONS.CAR_WIDTH,
   CAR_DIMENSIONS.CAR_HEIGHT
 );
+
+let requestID: number;
 
 const enemyCar1 = new Car(
   enemyCarImage,
@@ -52,10 +63,62 @@ const enemyCar3 = new Car(
 
 const carArray = [enemyCar1, enemyCar2, enemyCar3];
 
+const laneElement1 = new Lane(
+  (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
+  10,
+  LANE_DIMENSIONS.LANE_WIDTH,
+  LANE_DIMENSIONS.LANE_HEIGHT
+);
+
+const laneElement2 = new Lane(
+  (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
+  10,
+  LANE_DIMENSIONS.LANE_WIDTH,
+  LANE_DIMENSIONS.LANE_HEIGHT
+);
+
+const laneElement3 = new Lane(
+  (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
+  200,
+  LANE_DIMENSIONS.LANE_WIDTH,
+  LANE_DIMENSIONS.LANE_HEIGHT
+);
+
+const laneElement4 = new Lane(
+  (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
+  200,
+  LANE_DIMENSIONS.LANE_WIDTH,
+  LANE_DIMENSIONS.LANE_HEIGHT
+);
+
+const laneElement5 = new Lane(
+  (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
+  400,
+  LANE_DIMENSIONS.LANE_WIDTH,
+  LANE_DIMENSIONS.LANE_HEIGHT
+);
+
+const laneElement6 = new Lane(
+  (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
+  400,
+  LANE_DIMENSIONS.LANE_WIDTH,
+  LANE_DIMENSIONS.LANE_HEIGHT
+);
+
+const laneArray = [
+  laneElement1,
+  laneElement2,
+  laneElement3,
+  laneElement4,
+  laneElement5,
+  laneElement6,
+];
+
 function draw() {
   ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
-  ctx.fillRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
+
   ctx.fillStyle = "#343434";
+  ctx.fillRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
 
   carArray.forEach((car) => {
     ctx.drawImage(car.image, car.x, car.y, car.w, car.h);
@@ -72,7 +135,23 @@ function draw() {
     playerCar.w,
     playerCar.h
   );
-  requestAnimationFrame(draw);
+
+  if (playerCar.detectCollision(carArray)) {
+    console.log("colided");
+    cancelAnimationFrame(requestID);
+    return;
+  }
+
+  laneArray.forEach((lane) => {
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(lane.x, lane.y, lane.w, lane.h);
+    lane.y += 2;
+
+    if (lane.y > DIMENSIONS.CANVAS_HEIGHT) {
+      lane.y = -20;
+    }
+  });
+  requestID = requestAnimationFrame(draw);
 }
 
 draw();

@@ -1,3 +1,3 @@
-export function getRandomInt(max: number, min: number) {
+export function getRandomInt(max: number, min: number): number {
   return Math.random() * (max - min) + min;
 }
