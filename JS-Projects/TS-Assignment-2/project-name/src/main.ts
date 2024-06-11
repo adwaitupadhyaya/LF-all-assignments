@@ -5,10 +5,13 @@ const nextButton = document.querySelector(".next");
 const slidesContainer = document.querySelector(
   ".slides-container"
 ) as HTMLElement;
+const containerImages = document.querySelector(
+  ".container__images"
+) as HTMLElement;
 const dots = document.querySelectorAll(".container__button--dots");
 
 let slideIndex: number = 0;
-const slideWidth: number = slidesContainer ? slidesContainer.clientWidth : 0;
+const slideWidth: number = slidesContainer ? containerImages.clientWidth : 0;
 const totalSlides: number = slidesContainer
   ? slidesContainer.children.length
   : 0;
@@ -47,7 +50,7 @@ const goToSlide = (index: number) => {
   }
 };
 
-const autoSlideInterval = 5000;
+const autoSlideInterval = 7000;
 let slideInterval: number | null = null;
 
 const startAutoSlide = () => {
