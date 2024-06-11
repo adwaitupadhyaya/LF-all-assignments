@@ -56,3 +56,22 @@ body {
   flex-direction: column;
   gap: 40px;
 }
+
+.welcome__message {
+  font-size: 50px;
+}
+
+.welcome__message--colored {
+  color: red;
+  text-transform: uppercase;
+}
+
+.welcome__rules {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+}
+
+.welcome__rule {
+  font-size: 30px;
+}

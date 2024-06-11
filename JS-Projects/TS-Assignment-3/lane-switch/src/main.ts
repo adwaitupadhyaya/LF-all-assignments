@@ -171,11 +171,11 @@ function draw() {
   );
 
   if (playerCar.detectCollision(carArray)) {
-    score = 0;
     displayScore.innerText = `Score: ${score}`;
     gameOver.style.display = "flex";
     gameOver.style.justifyContent = "center";
     gameOver.style.alignItems = "center";
+    gameOver.style.flexDirection = "column";
     gameOver.style.gap = "20px";
 
     cancelAnimationFrame(requestID);
