@@ -8,6 +8,18 @@
     {
       "src": "game.html",
       "use": "@vercel/static"
+    },
+    {
+      "src": "styles/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "scripts/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "assets/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
