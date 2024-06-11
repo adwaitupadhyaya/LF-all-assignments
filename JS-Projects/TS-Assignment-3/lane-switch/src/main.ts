@@ -20,102 +20,116 @@ import enemyCarImage from "./assets/enemy-car.png";
 
 const displayScore = document.querySelector(".score") as HTMLElement;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+const gameOver = document.querySelector(".game__over") as HTMLElement;
+const restartButton = document.querySelector(
+  ".game__over--button"
+) as HTMLButtonElement;
 const ctx = canvas.getContext("2d")!;
 
 canvas.width = DIMENSIONS.CANVAS_WIDTH;
 canvas.height = DIMENSIONS.CANVAS_HEIGHT;
 
-const playerCar = new Car(
-  carImage,
-  DIMENSIONS.CANVAS_WIDTH / 2 - CAR_DIMENSIONS.CAR_WIDTH / 2,
-  DIMENSIONS.CANVAS_HEIGHT - CAR_DIMENSIONS.CAR_HEIGHT,
-  CAR_DIMENSIONS.CAR_WIDTH,
-  CAR_DIMENSIONS.CAR_HEIGHT
-);
-
+let playerCar: Car;
+let enemyCar1: Car, enemyCar2: Car, enemyCar3: Car;
+let carArray: Car[];
+let laneArray: Lane[];
 let requestID: number;
-let score: number = 0;
+let score: number;
 
-const enemyCar1 = new Car(
-  enemyCarImage,
-  DIMENSIONS.CANVAS_WIDTH / 2 - CAR_DIMENSIONS.CAR_WIDTH / 2,
-  getRandomInt(-600, 0),
-  CAR_DIMENSIONS.CAR_HEIGHT,
-  CAR_DIMENSIONS.CAR_WIDTH
-);
+function initializeGame() {
+  playerCar = new Car(
+    carImage,
+    DIMENSIONS.CANVAS_WIDTH / 2 - CAR_DIMENSIONS.CAR_WIDTH / 2,
+    DIMENSIONS.CANVAS_HEIGHT - CAR_DIMENSIONS.CAR_HEIGHT,
+    CAR_DIMENSIONS.CAR_WIDTH,
+    CAR_DIMENSIONS.CAR_HEIGHT
+  );
 
-const enemyCar2 = new Car(
-  enemyCarImage,
-  DIMENSIONS.CANVAS_WIDTH / 2 -
-    CAR_DIMENSIONS.CAR_WIDTH / 2 -
-    DIMENSIONS.CANVAS_HEIGHT / 3,
-  getRandomInt(-600, 0),
-  CAR_DIMENSIONS.CAR_HEIGHT,
-  CAR_DIMENSIONS.CAR_WIDTH
-);
+  enemyCar1 = new Car(
+    enemyCarImage,
+    DIMENSIONS.CANVAS_WIDTH / 2 - CAR_DIMENSIONS.CAR_WIDTH / 2,
+    getRandomInt(-600, 0),
+    CAR_DIMENSIONS.CAR_HEIGHT,
+    CAR_DIMENSIONS.CAR_WIDTH
+  );
 
-const enemyCar3 = new Car(
-  enemyCarImage,
-  DIMENSIONS.CANVAS_WIDTH / 2 -
-    CAR_DIMENSIONS.CAR_WIDTH / 2 +
-    DIMENSIONS.CANVAS_HEIGHT / 3,
-  getRandomInt(-600, 0),
-  CAR_DIMENSIONS.CAR_HEIGHT,
-  CAR_DIMENSIONS.CAR_WIDTH
-);
+  enemyCar2 = new Car(
+    enemyCarImage,
+    DIMENSIONS.CANVAS_WIDTH / 2 -
+      CAR_DIMENSIONS.CAR_WIDTH / 2 -
+      DIMENSIONS.CANVAS_HEIGHT / 3,
+    getRandomInt(-600, 0),
+    CAR_DIMENSIONS.CAR_HEIGHT,
+    CAR_DIMENSIONS.CAR_WIDTH
+  );
 
-const carArray = [enemyCar1, enemyCar2, enemyCar3];
+  enemyCar3 = new Car(
+    enemyCarImage,
+    DIMENSIONS.CANVAS_WIDTH / 2 -
+      CAR_DIMENSIONS.CAR_WIDTH / 2 +
+      DIMENSIONS.CANVAS_HEIGHT / 3,
+    getRandomInt(-600, 0),
+    CAR_DIMENSIONS.CAR_HEIGHT,
+    CAR_DIMENSIONS.CAR_WIDTH
+  );
 
-const laneElement1 = new Lane(
-  (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
-  10,
-  LANE_DIMENSIONS.LANE_WIDTH,
-  LANE_DIMENSIONS.LANE_HEIGHT
-);
+  carArray = [enemyCar1, enemyCar2, enemyCar3];
 
-const laneElement2 = new Lane(
-  (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
-  10,
-  LANE_DIMENSIONS.LANE_WIDTH,
-  LANE_DIMENSIONS.LANE_HEIGHT
-);
+  const laneElement1 = new Lane(
+    (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
+    10,
+    LANE_DIMENSIONS.LANE_WIDTH,
+    LANE_DIMENSIONS.LANE_HEIGHT
+  );
 
-const laneElement3 = new Lane(
-  (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
-  200,
-  LANE_DIMENSIONS.LANE_WIDTH,
-  LANE_DIMENSIONS.LANE_HEIGHT
-);
+  const laneElement2 = new Lane(
+    (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
+    10,
+    LANE_DIMENSIONS.LANE_WIDTH,
+    LANE_DIMENSIONS.LANE_HEIGHT
+  );
 
-const laneElement4 = new Lane(
-  (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
-  200,
-  LANE_DIMENSIONS.LANE_WIDTH,
-  LANE_DIMENSIONS.LANE_HEIGHT
-);
+  const laneElement3 = new Lane(
+    (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
+    200,
+    LANE_DIMENSIONS.LANE_WIDTH,
+    LANE_DIMENSIONS.LANE_HEIGHT
+  );
 
-const laneElement5 = new Lane(
-  (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
-  400,
-  LANE_DIMENSIONS.LANE_WIDTH,
-  LANE_DIMENSIONS.LANE_HEIGHT
-);
+  const laneElement4 = new Lane(
+    (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
+    200,
+    LANE_DIMENSIONS.LANE_WIDTH,
+    LANE_DIMENSIONS.LANE_HEIGHT
+  );
 
-const laneElement6 = new Lane(
-  (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
-  400,
-  LANE_DIMENSIONS.LANE_WIDTH,
-  LANE_DIMENSIONS.LANE_HEIGHT
-);
+  const laneElement5 = new Lane(
+    (1 / 3) * DIMENSIONS.CANVAS_WIDTH,
+    400,
+    LANE_DIMENSIONS.LANE_WIDTH,
+    LANE_DIMENSIONS.LANE_HEIGHT
+  );
 
-const laneArray = [
-  laneElement1,
-  laneElement2,
-  laneElement3,
-  laneElement4,
-  laneElement5,
-  laneElement6,
-];
+  const laneElement6 = new Lane(
+    (2 / 3) * DIMENSIONS.CANVAS_WIDTH,
+    400,
+    LANE_DIMENSIONS.LANE_WIDTH,
+    LANE_DIMENSIONS.LANE_HEIGHT
+  );
+
+  laneArray = [
+    laneElement1,
+    laneElement2,
+    laneElement3,
+    laneElement4,
+    laneElement5,
+    laneElement6,
+  ];
+
+  score = 0;
+  displayScore.innerText = `Score: ${score}`;
+  gameOver.style.display = "none";
+}
 
 function draw() {
   ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
@@ -129,7 +143,7 @@ function draw() {
     if (car.y > DIMENSIONS.CANVAS_HEIGHT) {
       score++;
       displayScore.innerText = `Score: ${score}`;
-      console.log(score);
+
       car.y = getRandomInt(-600, 0);
     }
   });
@@ -143,10 +157,14 @@ function draw() {
   );
 
   if (playerCar.detectCollision(carArray)) {
-    console.log("colided");
-    score = 0;
     displayScore.innerText = `Score: ${score}`;
+    gameOver.style.display = "flex";
+    gameOver.style.justifyContent = "center";
+    gameOver.style.alignItems = "center";
+    gameOver.style.gap = "20px";
+
     cancelAnimationFrame(requestID);
+
     return;
   }
 
@@ -156,14 +174,21 @@ function draw() {
     lane.y += 2;
 
     if (lane.y > DIMENSIONS.CANVAS_HEIGHT) {
-      lane.y = -20;
+      lane.y = -lane.h;
     }
   });
 
   requestID = requestAnimationFrame(draw);
 }
 
+restartButton.addEventListener("click", () => {
+  initializeGame();
+  requestAnimationFrame(draw);
+});
+
+initializeGame();
 draw();
+
 window.addEventListener("keypress", (event) => {
   switch (event.key) {
     case "a": {
