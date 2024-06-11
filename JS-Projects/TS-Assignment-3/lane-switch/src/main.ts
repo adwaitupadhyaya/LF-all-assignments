@@ -35,6 +35,7 @@ let carArray: Car[];
 let laneArray: Lane[];
 let requestID: number;
 let score: number;
+let targetX: number;
 
 function initializeGame() {
   playerCar = new Car(
@@ -44,6 +45,7 @@ function initializeGame() {
     CAR_DIMENSIONS.CAR_WIDTH,
     CAR_DIMENSIONS.CAR_HEIGHT
   );
+  targetX = playerCar.x;
 
   enemyCar1 = new Car(
     enemyCarImage,
@@ -148,6 +150,18 @@ function draw() {
     }
   });
 
+  if (playerCar.x < targetX) {
+    playerCar.x += 10;
+    if (playerCar.x > targetX) {
+      playerCar.x = targetX;
+    }
+  } else if (playerCar.x > targetX) {
+    playerCar.x -= 10;
+    if (playerCar.x < targetX) {
+      playerCar.x = targetX;
+    }
+  }
+
   ctx.drawImage(
     playerCar.image,
     playerCar.x,
@@ -157,6 +171,7 @@ function draw() {
   );
 
   if (playerCar.detectCollision(carArray)) {
+    score = 0;
     displayScore.innerText = `Score: ${score}`;
     gameOver.style.display = "flex";
     gameOver.style.justifyContent = "center";
@@ -198,7 +213,7 @@ window.addEventListener("keypress", (event) => {
           CAR_DIMENSIONS.CAR_WIDTH / 2 -
           DIMENSIONS.CANVAS_HEIGHT / 3
       ) {
-        playerCar.x -= 200;
+        targetX -= 200;
       }
       break;
     }
@@ -210,7 +225,7 @@ window.addEventListener("keypress", (event) => {
           CAR_DIMENSIONS.CAR_WIDTH / 2 +
           DIMENSIONS.CANVAS_HEIGHT / 3
       ) {
-        playerCar.x += 200;
+        targetX += 200;
       }
 
       break;

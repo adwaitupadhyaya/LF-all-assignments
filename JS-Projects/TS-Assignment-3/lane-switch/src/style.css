@@ -26,6 +26,7 @@ body {
 }
 
 .game__over--text {
+  font-size: 20px;
   color: red;
 }
 
