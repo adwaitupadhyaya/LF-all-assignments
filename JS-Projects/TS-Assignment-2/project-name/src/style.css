@@ -17,6 +17,8 @@ body {
   margin: 40px;
   position: relative;
   display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .container__images {
@@ -100,4 +102,10 @@ button:hover {
     display: flex;
     justify-content: center;
   }
+}
+
+input {
+  width: 40%;
+
+  margin: 20px auto;
 }

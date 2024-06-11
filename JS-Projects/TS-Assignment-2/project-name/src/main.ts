@@ -50,14 +50,14 @@ const goToSlide = (index: number) => {
   }
 };
 
-const autoSlideInterval = 7000;
 let slideInterval: number | null = null;
-
+let intervalDuration = 7000;
 const startAutoSlide = () => {
   slideInterval = setInterval(() => {
     slideIndex = (slideIndex + 1) % totalSlides;
     goToSlide(slideIndex);
-  }, autoSlideInterval);
+    console.log();
+  }, intervalDuration);
 };
 
 const stopAutoSlide = () => {
@@ -66,8 +66,6 @@ const stopAutoSlide = () => {
     slideInterval = null;
   }
 };
-
-startAutoSlide();
 
 if (prevButton && nextButton && slidesContainer && slideWidth) {
   prevButton.addEventListener("click", () => {
