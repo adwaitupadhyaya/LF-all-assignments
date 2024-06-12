@@ -29,7 +29,7 @@ const player = new Player(
 
 // Initialize platforms
 const platforms: Platform[] = [];
-const platformCount = 10; // Number of platforms
+const platformCount = 7; // Number of platforms
 
 // Add a platform directly beneath the player initially
 platforms.push(
@@ -51,20 +51,21 @@ function isColliding(platform1: Platform, platform2: Platform): boolean {
   );
 }
 
-function generatePlatform(existingPlatforms: Platform[]): Platform {
+function generatePlatform(
+  existingPlatforms: Platform[],
+  platformWidth: number
+): Platform {
   let x: number, y: number, newPlatform: Platform | undefined;
   let isValidPosition = false;
 
   while (!isValidPosition) {
-    x =
-      Math.random() *
-      (DIMENSIONS.CANVAS_WIDTH - PLATFORM_DIMENSIONS.PLATFORM_WIDTH);
+    x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
     y = Math.random() * DIMENSIONS.CANVAS_HEIGHT;
 
     newPlatform = new Platform(
       x,
       y,
-      PLATFORM_DIMENSIONS.PLATFORM_WIDTH,
+      platformWidth,
       PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
       platformImage
     );
@@ -83,10 +84,12 @@ function generatePlatform(existingPlatforms: Platform[]): Platform {
 }
 
 for (let i = 0; i < platformCount - 1; i++) {
-  platforms.push(generatePlatform(platforms));
+  platforms.push(
+    generatePlatform(platforms, PLATFORM_DIMENSIONS.PLATFORM_WIDTH)
+  );
 }
 
-const gravity = 0.2; // Reduced gravity constant for smoother bounce
+let gravity = 0.2; // Reduced gravity constant for smoother bounce
 const initialBounceVelocity = -10; // Reduced initial upward velocity for slower bounce
 const playerVelocityX = 4; // Increased horizontal velocity for wrap-around effect
 let maxPlayerHeight = player.y;
@@ -99,6 +102,16 @@ function draw() {
   ctx.drawImage(background, 0, 0);
   ctx.drawImage(player.image, player.x, player.y, player.w, player.h);
 
+  // Adjust difficulty based on score
+  let platformWidth = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
+  if (score >= 150) {
+    platformWidth *= 0.8;
+  } else if (score >= 100) {
+    platformWidth *= 0.85;
+  } else if (score >= 70) {
+    platformWidth *= 0.9;
+  }
+
   // Draw and update platforms
   platforms.forEach((platform) => {
     platform.y += 2; // Move platform downwards
@@ -106,9 +119,8 @@ function draw() {
     // Reset platform to the top if it goes off screen
     if (platform.y > DIMENSIONS.CANVAS_HEIGHT) {
       platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
-      platform.x =
-        Math.random() *
-        (DIMENSIONS.CANVAS_WIDTH - PLATFORM_DIMENSIONS.PLATFORM_WIDTH);
+      platform.x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
+      platform.w = platformWidth; // Update platform width
 
       // Ensure the new position doesn't collide with other platforms
       let isValidPosition = false;
@@ -122,8 +134,7 @@ function draw() {
             isValidPosition = false;
             platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
             platform.x =
-              Math.random() *
-              (DIMENSIONS.CANVAS_WIDTH - PLATFORM_DIMENSIONS.PLATFORM_WIDTH);
+              Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
             break;
           }
         }
@@ -157,6 +168,14 @@ function draw() {
       score++; // Increment score on successful bounce
     }
   });
+
+  // Ensure at least one platform is available for the player to bounce on
+  if (
+    player.velocityY > 0 &&
+    platforms.every((platform) => player.y + player.h < platform.y)
+  ) {
+    platforms.push(generatePlatform(platforms, platformWidth));
+  }
 
   // Prevent player from moving above the fixed y-axis position
   if (
@@ -252,14 +271,17 @@ function restartGame() {
   // Reset platforms
   platforms.forEach((platform, index) => {
     if (index === 0) {
-      // Reset the initial platform position beneath the player
+      // Reset the initial platform position beneath the playerdd
       platform.y = player.y + player.h + 10;
+      platform.x =
+        DIMENSIONS.CANVAS_WIDTH / 2 - PLATFORM_DIMENSIONS.PLATFORM_WIDTH / 2;
     } else {
       // Generate new random positions for other platforms
       platform.x =
         Math.random() *
         (DIMENSIONS.CANVAS_WIDTH - PLATFORM_DIMENSIONS.PLATFORM_WIDTH);
       platform.y = Math.random() * DIMENSIONS.CANVAS_HEIGHT;
+      platform.w = PLATFORM_DIMENSIONS.PLATFORM_WIDTH; // Reset to initial width
     }
   });
 

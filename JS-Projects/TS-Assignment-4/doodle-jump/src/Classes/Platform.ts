@@ -1,3 +1,4 @@
+// Platform.ts
 interface IPlatform {
   x: number;
   y: number;

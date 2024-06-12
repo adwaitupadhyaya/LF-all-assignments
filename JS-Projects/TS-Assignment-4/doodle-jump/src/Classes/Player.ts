@@ -24,7 +24,7 @@ export default class Player implements IPlayer {
     this.h = h;
     this.image = new Image();
     this.image.src = img;
-    this.velocityX = 0;
-    this.velocityY = -10; // Initial upward velocity
+    this.velocityX = 0; // Initialize velocityX
+    this.velocityY = -2; // Initialize velocityY with a value to make it move initially
   }
 }
