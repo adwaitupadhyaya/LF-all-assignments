@@ -4,6 +4,16 @@ type dimension = {
 };
 
 export const DIMENSIONS: dimension = {
-  CANVAS_WIDTH: 600,
+  CANVAS_WIDTH: 500,
   CANVAS_HEIGHT: 700,
+};
+
+type player = {
+  PLAYER_HEIGHT: number;
+  PLAYER_WIDTH: number;
+};
+
+export const PLAYER_DIMENSIONS: player = {
+  PLAYER_HEIGHT: 80,
+  PLAYER_WIDTH: 80,
 };
