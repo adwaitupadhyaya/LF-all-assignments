@@ -17,3 +17,13 @@ export const PLAYER_DIMENSIONS: player = {
   PLAYER_HEIGHT: 80,
   PLAYER_WIDTH: 80,
 };
+
+type platform = {
+  PLATFORM_HEIGHT: number;
+  PLATFORM_WIDTH: number;
+};
+
+export const PLATFORM_DIMENSIONS: platform = {
+  PLATFORM_HEIGHT: 20,
+  PLATFORM_WIDTH: 90,
+};
