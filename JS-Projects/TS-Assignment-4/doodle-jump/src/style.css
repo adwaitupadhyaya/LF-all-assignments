@@ -1,0 +1,36 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Gloria Hallelujah", cursive;
+}
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+}
+
+a {
+  background-color: transparent;
+  margin-top: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s ease-in;
+}
+
+a:hover {
+  background-color: black;
+  margin-top: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s ease-in;
+}
