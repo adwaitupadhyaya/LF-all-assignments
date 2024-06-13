@@ -113,6 +113,7 @@ let maxPlayerHeight = player.y;
 
 let isGameOver = false;
 let score = 0;
+let highScore = parseInt(localStorage.getItem("highScore") || "0");
 
 function draw() {
   if (!isPaused) {
@@ -202,6 +203,10 @@ function draw() {
     // Check if player goes out of screen
     if (player.y > DIMENSIONS.CANVAS_HEIGHT) {
       isGameOver = true;
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem("highScore", highScore.toString());
+      }
       ctx.font = "30px 'Gloria Hallelujah', cursive";
       ctx.fillStyle = "red";
       ctx.fillText(
@@ -215,9 +220,14 @@ function draw() {
         DIMENSIONS.CANVAS_HEIGHT / 2 + 40
       );
       ctx.fillText(
+        `High Score: ${highScore}`,
+        DIMENSIONS.CANVAS_WIDTH / 2 - 80,
+        DIMENSIONS.CANVAS_HEIGHT / 2 + 80
+      );
+      ctx.fillText(
         "Press 'R' to restart",
         DIMENSIONS.CANVAS_WIDTH / 2 - 120,
-        DIMENSIONS.CANVAS_HEIGHT / 2 + 80
+        DIMENSIONS.CANVAS_HEIGHT / 2 + 120
       );
     }
 
@@ -225,6 +235,7 @@ function draw() {
     ctx.font = "20px 'Gloria Hallelujah', cursive";
     ctx.fillStyle = "red";
     ctx.fillText(`Score: ${score}`, DIMENSIONS.CANVAS_WIDTH - 100, 30);
+    ctx.fillText(`High Score: ${highScore}`, DIMENSIONS.CANVAS_WIDTH - 150, 60);
 
     // Horizontal wrapping
     if (player.x < -PLAYER_DIMENSIONS.PLAYER_WIDTH) {
