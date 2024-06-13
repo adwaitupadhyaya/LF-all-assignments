@@ -7,6 +7,7 @@ import "./style.css";
 import bg from "./assets/background.png";
 import playerImage from "./assets/player.png";
 import platformImage from "./assets/platform.png";
+import gameOverSound from "./assets/gameOverSound.wav"; // Add this line
 import Player from "./Classes/Player";
 import Platform from "./Classes/Platform";
 
@@ -115,6 +116,9 @@ let isGameOver = false;
 let score = 0;
 let highScore = parseInt(localStorage.getItem("highScore") || "0");
 
+// Add game-over sound
+const gameOverAudio = new Audio(gameOverSound);
+
 function draw() {
   if (!isPaused) {
     ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
@@ -207,6 +211,10 @@ function draw() {
         highScore = score;
         localStorage.setItem("highScore", highScore.toString());
       }
+
+      // Play game-over sound
+      gameOverAudio.play();
+
       ctx.font = "30px 'Gloria Hallelujah', cursive";
       ctx.fillStyle = "red";
       ctx.fillText(
