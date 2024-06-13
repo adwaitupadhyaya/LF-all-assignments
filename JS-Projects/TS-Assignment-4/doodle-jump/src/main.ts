@@ -38,7 +38,6 @@ const player = new Player(
 
 const platforms: Platform[] = [];
 const platformCount = 7;
-const MIN_GAP = 50;
 
 platforms.push(
   new Platform(
@@ -51,58 +50,13 @@ platforms.push(
   )
 );
 
-function isColliding(platform1: Platform, platform2: Platform): boolean {
-  return !(
-    platform1.x + platform1.w < platform2.x ||
-    platform1.x > platform2.x + platform2.w ||
-    platform1.y + platform1.h < platform2.y ||
-    platform1.y > platform2.y + platform2.h
-  );
-}
-
-function generatePlatform(
-  existingPlatforms: Platform[],
-  platformWidth: number
-): Platform {
-  let x: number, y: number, newPlatform: Platform | undefined;
-  let isValidPosition = false;
-
-  while (!isValidPosition) {
-    x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
-    y = Math.random() * DIMENSIONS.CANVAS_HEIGHT;
-
-    newPlatform = new Platform(
-      x,
-      y,
-      platformWidth,
-      PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
-      platformImage,
-      PLATFORM_DIMENSIONS.PLATFORM_SPEED
-    );
-
-    isValidPosition = true;
-
-    for (let i = 0; i < existingPlatforms.length; i++) {
-      if (isColliding(newPlatform, existingPlatforms[i])) {
-        isValidPosition = false;
-        break;
-      }
-
-      const dx = newPlatform.x - existingPlatforms[i].x;
-      const dy = newPlatform.y - existingPlatforms[i].y;
-      if (Math.sqrt(dx * dx + dy * dy) < MIN_GAP) {
-        isValidPosition = false;
-        break;
-      }
-    }
-  }
-
-  return newPlatform!;
-}
-
 for (let i = 0; i < platformCount - 1; i++) {
   platforms.push(
-    generatePlatform(platforms, PLATFORM_DIMENSIONS.PLATFORM_WIDTH)
+    Platform.generatePlatform(
+      platforms,
+      PLATFORM_DIMENSIONS.PLATFORM_WIDTH,
+      platformImage
+    )
   );
 }
 
@@ -133,12 +87,13 @@ function draw() {
     }
 
     platforms.forEach((platform) => {
-      platform.y += 2;
+      platform.updatePosition();
 
       if (platform.y > DIMENSIONS.CANVAS_HEIGHT) {
-        platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
-        platform.x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
-        platform.w = platformWidth;
+        platform.resetPosition(
+          -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
+          platformWidth
+        );
 
         let isValidPosition = false;
         while (!isValidPosition) {
@@ -146,12 +101,13 @@ function draw() {
           for (let otherPlatform of platforms) {
             if (
               otherPlatform !== platform &&
-              isColliding(platform, otherPlatform)
+              Platform.isColliding(platform, otherPlatform)
             ) {
               isValidPosition = false;
-              platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
-              platform.x =
-                Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
+              platform.resetPosition(
+                -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
+                platformWidth
+              );
               break;
             }
           }
@@ -176,7 +132,9 @@ function draw() {
       player.velocityY > 0 &&
       platforms.every((platform) => player.y + player.h < platform.y)
     ) {
-      platforms.push(generatePlatform(platforms, platformWidth));
+      platforms.push(
+        Platform.generatePlatform(platforms, platformWidth, platformImage)
+      );
     }
 
     if (
@@ -269,21 +227,25 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
+// main.ts (continued)
+
 function restartGame() {
   player.resetPosition(INITIAL_X, INITIAL_Y);
   maxPlayerHeight = player.y;
 
   platforms.forEach((platform, index) => {
     if (index === 0) {
-      platform.y = player.y + player.h + 10;
+      platform.resetPosition(
+        player.y + player.h + 10,
+        PLATFORM_DIMENSIONS.PLATFORM_WIDTH
+      );
       platform.x =
         DIMENSIONS.CANVAS_WIDTH / 2 - PLATFORM_DIMENSIONS.PLATFORM_WIDTH / 2;
     } else {
-      platform.x =
-        Math.random() *
-        (DIMENSIONS.CANVAS_WIDTH - PLATFORM_DIMENSIONS.PLATFORM_WIDTH);
-      platform.y = Math.random() * DIMENSIONS.CANVAS_HEIGHT;
-      platform.w = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
+      platform.resetPosition(
+        Math.random() * DIMENSIONS.CANVAS_HEIGHT,
+        PLATFORM_DIMENSIONS.PLATFORM_WIDTH
+      );
     }
   });
 
