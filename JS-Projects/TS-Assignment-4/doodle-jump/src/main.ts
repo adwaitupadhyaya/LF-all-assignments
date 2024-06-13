@@ -36,6 +36,7 @@ const player = new Player(
 
 const platforms: Platform[] = [];
 const platformCount = 7;
+const MIN_GAP = 50;
 
 // Add a platform directly beneath the player initially
 platforms.push(
@@ -82,6 +83,14 @@ function generatePlatform(
 
     for (let i = 0; i < existingPlatforms.length; i++) {
       if (isColliding(newPlatform, existingPlatforms[i])) {
+        isValidPosition = false;
+        break;
+      }
+
+      // Ensure minimum gap between platforms
+      const dx = newPlatform.x - existingPlatforms[i].x;
+      const dy = newPlatform.y - existingPlatforms[i].y;
+      if (Math.sqrt(dx * dx + dy * dy) < MIN_GAP) {
         isValidPosition = false;
         break;
       }
