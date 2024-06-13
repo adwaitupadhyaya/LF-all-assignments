@@ -1,5 +1,3 @@
-// main.ts
-
 import {
   DIMENSIONS,
   PLATFORM_DIMENSIONS,
@@ -226,8 +224,6 @@ window.addEventListener("keyup", (event) => {
     }
   }
 });
-
-// main.ts (continued)
 
 function restartGame() {
   player.resetPosition(INITIAL_X, INITIAL_Y);

@@ -1,5 +1,4 @@
 import { DIMENSIONS, PLATFORM_DIMENSIONS } from "../constants";
-
 interface IPlatform {
   x: number;
   y: number;
