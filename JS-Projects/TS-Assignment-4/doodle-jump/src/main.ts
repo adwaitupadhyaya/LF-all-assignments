@@ -1,3 +1,5 @@
+// main.ts
+
 import {
   DIMENSIONS,
   PLATFORM_DIMENSIONS,
@@ -7,7 +9,7 @@ import "./style.css";
 import bg from "./assets/background.png";
 import playerImage from "./assets/player.png";
 import platformImage from "./assets/platform.png";
-import gameOverSound from "./assets/gameOverSound.wav"; // Add this line
+import gameOverSound from "./assets/gameOverSound.wav";
 import Player from "./Classes/Player";
 import Platform from "./Classes/Platform";
 
@@ -17,13 +19,12 @@ const ctx = canvas.getContext("2d")!;
 canvas.width = DIMENSIONS.CANVAS_WIDTH;
 canvas.height = DIMENSIONS.CANVAS_HEIGHT;
 
-var background = new Image();
+const background = new Image();
 background.src = bg;
 let isPaused = false;
 
 const INITIAL_X =
   DIMENSIONS.CANVAS_WIDTH / 2 - PLAYER_DIMENSIONS.PLAYER_WIDTH / 2;
-
 const INITIAL_Y =
   DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
 
@@ -39,11 +40,10 @@ const platforms: Platform[] = [];
 const platformCount = 7;
 const MIN_GAP = 50;
 
-// Add a platform directly beneath the player initially
 platforms.push(
   new Platform(
     DIMENSIONS.CANVAS_WIDTH / 2 - PLATFORM_DIMENSIONS.PLATFORM_WIDTH / 2,
-    player.y + player.h + 10, // below the player
+    player.y + player.h + 10,
     PLATFORM_DIMENSIONS.PLATFORM_WIDTH,
     PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
     platformImage,
@@ -88,7 +88,6 @@ function generatePlatform(
         break;
       }
 
-      // Ensure minimum gap between platforms
       const dx = newPlatform.x - existingPlatforms[i].x;
       const dy = newPlatform.y - existingPlatforms[i].y;
       if (Math.sqrt(dx * dx + dy * dy) < MIN_GAP) {
@@ -116,7 +115,6 @@ let isGameOver = false;
 let score = 0;
 let highScore = parseInt(localStorage.getItem("highScore") || "0");
 
-// Add game-over sound
 const gameOverAudio = new Audio(gameOverSound);
 
 function draw() {
@@ -125,7 +123,6 @@ function draw() {
     ctx.drawImage(background, 0, 0);
     ctx.drawImage(player.image, player.x, player.y, player.w, player.h);
 
-    //  difficulty
     let platformWidth = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
     if (score >= 150) {
       platformWidth *= 0.8;
@@ -135,11 +132,9 @@ function draw() {
       platformWidth *= 0.9;
     }
 
-    // Draw and update platforms
     platforms.forEach((platform) => {
       platform.y += 2;
 
-      // Reset platform
       if (platform.y > DIMENSIONS.CANVAS_HEIGHT) {
         platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
         platform.x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
@@ -166,24 +161,13 @@ function draw() {
       platform.draw(ctx);
     });
 
-    player.velocityY += gravity;
-
-    player.x += player.velocityX;
-    player.y += player.velocityY;
+    player.applyGravity(gravity);
+    player.updatePosition();
 
     maxPlayerHeight = Math.max(maxPlayerHeight, player.y);
 
-    //bounce on platforms
     platforms.forEach((platform) => {
-      if (
-        player.y + player.h >= platform.y &&
-        player.y + player.h <= platform.y + platform.h &&
-        player.x + player.w >= platform.x &&
-        player.x <= platform.x + platform.w &&
-        player.velocityY > 0
-      ) {
-        player.y = platform.y - player.h;
-        player.velocityY = initialBounceVelocity;
+      if (player.handleCollisionWithPlatform(platform, initialBounceVelocity)) {
         score++;
       }
     });
@@ -201,10 +185,9 @@ function draw() {
     ) {
       player.y =
         DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
-      player.velocityY = 0; // Reset vertical velocity to avoid the player from moving upwards
+      player.velocityY = 0;
     }
 
-    // Check if player goes out of screen
     if (player.y > DIMENSIONS.CANVAS_HEIGHT) {
       isGameOver = true;
       if (score > highScore) {
@@ -212,7 +195,6 @@ function draw() {
         localStorage.setItem("highScore", highScore.toString());
       }
 
-      // Play game-over sound
       gameOverAudio.play();
 
       ctx.font = "30px 'Gloria Hallelujah', cursive";
@@ -239,18 +221,12 @@ function draw() {
       );
     }
 
-    // score during gameplay
     ctx.font = "20px 'Gloria Hallelujah', cursive";
     ctx.fillStyle = "red";
     ctx.fillText(`Score: ${score}`, DIMENSIONS.CANVAS_WIDTH - 100, 30);
     ctx.fillText(`High Score: ${highScore}`, DIMENSIONS.CANVAS_WIDTH - 150, 60);
 
-    // Horizontal wrapping
-    if (player.x < -PLAYER_DIMENSIONS.PLAYER_WIDTH) {
-      player.x = DIMENSIONS.CANVAS_WIDTH;
-    } else if (player.x > DIMENSIONS.CANVAS_WIDTH) {
-      player.x = -PLAYER_DIMENSIONS.PLAYER_WIDTH;
-    }
+    player.handleScreenWrap(DIMENSIONS.CANVAS_WIDTH);
   }
 
   if (!isGameOver) {
@@ -263,11 +239,11 @@ draw();
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "a": {
-      player.velocityX = -playerVelocityX;
+      player.moveLeft(playerVelocityX);
       break;
     }
     case "d": {
-      player.velocityX = playerVelocityX;
+      player.moveRight(playerVelocityX);
       break;
     }
     case "r": {
@@ -285,22 +261,16 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
-    case "a": {
-      player.velocityX = 0;
-      break;
-    }
+    case "a":
     case "d": {
-      player.velocityX = 0;
+      player.stop();
       break;
     }
   }
 });
 
 function restartGame() {
-  player.x = DIMENSIONS.CANVAS_WIDTH / 2 - PLAYER_DIMENSIONS.PLAYER_WIDTH / 2;
-  player.y = DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
-  player.velocityX = 0;
-  player.velocityY = 0;
+  player.resetPosition(INITIAL_X, INITIAL_Y);
   maxPlayerHeight = player.y;
 
   platforms.forEach((platform, index) => {
