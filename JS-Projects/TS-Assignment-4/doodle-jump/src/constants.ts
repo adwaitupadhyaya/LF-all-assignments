@@ -14,8 +14,8 @@ type player = {
 };
 
 export const PLAYER_DIMENSIONS: player = {
-  PLAYER_HEIGHT: 80,
-  PLAYER_WIDTH: 80,
+  PLAYER_HEIGHT: 50,
+  PLAYER_WIDTH: 50,
 };
 
 type platform = {
