@@ -18,6 +18,7 @@ canvas.height = DIMENSIONS.CANVAS_HEIGHT;
 
 var background = new Image();
 background.src = bg;
+let isPaused = false;
 
 const INITIAL_X =
   DIMENSIONS.CANVAS_WIDTH / 2 - PLAYER_DIMENSIONS.PLAYER_WIDTH / 2;
@@ -105,121 +106,123 @@ let isGameOver = false;
 let score = 0;
 
 function draw() {
-  ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
-  ctx.drawImage(background, 0, 0);
-  ctx.drawImage(player.image, player.x, player.y, player.w, player.h);
+  if (!isPaused) {
+    ctx.clearRect(0, 0, DIMENSIONS.CANVAS_WIDTH, DIMENSIONS.CANVAS_HEIGHT);
+    ctx.drawImage(background, 0, 0);
+    ctx.drawImage(player.image, player.x, player.y, player.w, player.h);
 
-  //  difficulty
-  let platformWidth = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
-  if (score >= 150) {
-    platformWidth *= 0.8;
-  } else if (score >= 100) {
-    platformWidth *= 0.85;
-  } else if (score >= 70) {
-    platformWidth *= 0.9;
-  }
+    //  difficulty
+    let platformWidth = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
+    if (score >= 150) {
+      platformWidth *= 0.8;
+    } else if (score >= 100) {
+      platformWidth *= 0.85;
+    } else if (score >= 70) {
+      platformWidth *= 0.9;
+    }
 
-  // Draw and update platforms
-  platforms.forEach((platform) => {
-    platform.y += 2;
+    // Draw and update platforms
+    platforms.forEach((platform) => {
+      platform.y += 2;
 
-    // Reset platform
-    if (platform.y > DIMENSIONS.CANVAS_HEIGHT) {
-      platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
-      platform.x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
-      platform.w = platformWidth;
+      // Reset platform
+      if (platform.y > DIMENSIONS.CANVAS_HEIGHT) {
+        platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
+        platform.x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
+        platform.w = platformWidth;
 
-      let isValidPosition = false;
-      while (!isValidPosition) {
-        isValidPosition = true;
-        for (let otherPlatform of platforms) {
-          if (
-            otherPlatform !== platform &&
-            isColliding(platform, otherPlatform)
-          ) {
-            isValidPosition = false;
-            platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
-            platform.x =
-              Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
-            break;
+        let isValidPosition = false;
+        while (!isValidPosition) {
+          isValidPosition = true;
+          for (let otherPlatform of platforms) {
+            if (
+              otherPlatform !== platform &&
+              isColliding(platform, otherPlatform)
+            ) {
+              isValidPosition = false;
+              platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
+              platform.x =
+                Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
+              break;
+            }
           }
         }
       }
-    }
 
-    platform.draw(ctx);
-  });
+      platform.draw(ctx);
+    });
 
-  player.velocityY += gravity;
+    player.velocityY += gravity;
 
-  player.x += player.velocityX;
-  player.y += player.velocityY;
+    player.x += player.velocityX;
+    player.y += player.velocityY;
 
-  maxPlayerHeight = Math.max(maxPlayerHeight, player.y);
+    maxPlayerHeight = Math.max(maxPlayerHeight, player.y);
 
-  //bounce on platforms
-  platforms.forEach((platform) => {
+    //bounce on platforms
+    platforms.forEach((platform) => {
+      if (
+        player.y + player.h >= platform.y &&
+        player.y + player.h <= platform.y + platform.h &&
+        player.x + player.w >= platform.x &&
+        player.x <= platform.x + platform.w &&
+        player.velocityY > 0
+      ) {
+        player.y = platform.y - player.h;
+        player.velocityY = initialBounceVelocity;
+        score++;
+      }
+    });
+
     if (
-      player.y + player.h >= platform.y &&
-      player.y + player.h <= platform.y + platform.h &&
-      player.x + player.w >= platform.x &&
-      player.x <= platform.x + platform.w &&
-      player.velocityY > 0
+      player.velocityY > 0 &&
+      platforms.every((platform) => player.y + player.h < platform.y)
     ) {
-      player.y = platform.y - player.h;
-      player.velocityY = initialBounceVelocity;
-      score++;
+      platforms.push(generatePlatform(platforms, platformWidth));
     }
-  });
 
-  if (
-    player.velocityY > 0 &&
-    platforms.every((platform) => player.y + player.h < platform.y)
-  ) {
-    platforms.push(generatePlatform(platforms, platformWidth));
-  }
+    if (
+      player.y <
+      DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2
+    ) {
+      player.y =
+        DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
+      player.velocityY = 0; // Reset vertical velocity to avoid the player from moving upwards
+    }
 
-  if (
-    player.y <
-    DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2
-  ) {
-    player.y =
-      DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
-    player.velocityY = 0; // Reset vertical velocity to avoid the player from moving upwards
-  }
+    // Check if player goes out of screen
+    if (player.y > DIMENSIONS.CANVAS_HEIGHT) {
+      isGameOver = true;
+      ctx.font = "30px 'Gloria Hallelujah', cursive";
+      ctx.fillStyle = "red";
+      ctx.fillText(
+        "Game Over",
+        DIMENSIONS.CANVAS_WIDTH / 2 - 80,
+        DIMENSIONS.CANVAS_HEIGHT / 2
+      );
+      ctx.fillText(
+        `Score: ${score}`,
+        DIMENSIONS.CANVAS_WIDTH / 2 - 60,
+        DIMENSIONS.CANVAS_HEIGHT / 2 + 40
+      );
+      ctx.fillText(
+        "Press 'R' to restart",
+        DIMENSIONS.CANVAS_WIDTH / 2 - 120,
+        DIMENSIONS.CANVAS_HEIGHT / 2 + 80
+      );
+    }
 
-  // Check if player goes out of screen
-  if (player.y > DIMENSIONS.CANVAS_HEIGHT) {
-    isGameOver = true;
-    ctx.font = "30px 'Gloria Hallelujah', cursive";
+    // score during gameplay
+    ctx.font = "20px 'Gloria Hallelujah', cursive";
     ctx.fillStyle = "red";
-    ctx.fillText(
-      "Game Over",
-      DIMENSIONS.CANVAS_WIDTH / 2 - 80,
-      DIMENSIONS.CANVAS_HEIGHT / 2
-    );
-    ctx.fillText(
-      `Score: ${score}`,
-      DIMENSIONS.CANVAS_WIDTH / 2 - 60,
-      DIMENSIONS.CANVAS_HEIGHT / 2 + 40
-    );
-    ctx.fillText(
-      "Press 'R' to restart",
-      DIMENSIONS.CANVAS_WIDTH / 2 - 120,
-      DIMENSIONS.CANVAS_HEIGHT / 2 + 80
-    );
-  }
+    ctx.fillText(`Score: ${score}`, DIMENSIONS.CANVAS_WIDTH - 100, 30);
 
-  // score during gameplay
-  ctx.font = "20px 'Gloria Hallelujah', cursive";
-  ctx.fillStyle = "red";
-  ctx.fillText(`Score: ${score}`, DIMENSIONS.CANVAS_WIDTH - 100, 30);
-
-  // Horizontal wrapping
-  if (player.x < -PLAYER_DIMENSIONS.PLAYER_WIDTH) {
-    player.x = DIMENSIONS.CANVAS_WIDTH;
-  } else if (player.x > DIMENSIONS.CANVAS_WIDTH) {
-    player.x = -PLAYER_DIMENSIONS.PLAYER_WIDTH;
+    // Horizontal wrapping
+    if (player.x < -PLAYER_DIMENSIONS.PLAYER_WIDTH) {
+      player.x = DIMENSIONS.CANVAS_WIDTH;
+    } else if (player.x > DIMENSIONS.CANVAS_WIDTH) {
+      player.x = -PLAYER_DIMENSIONS.PLAYER_WIDTH;
+    }
   }
 
   if (!isGameOver) {
@@ -243,6 +246,10 @@ window.addEventListener("keydown", (event) => {
       if (isGameOver) {
         restartGame();
       }
+      break;
+    }
+    case " ": {
+      isPaused = !isPaused;
       break;
     }
   }
