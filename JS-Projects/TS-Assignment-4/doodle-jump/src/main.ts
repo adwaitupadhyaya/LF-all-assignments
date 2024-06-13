@@ -19,26 +19,32 @@ canvas.height = DIMENSIONS.CANVAS_HEIGHT;
 var background = new Image();
 background.src = bg;
 
+const INITIAL_X =
+  DIMENSIONS.CANVAS_WIDTH / 2 - PLAYER_DIMENSIONS.PLAYER_WIDTH / 2;
+
+const INITIAL_Y =
+  DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
+
 const player = new Player(
-  DIMENSIONS.CANVAS_WIDTH / 2 - PLAYER_DIMENSIONS.PLAYER_WIDTH / 2,
-  DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2,
+  INITIAL_X,
+  INITIAL_Y,
   PLAYER_DIMENSIONS.PLAYER_WIDTH,
   PLAYER_DIMENSIONS.PLAYER_HEIGHT,
   playerImage
 );
 
-// Initialize platforms
 const platforms: Platform[] = [];
-const platformCount = 7; // Number of platforms
+const platformCount = 7;
 
 // Add a platform directly beneath the player initially
 platforms.push(
   new Platform(
     DIMENSIONS.CANVAS_WIDTH / 2 - PLATFORM_DIMENSIONS.PLATFORM_WIDTH / 2,
-    player.y + player.h + 10, // Position just below the player
+    player.y + player.h + 10, // below the player
     PLATFORM_DIMENSIONS.PLATFORM_WIDTH,
     PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
-    platformImage
+    platformImage,
+    PLATFORM_DIMENSIONS.PLATFORM_SPEED
   )
 );
 
@@ -67,7 +73,8 @@ function generatePlatform(
       y,
       platformWidth,
       PLATFORM_DIMENSIONS.PLATFORM_HEIGHT,
-      platformImage
+      platformImage,
+      PLATFORM_DIMENSIONS.PLATFORM_SPEED
     );
 
     isValidPosition = true;
@@ -89,9 +96,9 @@ for (let i = 0; i < platformCount - 1; i++) {
   );
 }
 
-let gravity = 0.2; // Reduced gravity constant for smoother bounce
-const initialBounceVelocity = -10; // Reduced initial upward velocity for slower bounce
-const playerVelocityX = 4; // Increased horizontal velocity for wrap-around effect
+let gravity = 0.2;
+const initialBounceVelocity = -10;
+const playerVelocityX = 4;
 let maxPlayerHeight = player.y;
 
 let isGameOver = false;
@@ -102,7 +109,7 @@ function draw() {
   ctx.drawImage(background, 0, 0);
   ctx.drawImage(player.image, player.x, player.y, player.w, player.h);
 
-  // Adjust difficulty based on score
+  //  difficulty
   let platformWidth = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
   if (score >= 150) {
     platformWidth *= 0.8;
@@ -114,15 +121,14 @@ function draw() {
 
   // Draw and update platforms
   platforms.forEach((platform) => {
-    platform.y += 2; // Move platform downwards
+    platform.y += 2;
 
-    // Reset platform to the top if it goes off screen
+    // Reset platform
     if (platform.y > DIMENSIONS.CANVAS_HEIGHT) {
       platform.y = -PLATFORM_DIMENSIONS.PLATFORM_HEIGHT;
       platform.x = Math.random() * (DIMENSIONS.CANVAS_WIDTH - platformWidth);
-      platform.w = platformWidth; // Update platform width
+      platform.w = platformWidth;
 
-      // Ensure the new position doesn't collide with other platforms
       let isValidPosition = false;
       while (!isValidPosition) {
         isValidPosition = true;
@@ -144,17 +150,14 @@ function draw() {
     platform.draw(ctx);
   });
 
-  // Apply gravity to the player's velocity
   player.velocityY += gravity;
 
-  // Update the player's position
   player.x += player.velocityX;
   player.y += player.velocityY;
 
-  // Update maxPlayerHeight
   maxPlayerHeight = Math.max(maxPlayerHeight, player.y);
 
-  // Check for bounce on platforms
+  //bounce on platforms
   platforms.forEach((platform) => {
     if (
       player.y + player.h >= platform.y &&
@@ -163,13 +166,12 @@ function draw() {
       player.x <= platform.x + platform.w &&
       player.velocityY > 0
     ) {
-      player.y = platform.y - player.h; // Reset position to platform top
-      player.velocityY = initialBounceVelocity; // Reset to initial upward velocity
-      score++; // Increment score on successful bounce
+      player.y = platform.y - player.h;
+      player.velocityY = initialBounceVelocity;
+      score++;
     }
   });
 
-  // Ensure at least one platform is available for the player to bounce on
   if (
     player.velocityY > 0 &&
     platforms.every((platform) => player.y + player.h < platform.y)
@@ -177,7 +179,6 @@ function draw() {
     platforms.push(generatePlatform(platforms, platformWidth));
   }
 
-  // Prevent player from moving above the fixed y-axis position
   if (
     player.y <
     DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2
@@ -209,7 +210,7 @@ function draw() {
     );
   }
 
-  // Display score during gameplay
+  // score during gameplay
   ctx.font = "20px 'Gloria Hallelujah', cursive";
   ctx.fillStyle = "red";
   ctx.fillText(`Score: ${score}`, DIMENSIONS.CANVAS_WIDTH - 100, 30);
@@ -231,11 +232,11 @@ draw();
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "a": {
-      player.velocityX = -playerVelocityX; // Move left
+      player.velocityX = -playerVelocityX;
       break;
     }
     case "d": {
-      player.velocityX = playerVelocityX; // Move right
+      player.velocityX = playerVelocityX;
       break;
     }
     case "r": {
@@ -250,38 +251,34 @@ window.addEventListener("keydown", (event) => {
 window.addEventListener("keyup", (event) => {
   switch (event.key) {
     case "a": {
-      player.velocityX = 0; // Stop moving left
+      player.velocityX = 0;
       break;
     }
     case "d": {
-      player.velocityX = 0; // Stop moving right
+      player.velocityX = 0;
       break;
     }
   }
 });
 
 function restartGame() {
-  // Reset player position
   player.x = DIMENSIONS.CANVAS_WIDTH / 2 - PLAYER_DIMENSIONS.PLAYER_WIDTH / 2;
   player.y = DIMENSIONS.CANVAS_HEIGHT / 2 - PLAYER_DIMENSIONS.PLAYER_HEIGHT / 2;
   player.velocityX = 0;
   player.velocityY = 0;
   maxPlayerHeight = player.y;
 
-  // Reset platforms
   platforms.forEach((platform, index) => {
     if (index === 0) {
-      // Reset the initial platform position beneath the playerdd
       platform.y = player.y + player.h + 10;
       platform.x =
         DIMENSIONS.CANVAS_WIDTH / 2 - PLATFORM_DIMENSIONS.PLATFORM_WIDTH / 2;
     } else {
-      // Generate new random positions for other platforms
       platform.x =
         Math.random() *
         (DIMENSIONS.CANVAS_WIDTH - PLATFORM_DIMENSIONS.PLATFORM_WIDTH);
       platform.y = Math.random() * DIMENSIONS.CANVAS_HEIGHT;
-      platform.w = PLATFORM_DIMENSIONS.PLATFORM_WIDTH; // Reset to initial width
+      platform.w = PLATFORM_DIMENSIONS.PLATFORM_WIDTH;
     }
   });
 
