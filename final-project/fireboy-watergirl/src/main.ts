@@ -41,38 +41,25 @@ function level1() {
   ctx.drawImage(level1Image, 0, 0, canvas.width, canvas.height);
   fireboy.draw(ctx);
   watergirl.draw(ctx);
+
+  // handling jump
+  fireboy.update();
+  watergirl.update();
 }
 
 gameLoop();
 
+// Object to keep track of the current state of each key
+const keyState: { [key: string]: boolean } = {};
+
 window.addEventListener("keydown", (event) => {
-  switch (event.key) {
-    case "d":
-      reqId = requestAnimationFrame(updateAnimationFrameFireBoy);
-      fireboy.x += fireboy.dx;
-      fireboy.spriteHead.src = fireboyImageHead;
-      break;
-    case "a":
-      reqId = requestAnimationFrame(updateAnimationFrameFireBoy);
-      fireboy.x -= fireboy.dx;
-      fireboy.spriteHead.src = fireboyImageHeadRight;
-      break;
-    case "ArrowRight":
-      reqId = requestAnimationFrame(updateAnimationFrameWaterGirl);
-      watergirl.x += watergirl.dx;
-      watergirl.spriteHead.src = watergirlImageHead;
-      break;
-    case "ArrowLeft":
-      reqId = requestAnimationFrame(updateAnimationFrameWaterGirl);
-      watergirl.x -= watergirl.dx;
-      watergirl.spriteHead.src = watergirlImageHeadRight;
-      break;
-    default:
-      break;
-  }
+  keyState[event.key] = true; // Set the key state to true (pressed)
+  handleKeyPress();
 });
 
 window.addEventListener("keyup", (event) => {
+  cancelAnimationFrame(reqId);
+  keyState[event.key] = false;
   switch (event.key) {
     case "d":
       fireboy.frameY = 0;
@@ -101,20 +88,54 @@ window.addEventListener("keyup", (event) => {
     default:
       break;
   }
-  // fireboy.frameY = 0;
-  // fireboy.legFrameY = 0;
-  // fireboy.frameX = 0;
-  // fireboy.legFrameX = 0;
 });
 
-function updateAnimationFrameFireBoy() {
+function handleKeyPress() {
+  if (keyState["d"]) {
+    reqId = requestAnimationFrame(fireBoyMoveX);
+    fireboy.x += fireboy.dx;
+    fireboy.spriteHead.src = fireboyImageHead;
+  }
+  if (keyState["a"]) {
+    reqId = requestAnimationFrame(fireBoyMoveX);
+    fireboy.x -= fireboy.dx;
+    fireboy.spriteHead.src = fireboyImageHeadRight;
+  }
+  if (keyState["ArrowRight"]) {
+    reqId = requestAnimationFrame(watergirlMoveX);
+    watergirl.x += watergirl.dx;
+    watergirl.spriteHead.src = watergirlImageHead;
+  }
+  if (keyState["ArrowLeft"]) {
+    reqId = requestAnimationFrame(watergirlMoveX);
+    watergirl.x -= watergirl.dx;
+    watergirl.spriteHead.src = watergirlImageHeadRight;
+  }
+  if (keyState["w"]) {
+    fireboy.jump();
+  }
+  if (keyState["ArrowUp"]) {
+    watergirl.jump();
+  }
+}
+
+// Continuously update movement based on current key states
+function updateMovement() {
+  handleKeyPress();
+  requestAnimationFrame(updateMovement);
+}
+
+// Start the update loop
+updateMovement();
+
+function fireBoyMoveX() {
   fireboy.frameY = 1;
   fireboy.legFrameY = 1;
   fireboy.frameX = (fireboy.frameX + 1) % (fireboy.maxFrame + 1);
   fireboy.legFrameX = (fireboy.legFrameX + 1) % (fireboy.maxFrame + 1);
 }
 
-function updateAnimationFrameWaterGirl() {
+function watergirlMoveX() {
   watergirl.frameY = 1;
   watergirl.legFrameY = 1;
   watergirl.frameX = (watergirl.frameX + 1) % (watergirl.maxFrame + 1);

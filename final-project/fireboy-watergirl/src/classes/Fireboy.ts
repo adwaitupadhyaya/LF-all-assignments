@@ -11,6 +11,9 @@ export class Fireboy extends Character {
       spriteHead,
       spriteLeg
     );
+
+    // Set the ground level to the initial y position
+    this.ground = FIREBOY.DIMENSIONS.INITIAL_POSITION.Y;
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -41,5 +44,19 @@ export class Fireboy extends Character {
       FIREBOY.LEGS.WIDTH,
       FIREBOY.LEGS.HEIGHT
     );
+
+    context.restore();
+  }
+
+  updateFireboyFrame() {
+    this.frameY = 1;
+    this.legFrameY = 1;
+    this.frameX = (this.frameX + 1) % (this.maxFrame + 1);
+    this.legFrameX = (this.legFrameX + 1) % (this.maxFrame + 1);
+  }
+
+  // Update method to apply gravity
+  update() {
+    this.applyGravity();
   }
 }

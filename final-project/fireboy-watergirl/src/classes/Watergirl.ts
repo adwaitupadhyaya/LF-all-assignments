@@ -42,4 +42,8 @@ export class Watergirl extends Character {
       WATERGIRL.LEGS.HEIGHT
     );
   }
+
+  update() {
+    this.applyGravity();
+  }
 }

@@ -4,7 +4,7 @@ type canvasDimensions = {
 };
 
 export const CANVAS: canvasDimensions = {
-  width: 1200,
+  width: 1000,
   height: 700,
 };
 
@@ -32,8 +32,8 @@ export const FIREBOY = {
       Y: CANVAS.height - 105,
     },
     SPEED: {
-      DX: 3,
-      DY: 3,
+      DX: 2,
+      DY: 2,
     },
   },
   LEGS: {
@@ -51,8 +51,8 @@ export const WATERGIRL = {
       Y: CANVAS.height - 200,
     },
     SPEED: {
-      DX: 3,
-      DY: 3,
+      DX: 2,
+      DY: 2,
     },
   },
   LEGS: {

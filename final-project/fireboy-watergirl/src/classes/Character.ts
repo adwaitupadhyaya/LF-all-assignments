@@ -10,7 +10,11 @@ export class Character {
   legFrameX: number; // for leg animation
   legFrameY: number; // for leg animation
   maxFrame: number; // total frames in sprite sheet
-
+  yVelocity: number;
+  isJumping: boolean;
+  jumpPower: number;
+  gravity: number;
+  ground: number;
   constructor(
     x: number,
     y: number,
@@ -32,26 +36,31 @@ export class Character {
     this.legFrameX = 0;
     this.legFrameY = 0;
     this.maxFrame = 7; // 8 frames (0-7)
+
+    this.yVelocity = 0;
+    this.isJumping = false;
+    this.jumpPower = 6;
+    this.gravity = 0.2;
+    this.ground = y;
   }
 
-  updateFrame() {
-    this.frameX = (this.frameX + 1) % (this.maxFrame + 1);
-    this.frameY = (this.frameY + 1) % (this.maxFrame + 1);
-    this.legFrameX = (this.legFrameX + 1) % (this.maxFrame + 1);
-    this.legFrameY = (this.legFrameY + 1) % (this.maxFrame + 1);
+  jump() {
+    if (!this.isJumping) {
+      this.isJumping = true;
+      this.yVelocity = this.jumpPower; // Initial jump velocity
+    }
   }
 
-  // draw(context: CanvasRenderingContext2D) {
-  //   context.drawImage(
-  //     this.spriteHead,
-  //     this.frameX * 100,
-  //     this.frameY * 100,
-  //     100,
-  //     100,
-  //     this.x,
-  //     this.y,
-  //     100,
-  //     100
-  //   );
-  // }
+  applyGravity() {
+    if (this.isJumping) {
+      this.yVelocity -= this.gravity; // Apply gravity
+      this.y -= this.yVelocity; // Update position
+      if (this.y >= this.ground) {
+        // Check if character has landed
+        this.y = this.ground;
+        this.isJumping = false;
+        this.yVelocity = 0;
+      }
+    }
+  }
 }
