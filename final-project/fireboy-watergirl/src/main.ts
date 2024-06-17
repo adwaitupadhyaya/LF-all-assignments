@@ -1,11 +1,20 @@
 import "./style.css";
+
+// constants
 import { CANVAS } from "./constants/constants";
+
+// sprites
 import bg from "/images/bg.png";
 import level1img from "/images/level1.png";
 import fireboyImageHead from "../public/images/fireboy_sprite.png";
 import fireboyImageHeadRight from "../public/images/fireboy_sprite-right.png";
 import fireboyImageLeg from "../public/images/fireboy_legs_sprite.png";
+import watergirlImageHead from "../public/images/watergirl_sprite.png";
+import watergirlImageHeadRight from "../public/images/watergirl_sprite-right.png";
+import watergirlImageLeg from "../public/images/watergirl_legs_sprite.png";
+
 import { Fireboy } from "./classes/Fireboy";
+import { Watergirl } from "./classes/Watergirl";
 
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -18,6 +27,7 @@ const backgroundImage = new Image();
 backgroundImage.src = bg;
 
 const fireboy = new Fireboy(fireboyImageHead, fireboyImageLeg);
+const watergirl = new Watergirl(watergirlImageHead, watergirlImageLeg);
 
 function gameLoop() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
@@ -29,8 +39,8 @@ function level1() {
   const level1Image = new Image();
   level1Image.src = level1img;
   ctx.drawImage(level1Image, 0, 0, canvas.width, canvas.height);
-
   fireboy.draw(ctx);
+  watergirl.draw(ctx);
 }
 
 gameLoop();
@@ -38,14 +48,24 @@ gameLoop();
 window.addEventListener("keydown", (event) => {
   switch (event.key) {
     case "d":
-      reqId = requestAnimationFrame(updateAnimationFrame);
+      reqId = requestAnimationFrame(updateAnimationFrameFireBoy);
       fireboy.x += fireboy.dx;
       fireboy.spriteHead.src = fireboyImageHead;
       break;
     case "a":
-      reqId = requestAnimationFrame(updateAnimationFrame);
+      reqId = requestAnimationFrame(updateAnimationFrameFireBoy);
       fireboy.x -= fireboy.dx;
       fireboy.spriteHead.src = fireboyImageHeadRight;
+      break;
+    case "ArrowRight":
+      reqId = requestAnimationFrame(updateAnimationFrameWaterGirl);
+      watergirl.x += watergirl.dx;
+      watergirl.spriteHead.src = watergirlImageHead;
+      break;
+    case "ArrowLeft":
+      reqId = requestAnimationFrame(updateAnimationFrameWaterGirl);
+      watergirl.x -= watergirl.dx;
+      watergirl.spriteHead.src = watergirlImageHeadRight;
       break;
     default:
       break;
@@ -66,6 +86,18 @@ window.addEventListener("keyup", (event) => {
       fireboy.frameX = fireboy.maxFrame;
       fireboy.legFrameX = 0;
       break;
+    case "ArrowLeft":
+      watergirl.frameY = 0;
+      watergirl.legFrameY = 0;
+      watergirl.frameX = watergirl.maxFrame;
+      watergirl.legFrameX = 0;
+      break;
+    case "ArrowRight":
+      watergirl.frameY = 0;
+      watergirl.legFrameY = 0;
+      watergirl.frameX = 0;
+      watergirl.legFrameX = 0;
+      break;
     default:
       break;
   }
@@ -75,9 +107,16 @@ window.addEventListener("keyup", (event) => {
   // fireboy.legFrameX = 0;
 });
 
-function updateAnimationFrame() {
+function updateAnimationFrameFireBoy() {
   fireboy.frameY = 1;
   fireboy.legFrameY = 1;
   fireboy.frameX = (fireboy.frameX + 1) % (fireboy.maxFrame + 1);
   fireboy.legFrameX = (fireboy.legFrameX + 1) % (fireboy.maxFrame + 1);
+}
+
+function updateAnimationFrameWaterGirl() {
+  watergirl.frameY = 1;
+  watergirl.legFrameY = 1;
+  watergirl.frameX = (watergirl.frameX + 1) % (watergirl.maxFrame + 1);
+  watergirl.legFrameX = (watergirl.legFrameX + 1) % (watergirl.maxFrame + 1);
 }
