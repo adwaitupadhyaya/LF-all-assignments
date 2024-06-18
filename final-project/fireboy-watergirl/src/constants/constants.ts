@@ -54,5 +54,3 @@ export const WATERGIRL = {
     HEIGHT: SPRITE.LEGS.HEIGHT / SPRITE.LEGS.ROWS,
   },
 };
-
-console.log(allObstacles2);

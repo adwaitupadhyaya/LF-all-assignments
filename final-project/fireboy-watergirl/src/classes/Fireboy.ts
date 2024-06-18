@@ -2,6 +2,9 @@ import { Character } from "./Character";
 import { FIREBOY, playerDrawSize } from "../constants/constants";
 
 export class Fireboy extends Character {
+  width: number;
+  height: number;
+
   constructor(spriteHead: string, spriteLeg: string) {
     super(
       FIREBOY.DIMENSIONS.INITIAL_POSITION.X,
@@ -12,6 +15,9 @@ export class Fireboy extends Character {
       spriteLeg
     );
 
+    this.width = FIREBOY.DIMENSIONS.WIDTH;
+    this.height = FIREBOY.DIMENSIONS.HEIGHT;
+
     // Set the ground level to the initial y position
     this.ground = FIREBOY.DIMENSIONS.INITIAL_POSITION.Y;
   }
@@ -19,8 +25,6 @@ export class Fireboy extends Character {
   draw(context: CanvasRenderingContext2D) {
     context.save();
 
-    // context.scale(-1, 1);
-    // moving right
     context.drawImage(
       this.spriteHead,
       this.frameX * FIREBOY.DIMENSIONS.WIDTH,
@@ -32,9 +36,10 @@ export class Fireboy extends Character {
       playerDrawSize,
       playerDrawSize
     );
+
     context.strokeStyle = "red";
-    context.strokeRect(this.x, this.y, 80, 80);
-    context.strokeRect(this.x, this.y, 80, 80);
+    context.strokeRect(this.x, this.y, playerDrawSize, playerDrawSize);
+
     // Draw legs
     context.drawImage(
       this.spriteLeg,
@@ -42,12 +47,6 @@ export class Fireboy extends Character {
       this.legFrameY * FIREBOY.LEGS.HEIGHT,
       FIREBOY.LEGS.WIDTH,
       FIREBOY.LEGS.HEIGHT,
-      this.x + FIREBOY.DIMENSIONS.WIDTH / 2 - FIREBOY.LEGS.WIDTH + 2,
-      this.y + FIREBOY.DIMENSIONS.HEIGHT / 2 + FIREBOY.LEGS.HEIGHT / 2 - 5,
-      FIREBOY.LEGS.WIDTH,
-      FIREBOY.LEGS.HEIGHT
-    );
-    context.strokeRect(
       this.x + FIREBOY.DIMENSIONS.WIDTH / 2 - FIREBOY.LEGS.WIDTH + 2,
       this.y + FIREBOY.DIMENSIONS.HEIGHT / 2 + FIREBOY.LEGS.HEIGHT / 2 - 5,
       FIREBOY.LEGS.WIDTH,
@@ -64,7 +63,6 @@ export class Fireboy extends Character {
     this.legFrameX = (this.legFrameX + 1) % (this.maxFrame + 1);
   }
 
-  // Update method to apply gravity
   update() {
     this.applyGravity();
   }

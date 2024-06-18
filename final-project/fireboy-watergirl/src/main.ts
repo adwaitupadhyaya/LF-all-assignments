@@ -17,6 +17,7 @@ import watergirlImageLeg from "../public/images/watergirl_legs_sprite.png";
 import { Fireboy } from "./classes/Fireboy";
 import { Watergirl } from "./classes/Watergirl";
 import { Obstacle } from "./classes/Obstacles";
+import { playerDrawSize } from "./constants/constants";
 
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -44,12 +45,11 @@ function level1() {
   fireboy.draw(ctx);
   watergirl.draw(ctx);
 
-  // handling jump
+  // Update character positions and handle collisions
   fireboy.update();
   watergirl.update();
 
-  // draw obstacles
-  allObstacles2.forEach((element) => {
+  allObstacles2.forEach((element, index) => {
     const obstacleObj = new Obstacle(
       element.x,
       element.y,
@@ -58,6 +58,23 @@ function level1() {
       element.id
     );
     obstacleObj.draw(ctx, element);
+    if (element === allObstacles2[1]) {
+      if (
+        fireboy.y + playerDrawSize < element.y &&
+        fireboy.x > element.x &&
+        fireboy.x < element.x + element.w
+      ) {
+        fireboy.y = element.y - playerDrawSize;
+        fireboy.ground = element.y - playerDrawSize;
+        console.log("hit");
+        console.log(fireboy.x - fireboy.width / 2);
+        console.log(element.x + element.w);
+        if (fireboy.x + fireboy.width / 2 > element.x + element.w) {
+          fireboy.ground = allObstacles2[index - 1].y - playerDrawSize;
+          console.log("platform bata jharyo");
+        }
+      }
+    }
   });
 }
 
@@ -146,15 +163,9 @@ function updateMovement() {
 updateMovement();
 
 function fireBoyMoveX() {
-  fireboy.frameY = 1;
-  fireboy.legFrameY = 1;
-  fireboy.frameX = (fireboy.frameX + 1) % (fireboy.maxFrame + 1);
-  fireboy.legFrameX = (fireboy.legFrameX + 1) % (fireboy.maxFrame + 1);
+  fireboy.updateFireboyFrame();
 }
 
 function watergirlMoveX() {
-  watergirl.frameY = 1;
-  watergirl.legFrameY = 1;
-  watergirl.frameX = (watergirl.frameX + 1) % (watergirl.maxFrame + 1);
-  watergirl.legFrameX = (watergirl.legFrameX + 1) % (watergirl.maxFrame + 1);
+  watergirl.updateWatergirlFrame();
 }
