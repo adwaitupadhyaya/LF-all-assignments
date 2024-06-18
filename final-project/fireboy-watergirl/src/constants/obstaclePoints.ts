@@ -1,70 +1,249 @@
 import { CANVAS } from "./constants";
-
-export const allObstacles = {
-  obstacle1: {
+import { OBSTACLE_TYPES } from "./obstacleTypes";
+export const allObstacles2 = [
+  {
     x: 23,
     y: CANVAS.height - 23,
     w: CANVAS.width,
     h: 23,
+    id: OBSTACLE_TYPES.floor,
   },
-  obstacle2: {
+  {
     x: 23,
     y: CANVAS.height - 120,
     w: 308,
     h: 23,
+    id: OBSTACLE_TYPES.floor,
   },
-  obstacle3: {
+  {
     x: CANVAS.width - 100,
     y: CANVAS.height - 70,
     w: 100,
     h: 46,
+    id: OBSTACLE_TYPES.wall,
   },
-  obstacle4: {
+  {
     x: CANVAS.width - 25 * 4,
     y: CANVAS.height - 24 * 3,
     w: CANVAS.width - 25 * 3,
     h: CANVAS.height - 24 * 4,
+    id: OBSTACLE_TYPES.forwardSlope,
   },
-  obstacle5: {
+  {
     x: CANVAS.width - 25 * 3,
     y: CANVAS.height - 24 * 4,
     w: 23 * 2,
     h: 23,
+    id: OBSTACLE_TYPES.floor,
   },
-  obstacle6: {
+  {
     x: CANVAS.width - 23,
     y: CANVAS.height - 24 * 9,
     w: 23,
     h: 23 * 5,
+    id: OBSTACLE_TYPES.wall,
   },
-  obstacle7: {
+  {
     x: CANVAS.width - 25 * 5,
     y: CANVAS.height - 21 * 7,
     w: CANVAS.width - 25 * 6,
     h: CANVAS.height - 21 * 8,
+    id: OBSTACLE_TYPES.backwardSlope,
   },
-  obstacle8: {
+  {
     x: CANVAS.width - 25 * 10,
     y: CANVAS.height - 24 * 7,
     w: 24 * 4,
     h: 24,
+    id: OBSTACLE_TYPES.floor,
   },
-  obstacle9: {
+  {
     x: CANVAS.width - 25 * 10,
     y: CANVAS.height - 24 * 7,
     w: CANVAS.width - 26 * 11,
     h: CANVAS.height - 25 * 6,
+    id: OBSTACLE_TYPES.forwardSlope,
   },
-  obstacle10: {
+  {
     x: CANVAS.width - 26 * 14,
     y: CANVAS.height - 26 * 6,
     w: 24 * 3,
     h: 24 / 2,
+    id: OBSTACLE_TYPES.floor,
   },
-  obstacle11: {
+  {
     x: CANVAS.width - 26 * 14,
     y: CANVAS.height - 26 * 6,
-    w: CANVAS.width - 26 * 14,
-    h: CANVAS.height - 26 * 7,
+    w: CANVAS.width - 26 * 15,
+    h: CANVAS.height - 26 * 6.5,
+    id: OBSTACLE_TYPES.backwardSlope,
   },
-};
+  {
+    x: CANVAS.width - 26 * 20,
+    y: CANVAS.height - 26 * 6.5,
+    w: 26 * 5,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 26 * 20,
+    y: CANVAS.height - 26 * 6.5,
+    w: CANVAS.width - 26 * 22,
+    h: CANVAS.height - 26 * 8.5,
+    id: OBSTACLE_TYPES.backwardSlope,
+  },
+  {
+    x: 24,
+    y: CANVAS.height - 24 * 9,
+    w: 24 * 17,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 0,
+    y: CANVAS.height - 24 * 17,
+    w: 24,
+    h: 24 * 8,
+    id: OBSTACLE_TYPES.wall,
+  },
+  {
+    x: 22 * 6,
+    y: CANVAS.height - 24 * 14,
+    w: 24 * 16,
+    h: 23,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24.5 * 21,
+    y: CANVAS.height - 24 * 14,
+    w: 24.5 * 22,
+    h: CANVAS.height - 24 * 13,
+    id: OBSTACLE_TYPES.forwardSlope,
+  },
+  {
+    x: 24.5 * 22,
+    y: CANVAS.height - 24 * 13,
+    w: 24 * 18,
+    h: 23,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 23,
+    y: CANVAS.height - 24 * 22,
+    w: 23,
+    h: 23 * 9,
+    id: OBSTACLE_TYPES.wall,
+  },
+  {
+    x: CANVAS.width - 23 * 12,
+    y: 23 * 11.5,
+    w: 23 * 7,
+    h: 23 * 2,
+    id: OBSTACLE_TYPES.corner,
+  },
+  {
+    x: CANVAS.width - 23 * 12,
+    y: 23 * 11.5,
+    w: CANVAS.width - 23 * 15,
+    h: 23 * 9.5,
+    id: OBSTACLE_TYPES.backwardSlope,
+  },
+  {
+    x: CANVAS.width - 22 * 23,
+    y: 23 * 9.5,
+    w: 25 * 7,
+    h: 23 * 2,
+    id: OBSTACLE_TYPES.corner,
+  },
+  {
+    x: 25 * 6,
+    y: 23 * 11.5,
+    w: 25 * 14,
+    h: 22.5,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24,
+    y: 24 * 7.1,
+    w: 25 * 5,
+    h: 22.5 * 4,
+    id: OBSTACLE_TYPES.corner,
+  },
+  {
+    x: 0,
+    y: 0,
+    w: 25,
+    h: 25 * 7,
+    id: OBSTACLE_TYPES.wall,
+  },
+  {
+    x: 25.5 * 9,
+    y: 25 * 5,
+    w: 25.5 * 10,
+    h: 25 * 4,
+    id: OBSTACLE_TYPES.forwardSlope,
+  },
+  {
+    x: 25.5 * 10,
+    y: 25 * 4,
+    w: 26 * 2,
+    h: 22,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 25.5 * 12,
+    y: 25 * 4,
+    w: 25.5 * 13,
+    h: 25 * 5,
+    id: OBSTACLE_TYPES.forwardSlope,
+  },
+  {
+    x: 25.5 * 13,
+    y: 25 * 5,
+    w: 25,
+    h: 25,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 25.5 * 14,
+    y: 25 * 5,
+    w: 25.5 * 15,
+    h: 25 * 6,
+    id: OBSTACLE_TYPES.backwardSlope,
+  },
+  {
+    x: 25.5 * 15,
+    y: 25 * 6,
+    w: 25.5 * 11,
+    h: 25,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 24 * 14,
+    y: 25 * 6,
+    w: CANVAS.width - 24 * 13,
+    h: 25 * 5,
+    id: OBSTACLE_TYPES.forwardSlope,
+  },
+  {
+    x: CANVAS.width - 24 * 13,
+    y: 25 * 5,
+    w: 26 * 3,
+    h: 23 * 2,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 23 * 10,
+    y: 25 * 5,
+    w: CANVAS.width - 23 * 9,
+    h: 25 * 6,
+    id: OBSTACLE_TYPES.backwardSlope,
+  },
+  {
+    x: CANVAS.width - 23 * 9,
+    y: 25 * 6,
+    w: 23 * 8,
+    h: 23,
+    id: OBSTACLE_TYPES.floor,
+  },
+];

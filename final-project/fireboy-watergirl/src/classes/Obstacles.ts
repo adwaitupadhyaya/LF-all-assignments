@@ -15,7 +15,7 @@ export class Obstacle {
     this.id = id;
   }
 
-  draw(ctx: CanvasRenderingContext2D, element: Obstacle) {
+  draw(ctx: CanvasRenderingContext2D, element: any) {
     if (element.id === "backwardSlope" || element.id === "forwardSlope") {
       ctx.lineWidth = 3;
       ctx.strokeStyle = "white";
