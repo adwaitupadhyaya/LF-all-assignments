@@ -65,7 +65,7 @@ function level1() {
         fireboy.x < element.x + element.w
       ) {
         fireboy.y = element.y - playerDrawSize;
-        fireboy.ground = element.y - playerDrawSize;
+        fireboy.ground = fireboy.y;
         console.log("hit");
         console.log(fireboy.x - fireboy.width / 2);
         console.log(element.x + element.w);
@@ -73,6 +73,16 @@ function level1() {
           fireboy.ground = allObstacles2[index - 1].y - playerDrawSize;
           console.log("platform bata jharyo");
         }
+      }
+    }
+
+    let prevDx = fireboy.dx;
+    if (element === allObstacles2[2]) {
+      if (
+        fireboy.x + playerDrawSize >= element.x &&
+        fireboy.y + playerDrawSize > element.y
+      ) {
+        fireboy.x = element.x - playerDrawSize;
       }
     }
   });
