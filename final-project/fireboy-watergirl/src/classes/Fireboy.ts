@@ -1,5 +1,5 @@
 import { Character } from "./Character";
-import { FIREBOY } from "../constants/constants";
+import { FIREBOY, playerDrawSize } from "../constants/constants";
 
 export class Fireboy extends Character {
   constructor(spriteHead: string, spriteLeg: string) {
@@ -29,9 +29,12 @@ export class Fireboy extends Character {
       FIREBOY.DIMENSIONS.HEIGHT,
       this.x,
       this.y,
-      80,
-      80
+      playerDrawSize,
+      playerDrawSize
     );
+    context.strokeStyle = "red";
+    context.strokeRect(this.x, this.y, 80, 80);
+    context.strokeRect(this.x, this.y, 80, 80);
     // Draw legs
     context.drawImage(
       this.spriteLeg,
@@ -39,6 +42,12 @@ export class Fireboy extends Character {
       this.legFrameY * FIREBOY.LEGS.HEIGHT,
       FIREBOY.LEGS.WIDTH,
       FIREBOY.LEGS.HEIGHT,
+      this.x + FIREBOY.DIMENSIONS.WIDTH / 2 - FIREBOY.LEGS.WIDTH + 2,
+      this.y + FIREBOY.DIMENSIONS.HEIGHT / 2 + FIREBOY.LEGS.HEIGHT / 2 - 5,
+      FIREBOY.LEGS.WIDTH,
+      FIREBOY.LEGS.HEIGHT
+    );
+    context.strokeRect(
       this.x + FIREBOY.DIMENSIONS.WIDTH / 2 - FIREBOY.LEGS.WIDTH + 2,
       this.y + FIREBOY.DIMENSIONS.HEIGHT / 2 + FIREBOY.LEGS.HEIGHT / 2 - 5,
       FIREBOY.LEGS.WIDTH,

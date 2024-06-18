@@ -1,7 +1,7 @@
 import "./style.css";
 
 // constants
-import { CANVAS } from "./constants/constants";
+import { CANVAS } from "./constants/canvasDimensions";
 import { allObstacles2 } from "./constants/obstaclePoints";
 // sprites
 import bg from "/images/bg.png";
@@ -48,6 +48,7 @@ function level1() {
   fireboy.update();
   watergirl.update();
 
+  // draw obstacles
   allObstacles2.forEach((element) => {
     const obstacleObj = new Obstacle(
       element.x,
@@ -56,7 +57,6 @@ function level1() {
       element.h,
       element.id
     );
-
     obstacleObj.draw(ctx, element);
   });
 }

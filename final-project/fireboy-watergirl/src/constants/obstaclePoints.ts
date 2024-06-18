@@ -1,4 +1,4 @@
-import { CANVAS } from "./constants";
+import { CANVAS } from "./canvasDimensions";
 import { OBSTACLE_TYPES } from "./obstacleTypes";
 export const allObstacles2 = [
   {

@@ -1,5 +1,5 @@
 import { Character } from "./Character";
-import { WATERGIRL } from "../constants/constants";
+import { WATERGIRL, playerDrawSize } from "../constants/constants";
 
 export class Watergirl extends Character {
   constructor(spriteHead: string, spriteLeg: string) {
@@ -26,8 +26,8 @@ export class Watergirl extends Character {
       WATERGIRL.DIMENSIONS.HEIGHT,
       this.x,
       this.y,
-      80,
-      80
+      playerDrawSize,
+      playerDrawSize
     );
     // Draw legs
     context.drawImage(
