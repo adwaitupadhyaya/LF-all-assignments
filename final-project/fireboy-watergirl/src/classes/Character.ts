@@ -39,7 +39,7 @@ export class Character {
 
     this.yVelocity = 0;
     this.isJumping = false;
-    this.jumpPower = 6;
+    this.jumpPower = 5.2;
     this.gravity = 0.2;
     this.ground = y;
   }

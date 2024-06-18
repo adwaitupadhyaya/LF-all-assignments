@@ -32,8 +32,8 @@ export const FIREBOY = {
       Y: CANVAS.height - 105,
     },
     SPEED: {
-      DX: 2,
-      DY: 2,
+      DX: 2.5,
+      DY: 2.5,
     },
   },
   LEGS: {
@@ -47,12 +47,12 @@ export const WATERGIRL = {
     WIDTH: SPRITE.HEAD.WIDTH / SPRITE.HEAD.COLUMNS,
     HEIGHT: SPRITE.HEAD.HEIGHT / SPRITE.HEAD.ROWS,
     INITIAL_POSITION: {
-      X: 40,
-      Y: CANVAS.height - 200,
+      X: 80,
+      Y: CANVAS.height - 105,
     },
     SPEED: {
-      DX: 2,
-      DY: 2,
+      DX: 2.5,
+      DY: 2.5,
     },
   },
   LEGS: {
