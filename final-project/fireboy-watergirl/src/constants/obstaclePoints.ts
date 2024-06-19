@@ -32,17 +32,17 @@ export const allObstacles2 = [
   {
     x: CANVAS.width - 25 * 3,
     y: CANVAS.height - 24 * 4,
-    w: 23 * 2,
+    w: 23 * 5,
     h: 23,
     id: OBSTACLE_TYPES.floor,
   },
-  {
-    x: CANVAS.width - 23,
-    y: CANVAS.height - 24 * 9,
-    w: 23,
-    h: 23 * 5,
-    id: OBSTACLE_TYPES.wall,
-  },
+  // {
+  //   x: CANVAS.width - 23,
+  //   y: CANVAS.height - 24 * 9,
+  //   w: 23,
+  //   h: 23 * 5,
+  //   id: OBSTACLE_TYPES.wall,
+  // },
   {
     x: CANVAS.width - 25 * 5,
     y: CANVAS.height - 21 * 7,
@@ -98,13 +98,6 @@ export const allObstacles2 = [
     w: 24 * 17,
     h: 24,
     id: OBSTACLE_TYPES.floor,
-  },
-  {
-    x: 0,
-    y: CANVAS.height - 24 * 17,
-    w: 24,
-    h: 24 * 8,
-    id: OBSTACLE_TYPES.wall,
   },
   {
     x: 22 * 6,
@@ -168,13 +161,6 @@ export const allObstacles2 = [
     w: 25 * 5,
     h: 22.5 * 4,
     id: OBSTACLE_TYPES.corner,
-  },
-  {
-    x: 0,
-    y: 0,
-    w: 25,
-    h: 25 * 7,
-    id: OBSTACLE_TYPES.wall,
   },
   {
     x: 25.5 * 9,
