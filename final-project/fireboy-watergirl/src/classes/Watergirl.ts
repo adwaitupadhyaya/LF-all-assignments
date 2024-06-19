@@ -34,6 +34,8 @@ export class Watergirl extends Character {
       playerDrawSize,
       playerDrawSize
     );
+    context.strokeStyle = "blue";
+    context.strokeRect(this.x, this.y, playerDrawSize, playerDrawSize);
 
     // Draw legs
     context.drawImage(
@@ -47,10 +49,20 @@ export class Watergirl extends Character {
       WATERGIRL.LEGS.WIDTH,
       WATERGIRL.LEGS.HEIGHT
     );
+
+    // Draw the midpoint
+    context.fillStyle = "white"; // Color of the midpoint
+    context.beginPath();
+    context.arc(this.feetX, this.feetY, 5, 0, 2 * Math.PI); // Draw a small circle to denote the midpoint
+    context.fill();
+
+    context.restore();
   }
 
   update() {
     this.applyGravity(obstacleArray);
+    this.feetX = this.x + playerDrawSize / 2;
+    this.feetY = this.y + playerDrawSize;
   }
 
   updateWatergirlFrame() {

@@ -17,6 +17,7 @@ export const SPRITE = {
 };
 
 const firstObstacleY = allObstacles2[0]?.y - playerDrawSize;
+const secondObstacleY = allObstacles2[1]?.y - playerDrawSize;
 export const FIREBOY = {
   DIMENSIONS: {
     WIDTH: SPRITE.HEAD.WIDTH / SPRITE.HEAD.COLUMNS,
@@ -42,7 +43,7 @@ export const WATERGIRL = {
     HEIGHT: SPRITE.HEAD.HEIGHT / SPRITE.HEAD.ROWS,
     INITIAL_POSITION: {
       X: 80,
-      Y: firstObstacleY,
+      Y: secondObstacleY,
     },
     SPEED: {
       DX: 2.5,
