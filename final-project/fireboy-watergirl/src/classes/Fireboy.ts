@@ -1,5 +1,6 @@
 import { Character } from "./Character";
 import { FIREBOY, playerDrawSize } from "../constants/constants";
+import { obstacleArray } from "../main";
 
 export class Fireboy extends Character {
   width: number;
@@ -64,6 +65,6 @@ export class Fireboy extends Character {
   }
 
   update() {
-    this.applyGravity();
+    this.applyGravity(obstacleArray);
   }
 }

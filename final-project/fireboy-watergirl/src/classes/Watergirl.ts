@@ -1,4 +1,5 @@
 import { Character } from "./Character";
+import { obstacleArray } from "../main";
 import { WATERGIRL, playerDrawSize } from "../constants/constants";
 
 export class Watergirl extends Character {
@@ -49,7 +50,7 @@ export class Watergirl extends Character {
   }
 
   update() {
-    this.applyGravity();
+    this.applyGravity(obstacleArray);
   }
 
   updateWatergirlFrame() {

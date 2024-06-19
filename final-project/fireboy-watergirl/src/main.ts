@@ -19,7 +19,7 @@ import { Fireboy } from "./classes/Fireboy";
 import { Watergirl } from "./classes/Watergirl";
 import { Obstacle } from "./classes/Obstacles";
 // import { playerDrawSize } from "./constants/constants";
-
+export const obstacleArray: Array<Obstacle> = [];
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -50,7 +50,6 @@ function level1() {
   fireboy.update();
   watergirl.update();
 
-  const obstacleArray: Array<Obstacle> = [];
   allObstacles2.forEach((element) => {
     const obstacleObj = new Obstacle(
       element.x,

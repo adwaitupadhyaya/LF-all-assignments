@@ -1,7 +1,7 @@
 import { playerDrawSize } from "../constants/constants";
-import { allObstacles2 } from "../constants/obstaclePoints";
 import { OBSTACLE_TYPES } from "../constants/obstacleTypes";
 import { Obstacle } from "./Obstacles";
+
 export class Character {
   x: number;
   y: number;
@@ -19,6 +19,7 @@ export class Character {
   jumpPower: number;
   gravity: number;
   ground: number;
+
   constructor(
     x: number,
     y: number,
@@ -55,15 +56,33 @@ export class Character {
     }
   }
 
-  applyGravity() {
-    if (this.isJumping) {
-      this.yVelocity -= this.gravity; // Apply gravity
-      this.y -= this.yVelocity; // Update position
-    } else {
-      this.yVelocity = 0; // Reset yVelocity when not jumping
+  applyGravity(obstacleArray: Array<Obstacle>) {
+    // Apply gravity
+    this.yVelocity -= this.gravity;
+    this.y -= this.yVelocity; // Update position
+
+    // Check for collision with platforms
+    let lowerPlatformY = Infinity;
+    let onPlatform = false;
+
+    obstacleArray.forEach((element) => {
+      if (
+        this.y + playerDrawSize === element.y &&
+        this.x > element.x &&
+        this.x < element.x + element.w
+      ) {
+        if (element.y < lowerPlatformY) {
+          lowerPlatformY = element.y;
+          onPlatform = true;
+        }
+      }
+    });
+
+    if (onPlatform) {
+      this.ground = lowerPlatformY - playerDrawSize;
     }
 
-    // Check if character has landed
+    // Ensure player doesn't fall below ground level
     if (this.y >= this.ground) {
       this.y = this.ground;
       this.isJumping = false;
@@ -72,8 +91,6 @@ export class Character {
 
   handleCollision(obstacleArray: Array<Obstacle>) {
     let upperPlatformY = Infinity;
-    let lowerPlatformY = Infinity;
-    let onUpperPlatform = false;
 
     obstacleArray.forEach((element) => {
       switch (element.id) {
@@ -83,58 +100,19 @@ export class Character {
             this.x > element.x &&
             this.x < element.x + element.w
           ) {
-            // Check if this platform is higher than the current upper platform
             if (element.y < upperPlatformY) {
-              upperPlatformY = element.y; // Update the upper platform Y value
-              onUpperPlatform = true;
-            }
-          } else if (
-            this.y + playerDrawSize > element.y &&
-            this.y <= element.y + element.h &&
-            this.x > element.x &&
-            this.x < element.x + element.w
-          ) {
-            // Check if the player is above this platform
-            if (element.y < lowerPlatformY) {
-              lowerPlatformY = element.y;
+              upperPlatformY = element.y;
             }
           }
-
-          break;
-        case OBSTACLE_TYPES.wall:
-          // Handle wall collision logic if needed
-          break;
-        case OBSTACLE_TYPES.corner:
-          // Handle corner collision logic if needed
-          break;
-        case OBSTACLE_TYPES.backwardSlope:
-          // Handle backward slope collision logic if needed
-          break;
-        case OBSTACLE_TYPES.forwardSlope:
-          // Handle forward slope collision logic if needed
-          break;
-        default:
           break;
       }
     });
 
-    if (onUpperPlatform) {
-      this.ground = upperPlatformY - playerDrawSize;
-    } else if (
-      this.y + playerDrawSize === upperPlatformY &&
-      !obstacleArray.some(
-        (element) =>
-          element.y === upperPlatformY &&
-          this.x > element.x &&
-          this.x < element.x + element.w
-      )
-    ) {
-      this.ground = lowerPlatformY - playerDrawSize;
-    }
+    this.ground = upperPlatformY - playerDrawSize;
 
-    if (this.y >= this.ground) {
-      this.y = this.ground;
-      this.isJumping = false;
+    // Automatically fall if no platform detected below
+    if (this.y > this.ground) {
+      this.y += this.gravity;
     }
   }
 }
