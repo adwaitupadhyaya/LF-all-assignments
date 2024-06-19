@@ -16,7 +16,7 @@ export const SPRITE = {
   },
 };
 
-const firstObstacleY = allObstacles2[0]?.y - 80;
+const firstObstacleY = allObstacles2[0]?.y - playerDrawSize;
 export const FIREBOY = {
   DIMENSIONS: {
     WIDTH: SPRITE.HEAD.WIDTH / SPRITE.HEAD.COLUMNS,

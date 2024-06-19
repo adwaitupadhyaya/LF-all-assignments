@@ -1,3 +1,4 @@
+// import { OBSTACLE_TYPES } from "./constants/obstacleTypes";
 import "./style.css";
 
 // constants
@@ -17,7 +18,7 @@ import watergirlImageLeg from "../public/images/watergirl_legs_sprite.png";
 import { Fireboy } from "./classes/Fireboy";
 import { Watergirl } from "./classes/Watergirl";
 import { Obstacle } from "./classes/Obstacles";
-import { playerDrawSize } from "./constants/constants";
+// import { playerDrawSize } from "./constants/constants";
 
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
@@ -49,7 +50,8 @@ function level1() {
   fireboy.update();
   watergirl.update();
 
-  allObstacles2.forEach((element, index) => {
+  const obstacleArray: Array<Obstacle> = [];
+  allObstacles2.forEach((element) => {
     const obstacleObj = new Obstacle(
       element.x,
       element.y,
@@ -57,38 +59,15 @@ function level1() {
       element.h,
       element.id
     );
+    obstacleArray.push(obstacleObj);
     obstacleObj.draw(ctx, element);
-    if (element === allObstacles2[1]) {
-      if (
-        fireboy.y + playerDrawSize < element.y &&
-        fireboy.x > element.x &&
-        fireboy.x < element.x + element.w
-      ) {
-        fireboy.y = element.y - playerDrawSize;
-        fireboy.ground = fireboy.y;
-        console.log("hit");
-        console.log(fireboy.x - fireboy.width / 2);
-        console.log(element.x + element.w);
-        if (fireboy.x + fireboy.width / 2 > element.x + element.w) {
-          fireboy.ground = allObstacles2[index - 1].y - playerDrawSize;
-          console.log("platform bata jharyo");
-        }
-      }
-    }
-
-    let prevDx = fireboy.dx;
-    if (element === allObstacles2[2]) {
-      if (
-        fireboy.x + playerDrawSize >= element.x &&
-        fireboy.y + playerDrawSize > element.y
-      ) {
-        fireboy.x = element.x - playerDrawSize;
-      }
-    }
   });
+  fireboy.handleCollision(obstacleArray);
 }
 
 gameLoop();
+
+// collision
 
 // Object to keep track of the current state of each key
 const keyState: { [key: string]: boolean } = {};
