@@ -15,12 +15,13 @@ import watergirlImageHeadRight from "../public/images/watergirl_sprite-right.png
 import watergirlImageLeg from "../public/images/watergirl_legs_sprite.png";
 import waterImage from "../public/images/water_pond.png";
 import fireImage from "../public/images/fire_pond.png";
+import greenImage from "../public/images/green_pond.png";
 // classes
 import { Fireboy } from "./classes/Fireboy";
 import { Watergirl } from "./classes/Watergirl";
 import { Obstacle } from "./classes/Obstacles";
 import { Pond } from "./classes/Ponds";
-import { FIREBOY, WATERGIRL } from "./constants/constants";
+import { pondCollision } from "./utils/pondCollision";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArray: Array<Obstacle> = [];
 let reqId: number;
@@ -67,7 +68,7 @@ function level1() {
   fireboy.handleCollision(obstacleArray);
   watergirl.handleCollision(obstacleArray);
 
-  // ponds
+  // initialize and draw ponds
   const bluePond = new Pond(
     CANVAS.width / 2 - 26,
     CANVAS.height - 24,
@@ -75,19 +76,6 @@ function level1() {
     14,
     waterImage
   );
-  bluePond.draw(ctx);
-  if (
-    fireboy.feetX > bluePond.x &&
-    fireboy.x < bluePond.x + 100 &&
-    fireboy.feetY > bluePond.y &&
-    fireboy.y < bluePond.y + bluePond.h
-  ) {
-    fireboy.x = FIREBOY.DIMENSIONS.INITIAL_POSITION.X;
-    fireboy.y = FIREBOY.DIMENSIONS.INITIAL_POSITION.Y;
-    watergirl.x = WATERGIRL.DIMENSIONS.INITIAL_POSITION.X;
-    watergirl.y = WATERGIRL.DIMENSIONS.INITIAL_POSITION.Y;
-  }
-
   const redPond = new Pond(
     CANVAS.width / 2 + 180,
     CANVAS.height - 24,
@@ -95,19 +83,19 @@ function level1() {
     14,
     fireImage
   );
+  const greenPond = new Pond(
+    CANVAS.width / 2 + 130,
+    CANVAS.height - 24 * 7,
+    100,
+    14,
+    greenImage
+  );
+  bluePond.draw(ctx);
   redPond.draw(ctx);
+  greenPond.draw(ctx);
 
-  if (
-    watergirl.feetX > redPond.x &&
-    watergirl.x < redPond.x + 100 &&
-    watergirl.feetY > redPond.y &&
-    watergirl.y < redPond.y + redPond.h
-  ) {
-    watergirl.x = WATERGIRL.DIMENSIONS.INITIAL_POSITION.X;
-    watergirl.y = WATERGIRL.DIMENSIONS.INITIAL_POSITION.Y;
-    fireboy.x = FIREBOY.DIMENSIONS.INITIAL_POSITION.X;
-    fireboy.y = FIREBOY.DIMENSIONS.INITIAL_POSITION.Y;
-  }
+  // handle pond collisions
+  pondCollision(fireboy, watergirl, bluePond, redPond, greenPond);
 }
 
 gameLoop();
