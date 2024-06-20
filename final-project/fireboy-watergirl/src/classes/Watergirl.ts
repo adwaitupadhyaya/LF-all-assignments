@@ -58,12 +58,6 @@ export class Watergirl extends Character {
     context.restore();
   }
 
-  update() {
-    this.applyGravity(obstacleArray);
-    this.feetX = this.x + playerDrawSize / 2;
-    this.feetY = this.y + playerDrawSize;
-  }
-
   updateWatergirlFrame() {
     this.frameY = 1;
     this.legFrameY = 1;

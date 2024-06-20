@@ -57,7 +57,6 @@ export class Fireboy extends Character {
     context.beginPath();
     context.arc(this.feetX, this.feetY, 5, 0, 2 * Math.PI); // Draw a small circle to denote the midpoint
     context.fill();
-
     context.restore();
   }
 
@@ -66,12 +65,6 @@ export class Fireboy extends Character {
     this.legFrameY = 1;
     this.frameX = (this.frameX + 1) % (this.maxFrame + 1);
     this.legFrameX = (this.legFrameX + 1) % (this.maxFrame + 1);
-  }
-
-  update() {
-    this.applyGravity(obstacleArray);
-    this.feetX = this.x + playerDrawSize / 2;
-    this.feetY = this.y + playerDrawSize;
   }
 
   resetPosition() {

@@ -28,15 +28,22 @@ export function pondCollision(
     fireboy.resetPosition();
     watergirl.resetPosition();
   }
+
   if (
-    (watergirl.feetX > greenPond.x &&
-      watergirl.feetX < greenPond.x + 100 &&
-      watergirl.feetY > greenPond.y &&
-      watergirl.feetX < greenPond.y + 14) ||
-    (fireboy.feetX > greenPond.x &&
-      fireboy.feetX < greenPond.x + 100 &&
-      fireboy.feetY > greenPond.y &&
-      fireboy.feetY < greenPond.y + 14)
+    watergirl.feetX > greenPond.x &&
+    watergirl.feetX < greenPond.x + 100 &&
+    watergirl.feetY > greenPond.y &&
+    watergirl.feetY < greenPond.y + 14
+  ) {
+    console.log("green pond  hit");
+    fireboy.resetPosition();
+    watergirl.resetPosition();
+  }
+  if (
+    fireboy.feetX > greenPond.x &&
+    fireboy.feetX < greenPond.x + 100 &&
+    fireboy.feetY > greenPond.y &&
+    fireboy.feetY < greenPond.y + 14
   ) {
     console.log("green pond  hit");
     fireboy.resetPosition();
