@@ -1,4 +1,5 @@
 import { Fireboy } from "../classes/Fireboy";
+import { Lever } from "../classes/Lever";
 import { Pond } from "../classes/Ponds";
 import { Watergirl } from "../classes/Watergirl";
 
@@ -7,7 +8,8 @@ export function pondCollision(
   watergirl: Watergirl,
   bluePond: Pond,
   redPond: Pond,
-  greenPond: Pond
+  greenPond: Pond,
+  lever: Lever
 ) {
   if (
     fireboy.feetX > bluePond.x &&
@@ -17,6 +19,7 @@ export function pondCollision(
   ) {
     fireboy.resetPosition();
     watergirl.resetPosition();
+    lever.resetLeverPlatform();
   }
 
   if (
@@ -27,6 +30,7 @@ export function pondCollision(
   ) {
     fireboy.resetPosition();
     watergirl.resetPosition();
+    lever.resetLeverPlatform();
   }
 
   if (
@@ -35,9 +39,9 @@ export function pondCollision(
     watergirl.feetY > greenPond.y &&
     watergirl.feetY < greenPond.y + 14
   ) {
-    console.log("green pond  hit");
     fireboy.resetPosition();
     watergirl.resetPosition();
+    lever.resetLeverPlatform();
   }
   if (
     fireboy.feetX > greenPond.x &&
@@ -45,8 +49,8 @@ export function pondCollision(
     fireboy.feetY > greenPond.y &&
     fireboy.feetY < greenPond.y + 14
   ) {
-    console.log("green pond  hit");
     fireboy.resetPosition();
     watergirl.resetPosition();
+    lever.resetLeverPlatform();
   }
 }

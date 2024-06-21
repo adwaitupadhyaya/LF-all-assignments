@@ -1,0 +1,9 @@
+type DIMENSIONS = {
+  CANVAS_WIDTH: number;
+  CANVAS_HEIGHT: number;
+};
+
+export const DIMENSIONS: DIMENSIONS = {
+  CANVAS_WIDTH: 700,
+  CANVAS_HEIGHT: 700,
+};

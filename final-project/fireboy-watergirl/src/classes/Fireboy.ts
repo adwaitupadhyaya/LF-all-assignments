@@ -1,11 +1,9 @@
 import { Character } from "./Character";
 import { FIREBOY, playerDrawSize } from "../constants/constants";
-import { obstacleArray } from "../main";
 
 export class Fireboy extends Character {
   width: number;
   height: number;
-
   constructor(spriteHead: string, spriteLeg: string) {
     super(
       FIREBOY.DIMENSIONS.INITIAL_POSITION.X,

@@ -1,0 +1,19 @@
+{
+  "name": "node_ts",
+  "version": "1.0.0",
+  "description": "learning node",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Adwait Upadhyaya <adwait627@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
