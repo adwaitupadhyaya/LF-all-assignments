@@ -132,7 +132,7 @@ export const allObstacles2 = [
     y: 23 * 11.5,
     w: 23 * 7,
     h: 23 * 2,
-    id: OBSTACLE_TYPES.corner,
+    id: OBSTACLE_TYPES.floor,
   },
   {
     x: CANVAS.width - 23 * 12,
@@ -146,7 +146,7 @@ export const allObstacles2 = [
     y: 23 * 9.5,
     w: 25 * 7,
     h: 23 * 2,
-    id: OBSTACLE_TYPES.corner,
+    id: OBSTACLE_TYPES.floor,
   },
   {
     x: 25 * 6,
@@ -160,7 +160,7 @@ export const allObstacles2 = [
     y: 24 * 7.1,
     w: 25 * 5,
     h: 22.5 * 4,
-    id: OBSTACLE_TYPES.corner,
+    id: OBSTACLE_TYPES.floor,
   },
   {
     x: 25.5 * 9,

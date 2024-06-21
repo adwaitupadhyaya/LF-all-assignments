@@ -1,8 +1,7 @@
-import { Fireboy } from "../classes/Fireboy";
+import { Fireboy } from "../classes/fireboy";
 import { Lever } from "../classes/Lever";
 import { Pond } from "../classes/Ponds";
 import { Watergirl } from "../classes/Watergirl";
-
 export function pondCollision(
   fireboy: Fireboy,
   watergirl: Watergirl,

@@ -1,4 +1,4 @@
-import { Character } from "./Character";
+import { Character } from "./character";
 import { WATERGIRL, playerDrawSize } from "../constants/constants";
 
 export class Watergirl extends Character {
@@ -21,7 +21,6 @@ export class Watergirl extends Character {
 
   draw(context: CanvasRenderingContext2D) {
     context.save();
-
     context.drawImage(
       this.spriteHead,
       this.frameX * WATERGIRL.DIMENSIONS.WIDTH,
@@ -50,9 +49,9 @@ export class Watergirl extends Character {
     );
 
     // Draw the midpoint
-    context.fillStyle = "white"; // Color of the midpoint
+    context.fillStyle = "blue";
     context.beginPath();
-    context.arc(this.feetX, this.feetY, 5, 0, 2 * Math.PI); // Draw a small circle to denote the midpoint
+    context.arc(this.feetX, this.feetY, 5, 0, 2 * Math.PI);
     context.fill();
     context.restore();
   }

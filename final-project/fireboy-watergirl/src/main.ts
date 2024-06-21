@@ -1,8 +1,8 @@
-import { LEVER } from "./constants/lever_dimensions";
 // import { OBSTACLE_TYPES } from "./constants/obstacleTypes";
 import "./style.css";
 
 // constants
+import { LEVER } from "./constants/leverDimensions";
 import { CANVAS } from "./constants/canvasDimensions";
 import { allObstacles2 } from "./constants/obstaclePoints";
 // sprites
@@ -18,13 +18,16 @@ import waterImage from "../public/images/water_pond.png";
 import fireImage from "../public/images/fire_pond.png";
 import greenImage from "../public/images/green_pond.png";
 import leverRight from "../public/images/leverRight.png";
+import buttonImage from "../public/images/button.png";
 // classes
-import { Fireboy } from "./classes/Fireboy";
+import { Fireboy } from "./classes/fireboy";
 import { Watergirl } from "./classes/Watergirl";
 import { Obstacle } from "./classes/Obstacles";
 import { Pond } from "./classes/Ponds";
 import { pondCollision } from "./utils/pondCollision";
 import { Lever } from "./classes/Lever";
+import { Button } from "./classes/button";
+import { BUTTON } from "./constants/buttonDimensions";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArray: Array<Obstacle> = [];
 let reqId: number;
@@ -33,14 +36,30 @@ const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
+allObstacles2.forEach((element) => {
+  const obstacleObj = new Obstacle(
+    element.x,
+    element.y,
+    element.w,
+    element.h,
+    element.id
+  );
+  obstacleArray.push(obstacleObj);
+  obstacleObj.draw(ctx, element);
+});
 
 const backgroundImage = new Image();
 backgroundImage.src = bg;
 
 const fireboy = new Fireboy(fireboyImageHead, fireboyImageLeg);
 const watergirl = new Watergirl(watergirlImageHead, watergirlImageLeg);
-
 const lever = new Lever(LEVER.leverPlatform, LEVER.leverController, leverRight);
+const button = new Button(
+  BUTTON.button1,
+  BUTTON.button2,
+  buttonImage,
+  BUTTON.buttonPlatform
+);
 
 function gameLoop() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
@@ -56,22 +75,15 @@ function level1() {
   watergirl.draw(ctx);
   lever.draw(ctx);
   lever.checkLeverCollision(fireboy, watergirl);
+  button.draw(ctx);
+  button.checkButtonCollision(fireboy, watergirl);
+  button.handleButtonPlatform(fireboy, watergirl);
+  button.updateButtonPosition(fireboy);
+  button.updateButtonPosition(watergirl);
 
   // Update character positions and handle collisions
   fireboy.update();
   watergirl.update();
-
-  allObstacles2.forEach((element) => {
-    const obstacleObj = new Obstacle(
-      element.x,
-      element.y,
-      element.w,
-      element.h,
-      element.id
-    );
-    obstacleArray.push(obstacleObj);
-    obstacleObj.draw(ctx, element);
-  });
   fireboy.handleCollision(obstacleArray);
   watergirl.handleCollision(obstacleArray);
 
@@ -145,9 +157,6 @@ window.addEventListener("keyup", (event) => {
       watergirl.frameX = 0;
       watergirl.legFrameX = 0;
       break;
-    // case "w":
-    //   fireboy.frameY = 0;
-    //   break;
     default:
       break;
   }

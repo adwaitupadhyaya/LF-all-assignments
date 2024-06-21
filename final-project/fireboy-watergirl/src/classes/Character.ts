@@ -22,7 +22,7 @@ export class Character {
   ground: number;
   feetX: number;
   feetY: number;
-
+  onPlatform: boolean;
   constructor(
     x: number,
     y: number,
@@ -52,6 +52,7 @@ export class Character {
     this.ground = y;
     this.feetX = this.x + playerDrawSize / 2;
     this.feetY = this.y + playerDrawSize;
+    this.onPlatform = false;
   }
 
   jump() {
@@ -68,7 +69,7 @@ export class Character {
 
     // Check for collision with platforms
     let lowerPlatformY = Infinity;
-    let onPlatform = false;
+    let onPlatformButton = false;
 
     obstacleArray.forEach((element) => {
       if (
@@ -78,12 +79,12 @@ export class Character {
       ) {
         if (element.y < lowerPlatformY) {
           lowerPlatformY = element.y;
-          onPlatform = true;
+          onPlatformButton = true;
         }
       }
     });
 
-    if (onPlatform) {
+    if (onPlatformButton) {
       this.ground = lowerPlatformY - playerDrawSize;
     }
 

@@ -1,8 +1,10 @@
-import { Fireboy } from "./Fireboy";
+/* The Lever class manages a lever object that can be interacted with by Fireboy and Watergirl
+characters in a game. */
+import { Fireboy } from "./fireboy";
 import { Watergirl } from "./Watergirl";
 import leverLeft from "../../public/images/leverLeft.png";
 import leverRight from "../../public/images/leverRight.png";
-import { LEVER } from "../constants/lever_dimensions";
+import { LEVER } from "../constants/leverDimensions";
 import { Obstacle } from "./Obstacles";
 import { CANVAS } from "../constants/canvasDimensions";
 const targetY = LEVER.leverPlatform.y + 90;
@@ -32,7 +34,13 @@ export class Lever {
     this.leverImage.src = lever;
     this.isActive = false;
   }
-
+  /**
+   * The draw function in TypeScript sets the fill style to white, fills a rectangle, and draws an image
+   * on a canvas context.
+   * @param {CanvasRenderingContext2D} ctx - CanvasRenderingContext2D is a built-in HTML5 object that
+   * provides a 2D rendering context for the drawing surface of a <canvas> element. It is used to draw
+   * shapes, text, images, and other objects onto the canvas.
+   */
   draw(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "white";
     ctx.fillRect(
@@ -51,9 +59,18 @@ export class Lever {
     );
   }
 
+  /**
+   * The function `checkLeverCollision` checks for collision between Fireboy and Watergirl with a lever
+   * controller and triggers certain actions if a collision is detected.
+   * @param {Fireboy} fireboy - The `fireboy` parameter represents an object of the `Fireboy` class,
+   * which likely contains properties such as `x`, `y`, `width`, and `height` to define its position and
+   * dimensions on the game screen.
+   * @param {Watergirl} watergirl - Watergirl is an object representing a character or entity in a game,
+   * likely a player character, with properties such as x and y coordinates, width, height, and methods
+   * like handleCollision. In the provided function, the checkLeverCollision function checks for
+   * collision between Watergirl and a leverController object
+   */
   checkLeverCollision(fireboy: Fireboy, watergirl: Watergirl) {
-    const leverPlatformArray = [];
-    leverPlatformArray.push(this.leverPlatform);
     if (
       fireboy.x < this.leverController.x + this.leverController.w &&
       fireboy.x + fireboy.width > this.leverController.x &&
@@ -63,7 +80,7 @@ export class Lever {
       this.isActive = true;
       this.leverImage.src = leverLeft;
       this.updatePlatformPosition();
-      fireboy.handleCollision(leverPlatformArray);
+      fireboy.handleCollision([this.leverPlatform]);
     }
     if (
       watergirl.x < this.leverController.x + this.leverController.w &&
@@ -74,13 +91,15 @@ export class Lever {
       this.isActive = true;
       this.leverImage.src = leverLeft;
       this.updatePlatformPosition();
-      watergirl.handleCollision(leverPlatformArray);
+      watergirl.handleCollision([this.leverPlatform]);
     }
   }
 
   updatePlatformPosition() {
-    if (this.leverPlatform.y < targetY) {
-      this.leverPlatform.y++;
+    if (this.isActive) {
+      if (this.leverPlatform.y < targetY) {
+        this.leverPlatform.y++;
+      }
     }
   }
 

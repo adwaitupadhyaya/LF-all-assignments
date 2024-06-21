@@ -1,9 +1,10 @@
-import { Character } from "./Character";
+import { Character } from "./character";
 import { FIREBOY, playerDrawSize } from "../constants/constants";
 
 export class Fireboy extends Character {
   width: number;
   height: number;
+
   constructor(spriteHead: string, spriteLeg: string) {
     super(
       FIREBOY.DIMENSIONS.INITIAL_POSITION.X,
@@ -16,9 +17,6 @@ export class Fireboy extends Character {
 
     this.width = FIREBOY.DIMENSIONS.WIDTH;
     this.height = FIREBOY.DIMENSIONS.HEIGHT;
-
-    // Set the ground level to the initial y position
-    this.ground = FIREBOY.DIMENSIONS.INITIAL_POSITION.Y;
   }
 
   draw(context: CanvasRenderingContext2D) {
@@ -34,8 +32,7 @@ export class Fireboy extends Character {
       playerDrawSize,
       playerDrawSize
     );
-
-    context.strokeStyle = "red";
+    context.strokeStyle = "blue";
     context.strokeRect(this.x, this.y, playerDrawSize, playerDrawSize);
 
     // Draw legs
@@ -51,9 +48,10 @@ export class Fireboy extends Character {
       FIREBOY.LEGS.HEIGHT
     );
 
-    context.fillStyle = "red"; // Color of the midpoint
+    // Draw the midpoint
+    context.fillStyle = "blue";
     context.beginPath();
-    context.arc(this.feetX, this.feetY, 5, 0, 2 * Math.PI); // Draw a small circle to denote the midpoint
+    context.arc(this.feetX, this.feetY, 5, 0, 2 * Math.PI);
     context.fill();
     context.restore();
   }
