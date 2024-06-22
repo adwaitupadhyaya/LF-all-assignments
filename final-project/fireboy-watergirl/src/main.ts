@@ -5,6 +5,7 @@ import "./style.css";
 import { LEVER } from "./constants/leverDimensions";
 import { CANVAS } from "./constants/canvasDimensions";
 import { allObstacles2 } from "./constants/obstaclePoints";
+
 // sprites
 import bg from "/images/bg.png";
 import level1img from "/images/level1.png";
@@ -19,6 +20,10 @@ import fireImage from "../public/images/fire_pond.png";
 import greenImage from "../public/images/green_pond.png";
 import leverRight from "../public/images/leverRight.png";
 import buttonImage from "../public/images/button.png";
+import redDoorImage from "../public/images/red_door.png";
+import blueDoorImage from "../public/images/blue_door.png";
+import level2img from "/images/level2.png";
+
 // classes
 import { Fireboy } from "./classes/fireboy";
 import { Watergirl } from "./classes/Watergirl";
@@ -28,8 +33,10 @@ import { pondCollision } from "./utils/pondCollision";
 import { Lever } from "./classes/Lever";
 import { Button } from "./classes/button";
 import { BUTTON } from "./constants/buttonDimensions";
+import { DOOR } from "./constants/doorPositions";
+import { Door } from "./classes/door";
 // import { playerDrawSize } from "./constants/constants";
-export const obstacleArray: Array<Obstacle> = [];
+export const obstacleArrayLevel1: Array<Obstacle> = [];
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
@@ -44,8 +51,7 @@ allObstacles2.forEach((element) => {
     element.h,
     element.id
   );
-  obstacleArray.push(obstacleObj);
-  obstacleObj.draw(ctx, element);
+  obstacleArrayLevel1.push(obstacleObj);
 });
 
 const backgroundImage = new Image();
@@ -60,17 +66,25 @@ const button = new Button(
   buttonImage,
   BUTTON.buttonPlatform
 );
+const doors = new Door(DOOR.DOOR1, DOOR.DOOR2, redDoorImage, blueDoorImage);
 
 function gameLoop() {
-  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  level1();
+  let is1Complete = level1();
+
+  if (is1Complete) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    level2();
+  }
   requestAnimationFrame(gameLoop);
 }
 
 function level1() {
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   const level1Image = new Image();
   level1Image.src = level1img;
   ctx.drawImage(level1Image, 0, 0, canvas.width, canvas.height);
+  doors.draw(ctx);
+
   fireboy.draw(ctx);
   watergirl.draw(ctx);
   lever.draw(ctx);
@@ -84,8 +98,8 @@ function level1() {
   // Update character positions and handle collisions
   fireboy.update();
   watergirl.update();
-  fireboy.handleCollision(obstacleArray);
-  watergirl.handleCollision(obstacleArray);
+  fireboy.handleCollision(obstacleArrayLevel1);
+  watergirl.handleCollision(obstacleArrayLevel1);
 
   // initialize and draw ponds
   const bluePond = new Pond(
@@ -115,6 +129,17 @@ function level1() {
 
   // handle pond collisions
   pondCollision(fireboy, watergirl, bluePond, redPond, greenPond, lever);
+
+  let isCompleted = doors.checkDoorCollision(fireboy, watergirl);
+
+  return isCompleted;
+}
+
+function level2() {
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  const level2Image = new Image();
+  level2Image.src = level2img;
+  ctx.drawImage(level2Image, 0, 0, canvas.width, canvas.height);
 }
 
 gameLoop();

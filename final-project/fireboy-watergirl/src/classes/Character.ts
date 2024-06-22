@@ -1,6 +1,6 @@
 import { playerDrawSize } from "../constants/constants";
 import { OBSTACLE_TYPES } from "../constants/obstacleTypes";
-import { obstacleArray } from "../main";
+import { obstacleArrayLevel1 } from "../main";
 import { Obstacle } from "./Obstacles";
 
 export class Character {
@@ -135,7 +135,7 @@ export class Character {
   }
 
   update() {
-    this.applyGravity(obstacleArray);
+    this.applyGravity(obstacleArrayLevel1);
     this.feetX = this.x + playerDrawSize / 2;
     this.feetY = this.y + playerDrawSize;
   }
