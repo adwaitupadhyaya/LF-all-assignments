@@ -28,11 +28,11 @@ import launchpadImg from "/images/launchpad.png";
 
 // classes
 import { Fireboy } from "./classes/fireboy";
-import { Watergirl } from "./classes/Watergirl";
-import { Obstacle } from "./classes/Obstacles";
+import { Watergirl } from "./classes/watergirl";
+import { Obstacle } from "./classes/obstacles";
 import { Pond } from "./classes/Ponds";
 import { pondCollision } from "./utils/pondCollision";
-import { Lever } from "./classes/Lever";
+import { Lever } from "./classes/lever";
 import { Button } from "./classes/button";
 import { BUTTON_LEVEL_1, BUTTON_LEVEL_2 } from "./constants/buttonDimensions";
 import { DOOR, DOOR_LEVEL_2 } from "./constants/doorPositions";
@@ -49,7 +49,7 @@ export const obstacleArrayLevel2: Array<Obstacle> = [];
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 3;
+let currentLevel = 1;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;

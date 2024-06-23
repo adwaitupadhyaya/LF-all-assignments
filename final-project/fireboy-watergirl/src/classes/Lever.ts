@@ -1,11 +1,11 @@
 /* The Lever class manages a lever object that can be interacted with by Fireboy and Watergirl
 characters in a game. */
 import { Fireboy } from "./fireboy";
-import { Watergirl } from "./Watergirl";
+import { Watergirl } from "./watergirl";
 import leverLeft from "../../public/images/leverLeft.png";
 import leverRight from "../../public/images/leverRight.png";
 import { LEVER } from "../constants/leverDimensions";
-import { Obstacle } from "./Obstacles";
+import { Obstacle } from "./obstacles";
 import { CANVAS } from "../constants/canvasDimensions";
 const targetY = LEVER.leverPlatform.y + 90;
 export class Lever {

@@ -1,4 +1,4 @@
-import { allObstacles1, allObstacles2 } from "./obstaclePoints";
+import { CANVAS } from "./canvasDimensions";
 export const playerDrawSize = 80;
 
 export const SPRITE = {
@@ -16,15 +16,13 @@ export const SPRITE = {
   },
 };
 
-const firstObstacleY = allObstacles1[0]?.y - playerDrawSize;
-const secondObstacleY = allObstacles1[1]?.y - playerDrawSize;
 export const FIREBOY = {
   DIMENSIONS: {
     WIDTH: SPRITE.HEAD.WIDTH / SPRITE.HEAD.COLUMNS,
     HEIGHT: SPRITE.HEAD.HEIGHT / SPRITE.HEAD.ROWS,
     INITIAL_POSITION: {
       X: 40,
-      Y: firstObstacleY,
+      Y: CANVAS.height - 150,
     },
     SPEED: {
       DX: 2.5,
@@ -43,7 +41,7 @@ export const WATERGIRL = {
     HEIGHT: SPRITE.HEAD.HEIGHT / SPRITE.HEAD.ROWS,
     INITIAL_POSITION: {
       X: 80,
-      Y: secondObstacleY,
+      Y: CANVAS.height - 200,
     },
     SPEED: {
       DX: 2.5,

@@ -32,9 +32,6 @@ export class Watergirl extends Character {
       playerDrawSize,
       playerDrawSize
     );
-    context.strokeStyle = "blue";
-    context.strokeRect(this.x, this.y, playerDrawSize, playerDrawSize);
-
     // Draw legs
     context.drawImage(
       this.spriteLeg,

@@ -1,4 +1,4 @@
-import { Obstacle } from "../classes/Obstacles";
+import { Obstacle } from "../classes/obstacles";
 import { OBSTACLE_TYPES } from "../constants/obstacleTypes";
 import { playerDrawSize } from "../constants/constants";
 import { Character } from "../classes/character";

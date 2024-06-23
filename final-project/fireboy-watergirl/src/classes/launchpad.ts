@@ -1,5 +1,5 @@
 import { SWOOSH } from "../constants/launchpadDimensions";
-import { Watergirl } from "./Watergirl";
+import { Watergirl } from "./watergirl";
 import { Fireboy } from "./fireboy";
 import swooshImg from "/images/swoosh.png";
 const playerTarget = SWOOSH.y;

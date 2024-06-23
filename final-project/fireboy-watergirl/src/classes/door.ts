@@ -1,4 +1,4 @@
-import { Watergirl } from "./Watergirl";
+import { Watergirl } from "./watergirl";
 import { Fireboy } from "./fireboy";
 
 export class Door {

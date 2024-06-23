@@ -1,7 +1,7 @@
 import { playerDrawSize } from "../constants/constants";
 import { OBSTACLE_TYPES } from "../constants/obstacleTypes";
 import { obstacleArrayLevel1 } from "../main";
-import { Obstacle } from "./Obstacles";
+import { Obstacle } from "./obstacles";
 
 export class Character {
   x: number;
@@ -102,9 +102,9 @@ export class Character {
       switch (element.id) {
         case OBSTACLE_TYPES.floor:
           if (
-            this.y + playerDrawSize <= element.y &&
-            this.x > element.x &&
-            this.x < element.x + element.w
+            this.feetY <= element.y &&
+            this.feetX > element.x &&
+            this.feetX < element.x + element.w
           ) {
             if (element.y < upperPlatformY) {
               upperPlatformY = element.y;
