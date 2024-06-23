@@ -8,6 +8,8 @@ import { Character } from "./character";
 import { Fireboy } from "./fireboy";
 const targetY = BUTTON_LEVEL_1.buttonPlatform.y + 90;
 const targetX = BUTTON_LEVEL_2.buttonPlatform.x - 90;
+/* The Button class in TypeScript defines properties and methods for handling button interactions and
+collisions in a game environment. */
 export class Button {
   isPressed: boolean;
   firstButton: {
@@ -39,6 +41,14 @@ export class Button {
     this.isPressed = false;
   }
 
+  /**
+   * The draw function in TypeScript sets the fill style to purple, fills a rectangle, and draws two
+   * images on a canvas context.
+   * @param {CanvasRenderingContext2D} ctx - The `ctx` parameter in the `draw` function is of type
+   * `CanvasRenderingContext2D`, which is a built-in HTML5 object that provides a 2D rendering context
+   * for the drawing surface of a `<canvas>` element. This parameter is used to draw shapes, text, and
+   * images on
+   */
   draw(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "purple";
     ctx.fillRect(

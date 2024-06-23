@@ -32,8 +32,6 @@ export class Fireboy extends Character {
       playerDrawSize,
       playerDrawSize
     );
-    context.strokeStyle = "blue";
-    context.strokeRect(this.x, this.y, playerDrawSize, playerDrawSize);
 
     // Draw legs
     context.drawImage(
