@@ -1,6 +1,7 @@
 import { CANVAS } from "./canvasDimensions";
 import { OBSTACLE_TYPES } from "./obstacleTypes";
-export const allObstacles2 = [
+
+export const allObstacles1 = [
   {
     x: 23,
     y: CANVAS.height - 23,
@@ -230,6 +231,150 @@ export const allObstacles2 = [
     y: 25 * 6,
     w: 23 * 8,
     h: 23,
+    id: OBSTACLE_TYPES.floor,
+  },
+];
+
+export const allObstacles2 = [
+  {
+    x: 23,
+    y: CANVAS.height - 23,
+    w: CANVAS.width,
+    h: 23,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 23.5 * 7,
+    y: CANVAS.height - 28 * 3,
+    w: 24 * 9,
+    h: 12,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 23.5 * 24,
+    y: CANVAS.height - 28 * 3,
+    w: 24 * 9,
+    h: 12,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 25 * 4,
+    y: CANVAS.height - 28 * 3,
+    w: 24 * 4,
+    h: 24 * 3,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 30 * 3,
+    y: CANVAS.height - 24 * 4.5,
+    w: 24,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 30 * 2,
+    y: CANVAS.height - 24 * 5,
+    w: 24 * 2,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 25 * 4,
+    y: CANVAS.height - 24 * 8,
+    w: 24 * 32,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24,
+    y: CANVAS.height - 24 * 11,
+    w: 24 * 3,
+    h: 24 * 3,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24 * 6.5,
+    y: 25 * 15.5,
+    w: 24 * 2,
+    h: 22,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24 * 8.7,
+    y: 26 * 15.2,
+    w: 24 * 8,
+    h: 11,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24 * 10,
+    y: 24 * 7 + 120,
+    w: 24 * 6,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24 * 24.5,
+    y: 24 * 7 + 120,
+    w: 24 * 6,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24 * 18.3,
+    y: 24 * 15,
+    w: 24 * 5,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+
+  {
+    x: 24 * 23.7,
+    y: 26 * 15.2,
+    w: 24 * 8,
+    h: 11,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 24 * 9.5,
+    y: 26 * 15,
+    w: 24 * 3,
+    h: 18,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 24 * 6.5,
+    y: 25 * 12.5,
+    w: 24 * 3,
+    h: 24 * 3,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 24 * 4.2,
+    y: 25 * 9.8,
+    w: 24 * 3,
+    h: 24 * 3,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width - 24 * 9.5,
+    y: 24 * 7,
+    w: 24 * 4,
+    h: 24,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: CANVAS.width / 2 + 24 * 3,
+    y: 24 * 5.15,
+    w: 24 * 9,
+    h: 21,
+    id: OBSTACLE_TYPES.floor,
+  },
+  {
+    x: 24,
+    y: 24 * 5.15,
+    w: 24 * 17,
+    h: 21,
     id: OBSTACLE_TYPES.floor,
   },
 ];

@@ -66,5 +66,7 @@ export class Fireboy extends Character {
   resetPosition() {
     this.x = FIREBOY.DIMENSIONS.INITIAL_POSITION.X;
     this.y = FIREBOY.DIMENSIONS.INITIAL_POSITION.Y;
+    this.feetX = this.x + playerDrawSize / 2;
+    this.feetY = this.y + playerDrawSize;
   }
 }

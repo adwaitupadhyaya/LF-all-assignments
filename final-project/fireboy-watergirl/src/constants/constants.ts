@@ -1,4 +1,4 @@
-import { allObstacles2 } from "./obstaclePoints";
+import { allObstacles1, allObstacles2 } from "./obstaclePoints";
 export const playerDrawSize = 80;
 
 export const SPRITE = {
@@ -16,8 +16,8 @@ export const SPRITE = {
   },
 };
 
-const firstObstacleY = allObstacles2[0]?.y - playerDrawSize;
-const secondObstacleY = allObstacles2[1]?.y - playerDrawSize;
+const firstObstacleY = allObstacles1[0]?.y - playerDrawSize;
+const secondObstacleY = allObstacles1[1]?.y - playerDrawSize;
 export const FIREBOY = {
   DIMENSIONS: {
     WIDTH: SPRITE.HEAD.WIDTH / SPRITE.HEAD.COLUMNS,

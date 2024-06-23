@@ -25,7 +25,7 @@ export class Obstacle {
       ctx.stroke();
     } else {
       // ctx.globalAlpha = 0;
-      ctx.fillStyle = "rgba(255, 255, 255, 0)";
+      ctx.fillStyle = "rgba(255, 255, 255)";
       ctx.fillRect(this.x, this.y, this.w, this.h);
     }
   }
