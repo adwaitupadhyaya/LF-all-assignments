@@ -70,7 +70,6 @@ export class Button {
       fireboy.feetY < this.firstButton.y + this.firstButton.h &&
       fireboy.feetY > this.firstButton.y
     ) {
-      console.log(`fireboy on first button`);
       this.isPressed = true;
     } else if (
       watergirl.feetX < this.firstButton.x + this.firstButton.w &&
@@ -78,7 +77,6 @@ export class Button {
       watergirl.feetY < this.firstButton.y + this.firstButton.h &&
       watergirl.feetY > this.firstButton.y
     ) {
-      console.log(`Watergirl on first button`);
       this.isPressed = true;
     } else if (
       fireboy.feetX < this.secondButton.x + this.secondButton.w &&
@@ -86,7 +84,6 @@ export class Button {
       fireboy.feetY < this.secondButton.y + this.secondButton.h &&
       fireboy.feetY > this.secondButton.y
     ) {
-      console.log(`fireboy on secondButton button`);
       this.isPressed = true;
     } else if (
       watergirl.feetX < this.secondButton.x + this.secondButton.w &&
@@ -94,7 +91,6 @@ export class Button {
       watergirl.feetY < this.secondButton.y + this.secondButton.h &&
       watergirl.feetY > this.secondButton.y
     ) {
-      console.log(`WATERGIRL on secondButton button`);
       this.isPressed = true;
     } else {
       this.isPressed = false;
@@ -110,9 +106,6 @@ export class Button {
       if (this.buttonPlatform.y < targetY) {
         this.buttonPlatform.y++;
         if (player.onPlatform) {
-          console.log(
-            `${player.constructor.name} ground updated to: ${this.buttonPlatform.y}`
-          );
           player.ground = this.buttonPlatform.y;
         }
       }
@@ -134,9 +127,6 @@ export class Button {
     if (this.buttonPlatform.y > CANVAS.height / 2 - 80) {
       this.buttonPlatform.y--;
       if (player.onPlatform) {
-        console.log(
-          `${player.constructor.name} ground reset to: ${this.buttonPlatform.y}`
-        );
         player.ground = this.buttonPlatform.y;
         player.y = this.buttonPlatform.y - playerDrawSize;
       }
@@ -147,9 +137,6 @@ export class Button {
     if (this.buttonPlatform.x < BUTTON_LEVEL_2.button2.x - 200) {
       this.buttonPlatform.x++;
       if (player.onPlatform) {
-        console.log(
-          `${player.constructor.name} ground reset to: ${this.buttonPlatform.y}`
-        );
         player.ground = this.buttonPlatform.y - playerDrawSize;
       }
     }

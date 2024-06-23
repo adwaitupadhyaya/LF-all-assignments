@@ -67,7 +67,6 @@ export class Door {
       watergirl.feetY < this.blueDoor.y + this.blueDoor.h &&
       watergirl.feetY > this.blueDoor.y
     ) {
-      console.log("level completed");
       return true;
     } else {
       return false;

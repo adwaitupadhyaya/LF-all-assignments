@@ -16,7 +16,6 @@ export const buttonPlatformDetect = (
           player.x < element.x + element.w
         ) {
           if (element.y < upperPlatformY) {
-            console.log(`${player.constructor.name} on platform`);
             upperPlatformY = element.y;
             player.onPlatform = true;
             player.ground = upperPlatformY - playerDrawSize;

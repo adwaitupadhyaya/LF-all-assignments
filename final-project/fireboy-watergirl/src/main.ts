@@ -24,6 +24,7 @@ import redDoorImage from "../public/images/red_door.png";
 import blueDoorImage from "../public/images/blue_door.png";
 import level2img from "/images/level2.png";
 import woodImage from "/images/wood.png";
+import launchpadImg from "/images/launchpad.png";
 
 // classes
 import { Fireboy } from "./classes/fireboy";
@@ -34,11 +35,13 @@ import { pondCollision } from "./utils/pondCollision";
 import { Lever } from "./classes/Lever";
 import { Button } from "./classes/button";
 import { BUTTON_LEVEL_1, BUTTON_LEVEL_2 } from "./constants/buttonDimensions";
-import { DOOR } from "./constants/doorPositions";
+import { DOOR, DOOR_LEVEL_2 } from "./constants/doorPositions";
 import { Door } from "./classes/door";
 import { WOOD } from "./constants/woodPosition";
 import { level1Ponds, level2Ponds } from "./constants/pondPositions";
 import { pondCollisionLevel2 } from "./utils/pondCollisionLevel2";
+import { Launchpad } from "./classes/launchpad";
+import { LAUNCHPAD } from "./constants/launchpadDimensions";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
@@ -46,7 +49,7 @@ export const obstacleArrayLevel2: Array<Obstacle> = [];
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 2;
+let currentLevel = 3;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -99,6 +102,21 @@ const doorsLevel1 = new Door(
   blueDoorImage
 );
 
+const doorsLevel2 = new Door(
+  DOOR_LEVEL_2.DOOR1,
+  DOOR_LEVEL_2.DOOR2,
+  redDoorImage,
+  blueDoorImage
+);
+
+const launchpad = new Launchpad(
+  LAUNCHPAD.x,
+  LAUNCHPAD.y,
+  LAUNCHPAD.w,
+  LAUNCHPAD.h,
+  launchpadImg
+);
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -110,12 +128,20 @@ function gameLoop() {
       watergirl.resetPosition();
     }
   } else if (currentLevel === 2) {
-    level2();
+    let is2completed = level2();
+    if (is2completed) {
+      currentLevel = 3;
+      fireboy.resetPosition();
+      watergirl.resetPosition();
+    }
+  } else if (currentLevel === 3) {
+    level3();
   }
 
   requestAnimationFrame(gameLoop);
 }
 
+// levels (export to classes when refactoring)
 function level1() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   const level1Image = new Image();
@@ -168,9 +194,9 @@ function level1() {
   // handle pond collisions
   pondCollision(fireboy, watergirl, bluePond, redPond, greenPond, lever);
 
-  let isCompleted = doorsLevel1.checkDoorCollision(fireboy, watergirl);
+  let is1Completed = doorsLevel1.checkDoorCollision(fireboy, watergirl);
 
-  return isCompleted;
+  return is1Completed;
 }
 
 function level2() {
@@ -178,6 +204,7 @@ function level2() {
   const level2Image = new Image();
   level2Image.src = level2img;
   ctx.drawImage(level2Image, 0, 0, canvas.width, canvas.height);
+  doorsLevel2.draw(ctx);
 
   fireboy.draw(ctx);
   watergirl.draw(ctx);
@@ -268,6 +295,26 @@ function level2() {
   buttonLevel2.handleButtonPlatform(fireboy, watergirl);
   buttonLevel2.updateButtonHorizontal(fireboy);
   buttonLevel2.updateButtonHorizontal(watergirl);
+
+  launchpad.draw(ctx);
+  launchpad.checkSwooshPosition(fireboy);
+  launchpad.checkSwooshPosition(watergirl);
+
+  let is2Completed = doorsLevel2.checkDoorCollision(fireboy, watergirl);
+
+  return is2Completed;
+}
+
+function level3() {
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  const level3Image = new Image();
+  level3Image.src = level2img;
+  ctx.drawImage(level3Image, 0, 0, canvas.width, canvas.height);
+
+  fireboy.draw(ctx);
+  watergirl.draw(ctx);
+  fireboy.update();
+  watergirl.update();
 }
 
 gameLoop();

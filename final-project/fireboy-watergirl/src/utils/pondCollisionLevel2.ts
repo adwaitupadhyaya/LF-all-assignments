@@ -21,7 +21,6 @@ export function pondCollisionLevel2(
       fireboy.feetY > bluePond2.y &&
       fireboy.feetY < bluePond2.y + bluePond2.h)
   ) {
-    console.log("blue pond hit");
     fireboy.resetPosition();
     watergirl.resetPosition();
   }
