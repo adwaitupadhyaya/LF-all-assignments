@@ -33,7 +33,7 @@ import { Pond } from "./classes/Ponds";
 import { pondCollision } from "./utils/pondCollision";
 import { Lever } from "./classes/Lever";
 import { Button } from "./classes/button";
-import { BUTTON } from "./constants/buttonDimensions";
+import { BUTTON_LEVEL_1, BUTTON_LEVEL_2 } from "./constants/buttonDimensions";
 import { DOOR } from "./constants/doorPositions";
 import { Door } from "./classes/door";
 import { WOOD } from "./constants/woodPosition";
@@ -79,13 +79,25 @@ backgroundImage.src = bg;
 const fireboy = new Fireboy(fireboyImageHead, fireboyImageLeg);
 const watergirl = new Watergirl(watergirlImageHead, watergirlImageLeg);
 const lever = new Lever(LEVER.leverPlatform, LEVER.leverController, leverRight);
-const button = new Button(
-  BUTTON.button1,
-  BUTTON.button2,
+const buttonLevel1 = new Button(
+  BUTTON_LEVEL_1.button1,
+  BUTTON_LEVEL_1.button2,
   buttonImage,
-  BUTTON.buttonPlatform
+  BUTTON_LEVEL_1.buttonPlatform
 );
-const doors = new Door(DOOR.DOOR1, DOOR.DOOR2, redDoorImage, blueDoorImage);
+const buttonLevel2 = new Button(
+  BUTTON_LEVEL_2.button1,
+  BUTTON_LEVEL_2.button2,
+  buttonImage,
+  BUTTON_LEVEL_2.buttonPlatform
+);
+
+const doorsLevel1 = new Door(
+  DOOR.DOOR1,
+  DOOR.DOOR2,
+  redDoorImage,
+  blueDoorImage
+);
 
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -109,17 +121,17 @@ function level1() {
   const level1Image = new Image();
   level1Image.src = level1img;
   ctx.drawImage(level1Image, 0, 0, canvas.width, canvas.height);
-  doors.draw(ctx);
+  doorsLevel1.draw(ctx);
 
   fireboy.draw(ctx);
   watergirl.draw(ctx);
   lever.draw(ctx);
   lever.checkLeverCollision(fireboy, watergirl);
-  button.draw(ctx);
-  button.checkButtonCollision(fireboy, watergirl);
-  button.handleButtonPlatform(fireboy, watergirl);
-  button.updateButtonPosition(fireboy);
-  button.updateButtonPosition(watergirl);
+  buttonLevel1.draw(ctx);
+  buttonLevel1.checkButtonCollision(fireboy, watergirl);
+  buttonLevel1.handleButtonPlatform(fireboy, watergirl);
+  buttonLevel1.updateButtonPosition(fireboy);
+  buttonLevel1.updateButtonPosition(watergirl);
 
   // Update character positions and handle collisions
   fireboy.update();
@@ -156,7 +168,7 @@ function level1() {
   // handle pond collisions
   pondCollision(fireboy, watergirl, bluePond, redPond, greenPond, lever);
 
-  let isCompleted = doors.checkDoorCollision(fireboy, watergirl);
+  let isCompleted = doorsLevel1.checkDoorCollision(fireboy, watergirl);
 
   return isCompleted;
 }
@@ -169,7 +181,6 @@ function level2() {
 
   fireboy.draw(ctx);
   watergirl.draw(ctx);
-
   fireboy.update();
   watergirl.update();
   fireboy.handleCollision(obstacleArrayLevel2);
@@ -251,6 +262,12 @@ function level2() {
     greenPond1,
     greenPond2
   );
+
+  buttonLevel2.draw(ctx);
+  buttonLevel2.checkButtonCollision(fireboy, watergirl);
+  buttonLevel2.handleButtonPlatform(fireboy, watergirl);
+  buttonLevel2.updateButtonHorizontal(fireboy);
+  buttonLevel2.updateButtonHorizontal(watergirl);
 }
 
 gameLoop();
