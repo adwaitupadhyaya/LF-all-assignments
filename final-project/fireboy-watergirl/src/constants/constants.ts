@@ -22,7 +22,7 @@ export const FIREBOY = {
     HEIGHT: SPRITE.HEAD.HEIGHT / SPRITE.HEAD.ROWS,
     INITIAL_POSITION: {
       X: 40,
-      Y: CANVAS.height - 150,
+      Y: CANVAS.height - 190,
     },
     SPEED: {
       DX: 2.5,

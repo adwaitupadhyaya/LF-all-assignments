@@ -13,23 +13,25 @@ import {
 // sprites
 import bg from "/images/bg.png";
 import level1img from "/images/level1.png";
-import fireboyImageHead from "../public/images/fireboy_sprite.png";
-import fireboyImageHeadRight from "../public/images/fireboy_sprite-right.png";
-import fireboyImageLeg from "../public/images/fireboy_legs_sprite.png";
-import watergirlImageHead from "../public/images/watergirl_sprite.png";
-import watergirlImageHeadRight from "../public/images/watergirl_sprite-right.png";
-import watergirlImageLeg from "../public/images/watergirl_legs_sprite.png";
-import waterImage from "../public/images/water_pond.png";
-import fireImage from "../public/images/fire_pond.png";
-import greenImage from "../public/images/green_pond.png";
-import leverRight from "../public/images/leverRight.png";
-import buttonImage from "../public/images/button.png";
-import redDoorImage from "../public/images/red_door.png";
-import blueDoorImage from "../public/images/blue_door.png";
+import fireboyImageHead from "/images/fireboy_sprite.png";
+import fireboyImageHeadRight from "/images/fireboy_sprite-right.png";
+import fireboyImageLeg from "/images/fireboy_legs_sprite.png";
+import watergirlImageHead from "/images/watergirl_sprite.png";
+import watergirlImageHeadRight from "/images/watergirl_sprite-right.png";
+import watergirlImageLeg from "/images/watergirl_legs_sprite.png";
+import waterImage from "/images/water_pond.png";
+import fireImage from "/images/fire_pond.png";
+import greenImage from "/images/green_pond.png";
+import leverRight from "/images/leverRight.png";
+import buttonImage from "/images/button.png";
+import redDoorImage from "/images/red_door.png";
+import blueDoorImage from "/images/blue_door.png";
 import level2img from "/images/level2.png";
 import woodImage from "/images/wood.png";
 import launchpadImg from "/images/launchpad.png";
 import level3img from "/images/level3.png";
+import blueGemImg from "/images/blue_gem.png";
+import redGemImg from "/images/red_gem.png";
 
 // classes
 import { Fireboy } from "./classes/fireboy";
@@ -54,14 +56,20 @@ import { LAUNCHPAD } from "./constants/launchpadDimensions";
 import { Pulley } from "./classes/pulley";
 import { PULLEY } from "./constants/pulleyDimensions";
 import { pondCollisionLevel3 } from "./utils/pondCollisionLevel3";
+import { Gems } from "./classes/gems";
+import { LEVEL_1_GEMS } from "./constants/gemPositions";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
 export const obstacleArrayLevel3: Array<Obstacle> = [];
 
+const gemsArrayLevel1: Array<Gems> = [];
+const gemsArrayLevel2: Array<Gems> = [];
+const gemsArrayLevel3: Array<Gems> = [];
+
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 3;
+let currentLevel = 1;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -87,7 +95,6 @@ allObstacles2.forEach((element) => {
   );
   obstacleArrayLevel2.push(obstacleObj2);
 });
-
 allObstacles3.forEach((element) => {
   const obstacleObj3 = new Obstacle(
     element.x,
@@ -97,6 +104,25 @@ allObstacles3.forEach((element) => {
     element.id
   );
   obstacleArrayLevel3.push(obstacleObj3);
+});
+
+// gems definitions
+LEVEL_1_GEMS.forEach((element) => {
+  let image: string;
+  if (element.id === "red") {
+    image = redGemImg;
+  } else {
+    image = blueGemImg;
+  }
+  const gemObject = new Gems(
+    element.x,
+    element.y,
+    element.w,
+    element.h,
+    image,
+    element.id
+  );
+  gemsArrayLevel1.push(gemObject);
 });
 
 const backgroundImage = new Image();
@@ -147,8 +173,6 @@ const launchpad = new Launchpad(
   launchpadImg
 );
 
-fireboy.resetForLevel3();
-watergirl.resetForLevel3();
 let reqId: number;
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -164,16 +188,18 @@ function gameLoop() {
     let is2completed = level2();
     if (is2completed) {
       currentLevel = 3;
+      fireboy.resetForLevel3();
+      watergirl.resetForLevel3();
     }
   } else if (currentLevel === 3) {
     let is3Completed = level3();
 
     if (is3Completed) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const text = "Congratulations you finished the game";
       ctx.font = "bold 24px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      const text = "You Completed the game! Congratulations";
       ctx.fillText(text, CANVAS.width / 2, CANVAS.height / 2);
     }
   }
@@ -188,6 +214,12 @@ function level1() {
   level1Image.src = level1img;
   ctx.drawImage(level1Image, 0, 0, canvas.width, canvas.height);
   doorsLevel1.draw(ctx);
+
+  gemsArrayLevel1.forEach((element) => {
+    element.draw(ctx);
+    element.detectCollision(fireboy, gemsArrayLevel1);
+    element.detectCollision(watergirl, gemsArrayLevel1);
+  });
 
   fireboy.draw(ctx);
   watergirl.draw(ctx);
@@ -233,9 +265,10 @@ function level1() {
   // handle pond collisions
   pondCollision(fireboy, watergirl, bluePond, redPond, greenPond, lever);
 
-  let is1Completed = doorsLevel1.checkDoorCollision(fireboy, watergirl);
-
-  return is1Completed;
+  if (gemsArrayLevel1.length === 0) {
+    let is1Completed = doorsLevel1.checkDoorCollision(fireboy, watergirl);
+    return is1Completed;
+  }
 }
 
 function level2() {
