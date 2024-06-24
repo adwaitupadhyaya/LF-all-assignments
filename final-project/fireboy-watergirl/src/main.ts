@@ -47,6 +47,8 @@ import { level1Ponds, level2Ponds } from "./constants/pondPositions";
 import { pondCollisionLevel2 } from "./utils/pondCollisionLevel2";
 import { Launchpad } from "./classes/launchpad";
 import { LAUNCHPAD } from "./constants/launchpadDimensions";
+import { Pulley } from "./classes/pulley";
+import { PULLEY } from "./constants/pulleyDimensions";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
@@ -334,11 +336,13 @@ function level3() {
   watergirl.update();
   fireboy.handleCollision(obstacleArrayLevel3);
   watergirl.handleCollision(obstacleArrayLevel3);
+
+  const pulley = new Pulley(PULLEY.pulley1, PULLEY.pulley2);
+  pulley.draw(ctx);
+  pulley.handlePulleyPlatform(fireboy, watergirl);
 }
 
 gameLoop();
-
-// collision
 
 // Object to keep track of the current state of each key
 const keyState: { [key: string]: boolean } = {};
