@@ -4,7 +4,11 @@ import "./style.css";
 // constants
 import { LEVER } from "./constants/leverDimensions";
 import { CANVAS } from "./constants/canvasDimensions";
-import { allObstacles1, allObstacles2 } from "./constants/obstaclePoints";
+import {
+  allObstacles1,
+  allObstacles2,
+  allObstacles3,
+} from "./constants/obstaclePoints";
 
 // sprites
 import bg from "/images/bg.png";
@@ -25,6 +29,7 @@ import blueDoorImage from "../public/images/blue_door.png";
 import level2img from "/images/level2.png";
 import woodImage from "/images/wood.png";
 import launchpadImg from "/images/launchpad.png";
+import level3img from "/images/level3.png";
 
 // classes
 import { Fireboy } from "./classes/fireboy";
@@ -45,11 +50,12 @@ import { LAUNCHPAD } from "./constants/launchpadDimensions";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
+export const obstacleArrayLevel3: Array<Obstacle> = [];
 
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 1;
+let currentLevel = 2;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -74,6 +80,17 @@ allObstacles2.forEach((element) => {
     element.id
   );
   obstacleArrayLevel2.push(obstacleObj2);
+});
+
+allObstacles3.forEach((element) => {
+  const obstacleObj3 = new Obstacle(
+    element.x,
+    element.y,
+    element.w,
+    element.h,
+    element.id
+  );
+  obstacleArrayLevel3.push(obstacleObj3);
 });
 
 const backgroundImage = new Image();
@@ -131,8 +148,8 @@ function gameLoop() {
     let is2completed = level2();
     if (is2completed) {
       currentLevel = 3;
-      fireboy.resetPosition();
-      watergirl.resetPosition();
+      fireboy.resetForLevel3();
+      watergirl.resetForLevel3();
     }
   } else if (currentLevel === 3) {
     level3();
@@ -308,13 +325,15 @@ function level2() {
 function level3() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   const level3Image = new Image();
-  level3Image.src = level2img;
+  level3Image.src = level3img;
   ctx.drawImage(level3Image, 0, 0, canvas.width, canvas.height);
 
   fireboy.draw(ctx);
   watergirl.draw(ctx);
   fireboy.update();
   watergirl.update();
+  fireboy.handleCollision(obstacleArrayLevel3);
+  watergirl.handleCollision(obstacleArrayLevel3);
 }
 
 gameLoop();

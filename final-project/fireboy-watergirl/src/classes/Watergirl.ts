@@ -66,4 +66,10 @@ export class Watergirl extends Character {
     this.feetX = this.x + playerDrawSize / 2;
     this.feetY = this.y + playerDrawSize;
   }
+  resetForLevel3() {
+    this.x = 24;
+    this.y = 24 * 2;
+    this.feetX = this.x + playerDrawSize / 2;
+    this.feetY = this.y + playerDrawSize;
+  }
 }

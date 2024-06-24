@@ -13,7 +13,6 @@ export const DOOR = {
     h: 80,
   },
 };
-
 export const DOOR_LEVEL_2 = {
   DOOR1: {
     x: 25 * 2,
