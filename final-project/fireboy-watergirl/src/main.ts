@@ -516,22 +516,30 @@ window.addEventListener("keyup", (event) => {
 function handleKeyPress() {
   if (keyState["d"]) {
     fireboy.updateFireboyFrame();
-    fireboy.x += fireboy.dx;
+    if (fireboy.feetX < CANVAS.width - 24) {
+      fireboy.x += fireboy.dx;
+    }
     fireboy.spriteHead.src = fireboyImageHead;
   }
   if (keyState["a"]) {
     fireboy.updateFireboyFrame();
-    fireboy.x -= fireboy.dx;
+    if (fireboy.feetX > 24) {
+      fireboy.x -= fireboy.dx;
+    }
     fireboy.spriteHead.src = fireboyImageHeadRight;
   }
   if (keyState["ArrowRight"]) {
     watergirl.updateWatergirlFrame();
-    watergirl.x += watergirl.dx;
+    if (watergirl.feetX < CANVAS.width - 24) {
+      watergirl.x += watergirl.dx;
+    }
     watergirl.spriteHead.src = watergirlImageHead;
   }
   if (keyState["ArrowLeft"]) {
     watergirl.updateWatergirlFrame();
-    watergirl.x -= watergirl.dx;
+    if (watergirl.feetX > 24) {
+      watergirl.x -= watergirl.dx;
+    }
     watergirl.spriteHead.src = watergirlImageHeadRight;
   }
   if (keyState["w"]) {

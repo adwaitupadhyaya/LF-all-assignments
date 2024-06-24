@@ -97,10 +97,12 @@ export class Character {
 
   handleCollision(obstacleArray: Array<Obstacle>) {
     let upperPlatformY = Infinity;
+    let lowerPlatformY = Infinity;
 
     obstacleArray.forEach((element) => {
       switch (element.id) {
         case OBSTACLE_TYPES.floor:
+          // Check for collision from above
           if (
             this.feetY <= element.y &&
             this.feetX > element.x &&
@@ -110,26 +112,45 @@ export class Character {
               upperPlatformY = element.y;
             }
           }
-          break;
-        case OBSTACLE_TYPES.wall:
-          if (
-            this.x + playerDrawSize > element.x &&
-            this.x < element.x + element.w &&
-            this.y < element.y + element.h &&
-            this.y + playerDrawSize > element.y
+          // Check for collision from below
+          else if (
+            this.y <= element.y + element.h &&
+            this.feetY > element.y + element.h &&
+            this.feetX > element.x &&
+            this.feetX < element.x + element.w
           ) {
-            this.x = element.x - playerDrawSize;
+            if (element.y + element.h > lowerPlatformY) {
+              lowerPlatformY = element.y + element.h;
+            }
           }
           break;
+        case OBSTACLE_TYPES.wall:
+          // ... (keep existing wall collision logic)
+          break;
         case OBSTACLE_TYPES.forwardSlope:
+          // ... (implement slope collision if needed)
           break;
       }
     });
 
-    this.ground = upperPlatformY - playerDrawSize;
+    // Handle collision from above
+    if (upperPlatformY !== Infinity) {
+      this.ground = upperPlatformY - playerDrawSize;
+      if (this.y > this.ground) {
+        this.y = this.ground;
+        this.yVelocity = 0;
+        this.isJumping = false;
+      }
+    }
+
+    // Handle collision from below
+    if (lowerPlatformY !== Infinity && this.yVelocity > 0) {
+      this.y = lowerPlatformY;
+      this.yVelocity = 0;
+    }
 
     // Automatically fall if no platform detected below
-    if (this.y > this.ground) {
+    if (this.y > this.ground && upperPlatformY === Infinity) {
       this.y += this.gravity;
     }
   }
