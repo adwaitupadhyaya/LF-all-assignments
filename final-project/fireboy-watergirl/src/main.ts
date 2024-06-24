@@ -57,7 +57,7 @@ export const obstacleArrayLevel3: Array<Obstacle> = [];
 let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 2;
+let currentLevel = 3;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -136,6 +136,9 @@ const launchpad = new Launchpad(
   launchpadImg
 );
 
+fireboy.resetForLevel3();
+watergirl.resetForLevel3();
+
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -150,8 +153,6 @@ function gameLoop() {
     let is2completed = level2();
     if (is2completed) {
       currentLevel = 3;
-      fireboy.resetForLevel3();
-      watergirl.resetForLevel3();
     }
   } else if (currentLevel === 3) {
     level3();

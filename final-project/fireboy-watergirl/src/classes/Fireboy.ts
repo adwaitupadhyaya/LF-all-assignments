@@ -1,4 +1,3 @@
-import { CANVAS } from "./../constants/canvasDimensions";
 import { Character } from "./character";
 import { FIREBOY, playerDrawSize } from "../constants/constants";
 
@@ -70,8 +69,8 @@ export class Fireboy extends Character {
   }
 
   resetForLevel3() {
-    this.x = CANVAS.width - 200;
-    this.y = CANVAS.height - 30;
+    this.x = 24;
+    this.y = 24 * 2;
     this.feetX = this.x + playerDrawSize / 2;
     this.feetY = this.y + playerDrawSize;
   }

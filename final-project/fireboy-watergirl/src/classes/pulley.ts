@@ -1,4 +1,5 @@
 import { CANVAS } from "../constants/canvasDimensions";
+import { playerDrawSize } from "../constants/constants";
 import { pulleyPlatformDetect } from "../utils/pulleyPlatform";
 import { Fireboy } from "./fireboy";
 import { Obstacle } from "./obstacles";
@@ -36,34 +37,35 @@ export class Pulley {
 
   handlePulleyPlatform(fireboy: Fireboy, watergirl: Watergirl) {
     if (
-      fireboy.x < this.pulleyPlatform2.x + this.pulleyPlatform2.w &&
-      fireboy.x + fireboy.width > this.pulleyPlatform2.x &&
-      fireboy.y < this.pulleyPlatform2.y + this.pulleyPlatform2.h &&
-      fireboy.y + fireboy.height > this.pulleyPlatform2.y
+      fireboy.x < this.pulleyPlatform1.x + this.pulleyPlatform1.w &&
+      fireboy.x + fireboy.width > this.pulleyPlatform1.x &&
+      fireboy.y < this.pulleyPlatform1.y + this.pulleyPlatform1.h &&
+      fireboy.y + fireboy.height > this.pulleyPlatform1.y
     ) {
-      pulleyPlatformDetect([this.pulleyPlatform2], fireboy);
+      pulleyPlatformDetect([this.pulleyPlatform1], fireboy);
+      this.isActive = true;
+      this.handleActiveCondition(watergirl);
     }
 
     if (
-      watergirl.x < this.pulleyPlatform1.x + this.pulleyPlatform1.w &&
-      watergirl.x + watergirl.width > this.pulleyPlatform1.x &&
-      watergirl.y < this.pulleyPlatform1.y + this.pulleyPlatform1.h &&
-      watergirl.y + watergirl.height > this.pulleyPlatform1.y
+      watergirl.x < this.pulleyPlatform2.x + this.pulleyPlatform2.w &&
+      watergirl.x + watergirl.width > this.pulleyPlatform2.x &&
+      watergirl.y < this.pulleyPlatform2.y + this.pulleyPlatform2.h &&
+      watergirl.y + watergirl.height > this.pulleyPlatform2.y
     ) {
-      pulleyPlatformDetect([this.pulleyPlatform1], watergirl);
-      this.isActive = true;
-      this.handleActiveCondition();
+      pulleyPlatformDetect([this.pulleyPlatform2], watergirl);
     }
   }
 
-  handleActiveCondition() {
+  handleActiveCondition(watergirl: Watergirl) {
     if (this.isActive) {
       if (this.pulleyPlatform1.y < pulley1Target) {
         this.pulleyPlatform1.y++;
       }
       if (this.pulleyPlatform2.y > pulley2Target) {
+        this.pulleyPlatform2.y--;
         {
-          this.pulleyPlatform2.y--;
+          watergirl.ground = this.pulleyPlatform2.y - playerDrawSize;
         }
       }
     }

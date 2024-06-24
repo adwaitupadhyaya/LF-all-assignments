@@ -1,5 +1,6 @@
 import { Character } from "./character";
 import { WATERGIRL, playerDrawSize } from "../constants/constants";
+import { CANVAS } from "../constants/canvasDimensions";
 
 export class Watergirl extends Character {
   width: number;
@@ -67,8 +68,8 @@ export class Watergirl extends Character {
     this.feetY = this.y + playerDrawSize;
   }
   resetForLevel3() {
-    this.x = 24;
-    this.y = 24 * 2;
+    this.x = CANVAS.width - 200;
+    this.y = CANVAS.height - 30;
     this.feetX = this.x + playerDrawSize / 2;
     this.feetY = this.y + playerDrawSize;
   }
