@@ -59,3 +59,42 @@ export const level2Ponds = {
     h: 11,
   },
 };
+
+export const level3Ponds = {
+  blue1: {
+    x: 270,
+    y: 24 * 6,
+    w: 100,
+    h: 14,
+  },
+  blue2: {
+    x: 520,
+    y: 24 * 6,
+    w: 100,
+    h: 14,
+  },
+  blue3: {
+    x: 195,
+    y: CANVAS.height - 145,
+    w: 110,
+    h: 14,
+  },
+  red1: {
+    x: 430,
+    y: 24 * 6,
+    w: 40,
+    h: 14,
+  },
+  red2: {
+    x: CANVAS.width / 2 + 80,
+    y: CANVAS.height - 120,
+    w: 70,
+    h: 14,
+  },
+  red3: {
+    x: CANVAS.width / 2 + 65,
+    y: CANVAS.height - 24,
+    w: 100,
+    h: 14,
+  },
+};

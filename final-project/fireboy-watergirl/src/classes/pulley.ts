@@ -70,4 +70,11 @@ export class Pulley {
       }
     }
   }
+
+  resetPosition() {
+    this.pulleyPlatform1.x = 120;
+    this.pulleyPlatform1.y = 150;
+    this.pulleyPlatform2.x = CANVAS.width - 140;
+    this.pulleyPlatform2.y = CANVAS.height - 50;
+  }
 }

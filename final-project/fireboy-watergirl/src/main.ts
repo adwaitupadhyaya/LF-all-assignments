@@ -40,21 +40,25 @@ import { pondCollision } from "./utils/pondCollision";
 import { Lever } from "./classes/lever";
 import { Button } from "./classes/button";
 import { BUTTON_LEVEL_1, BUTTON_LEVEL_2 } from "./constants/buttonDimensions";
-import { DOOR, DOOR_LEVEL_2 } from "./constants/doorPositions";
+import { DOOR, DOOR_LEVEL_2, DOOR_LEVEL_3 } from "./constants/doorPositions";
 import { Door } from "./classes/door";
 import { WOOD } from "./constants/woodPosition";
-import { level1Ponds, level2Ponds } from "./constants/pondPositions";
+import {
+  level1Ponds,
+  level2Ponds,
+  level3Ponds,
+} from "./constants/pondPositions";
 import { pondCollisionLevel2 } from "./utils/pondCollisionLevel2";
 import { Launchpad } from "./classes/launchpad";
 import { LAUNCHPAD } from "./constants/launchpadDimensions";
 import { Pulley } from "./classes/pulley";
 import { PULLEY } from "./constants/pulleyDimensions";
+import { pondCollisionLevel3 } from "./utils/pondCollisionLevel3";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
 export const obstacleArrayLevel3: Array<Obstacle> = [];
 
-let reqId: number;
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 let currentLevel = 3;
@@ -128,6 +132,13 @@ const doorsLevel2 = new Door(
   blueDoorImage
 );
 
+const doorsLevel3 = new Door(
+  DOOR_LEVEL_3.DOOR1,
+  DOOR_LEVEL_3.DOOR2,
+  redDoorImage,
+  blueDoorImage
+);
+
 const launchpad = new Launchpad(
   LAUNCHPAD.x,
   LAUNCHPAD.y,
@@ -138,7 +149,7 @@ const launchpad = new Launchpad(
 
 fireboy.resetForLevel3();
 watergirl.resetForLevel3();
-
+let reqId: number;
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -155,7 +166,16 @@ function gameLoop() {
       currentLevel = 3;
     }
   } else if (currentLevel === 3) {
-    level3();
+    let is3Completed = level3();
+
+    if (is3Completed) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "bold 24px Arial";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const text = "You Completed the game! Congratulations";
+      ctx.fillText(text, CANVAS.width / 2, CANVAS.height / 2);
+    }
   }
 
   requestAnimationFrame(gameLoop);
@@ -178,7 +198,6 @@ function level1() {
   buttonLevel1.handleButtonPlatform(fireboy, watergirl);
   buttonLevel1.updateButtonPosition(fireboy);
   buttonLevel1.updateButtonPosition(watergirl);
-
   // Update character positions and handle collisions
   fireboy.update();
   watergirl.update();
@@ -330,7 +349,7 @@ function level3() {
   const level3Image = new Image();
   level3Image.src = level3img;
   ctx.drawImage(level3Image, 0, 0, canvas.width, canvas.height);
-
+  doorsLevel3.draw(ctx);
   fireboy.draw(ctx);
   watergirl.draw(ctx);
   fireboy.update();
@@ -341,6 +360,81 @@ function level3() {
   const pulley = new Pulley(PULLEY.pulley1, PULLEY.pulley2);
   pulley.draw(ctx);
   pulley.handlePulleyPlatform(fireboy, watergirl);
+
+  const pondsArrayLevel3 = [];
+  // level 3 ponds:
+  const bluePond1 = new Pond(
+    level3Ponds.blue1.x,
+    level3Ponds.blue1.y,
+    level3Ponds.blue1.w,
+    level3Ponds.blue1.h,
+    waterImage
+  );
+  const bluePond2 = new Pond(
+    level3Ponds.blue2.x,
+    level3Ponds.blue2.y,
+    level3Ponds.blue2.w,
+    level3Ponds.blue2.h,
+    waterImage
+  );
+  const bluePond3 = new Pond(
+    level3Ponds.blue3.x,
+    level3Ponds.blue3.y,
+    level3Ponds.blue3.w,
+    level3Ponds.blue3.h,
+    waterImage
+  );
+
+  const redPond1 = new Pond(
+    level3Ponds.red1.x,
+    level3Ponds.red1.y,
+    level3Ponds.red1.w,
+    level3Ponds.red1.h,
+    fireImage
+  );
+  const redPond2 = new Pond(
+    level3Ponds.red2.x,
+    level3Ponds.red2.y,
+    level3Ponds.red2.w,
+    level3Ponds.red2.h,
+    fireImage
+  );
+  const redPond3 = new Pond(
+    level3Ponds.red3.x,
+    level3Ponds.red3.y,
+    level3Ponds.red3.w,
+    level3Ponds.red3.h,
+    fireImage
+  );
+
+  pondsArrayLevel3.push(
+    bluePond1,
+    bluePond2,
+    bluePond3,
+    redPond1,
+    redPond2,
+    redPond3
+  );
+
+  pondsArrayLevel3.forEach((element) => {
+    element.draw(ctx);
+  });
+
+  // handle pond collisions
+  pondCollisionLevel3(
+    fireboy,
+    watergirl,
+    bluePond1,
+    bluePond2,
+    bluePond3,
+    redPond1,
+    redPond2,
+    redPond3,
+    pulley
+  );
+
+  let is3Completed = doorsLevel3.checkDoorCollision(fireboy, watergirl);
+  return is3Completed;
 }
 
 gameLoop();
