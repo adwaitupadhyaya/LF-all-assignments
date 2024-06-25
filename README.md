@@ -2,6 +2,9 @@
 
 This project is a simplified version of the classic Fireboy and Watergirl game, emphasizing teamwork and coordination between two characters, Fireboy and Watergirl. The goal is to collect gems while navigating obstacles that are specific to each character.
 
+[PLAY](https://fireboy-watergirl-ashy.vercel.app/)
+
+
 ## How to Play
 
 ### Controls:
