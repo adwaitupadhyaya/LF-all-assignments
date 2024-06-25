@@ -1,6 +1,7 @@
 import { Fireboy } from "../classes/fireboy";
 import { Pond } from "../classes/Ponds";
 import { Watergirl } from "../classes/watergirl";
+
 export function pondCollisionLevel2(
   fireboy: Fireboy,
   watergirl: Watergirl,

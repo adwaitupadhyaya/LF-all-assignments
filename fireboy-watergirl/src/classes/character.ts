@@ -55,6 +55,10 @@ export class Character {
     this.onPlatform = false;
   }
 
+  /**
+   * The `jump` function sets the object to a jumping state and initializes its vertical velocity if it
+   * is not already jumping.
+   */
   jump() {
     if (!this.isJumping) {
       this.isJumping = true;
@@ -62,6 +66,14 @@ export class Character {
     }
   }
 
+  /**
+   * The function applies gravity to a player object, checks for collision with platforms, and ensures
+   * the player stays above the ground level.
+   * @param obstacleArray - The `obstacleArray` parameter is an array containing objects of type
+   * `Obstacle`. The function `applyGravity` is designed to simulate gravity acting on a player character
+   * in a game environment. It updates the player's position based on gravity, checks for collisions with
+   * platforms represented by obstacles in the `
+   */
   applyGravity(obstacleArray: Array<Obstacle>) {
     // Apply gravity
     this.yVelocity -= this.gravity;
@@ -95,6 +107,14 @@ export class Character {
     }
   }
 
+  /**
+   * The function `handleCollision` checks for collisions with different types of obstacles and adjusts
+   * the player's position and velocity accordingly.
+   * @param obstacleArray - An array containing obstacles that the player character may collide with.
+   * Each obstacle in the array has properties such as id (identifying the type of obstacle), x
+   * (x-coordinate), y (y-coordinate), w (width), and h (height). The function `handleCollision` checks
+   * for collisions between the
+   */
   handleCollision(obstacleArray: Array<Obstacle>) {
     let upperPlatformY = Infinity;
     let lowerPlatformY = Infinity;
@@ -155,6 +175,9 @@ export class Character {
     }
   }
 
+  /**
+   * The update function applies gravity to the player and updates the player's feet position.
+   */
   update() {
     this.applyGravity(obstacleArrayLevel1);
     this.feetX = this.x + playerDrawSize / 2;

@@ -73,6 +73,16 @@ export class Button {
     );
   }
 
+  /**
+   * The function `checkButtonCollision` checks if either Fireboy or Watergirl is colliding with a button
+   * and updates the `isPressed` status accordingly.
+   * @param {Fireboy} fireboy - The `fireboy` parameter seems to represent an object or entity named
+   * Fireboy in your game or application. It likely has properties such as `feetX` and `feetY` which are
+   * used to determine its position, and it seems to interact with buttons represented by `firstButton`
+   * @param {Watergirl} watergirl - The `watergirl` parameter in the `checkButtonCollision` function
+   * seems to represent an object of the `Watergirl` class or type in your game. This object likely has
+   * properties such as `feetX` and `feetY` representing the position of Watergirl's feet, which
+   */
   checkButtonCollision(fireboy: Fireboy, watergirl: Watergirl) {
     if (
       fireboy.feetX < this.firstButton.x + this.firstButton.w &&
@@ -111,6 +121,12 @@ export class Button {
     }
   }
 
+  /**
+   * The function updates the position of a button platform based on a target Y coordinate and adjusts
+   * the player's position if they are on the platform.
+   * @param {Character} player - The `player` parameter is of type `Character`, which likely represents a
+   * character or object in the game that can interact with the button and platform.
+   */
   updateButtonPosition(player: Character) {
     if (this.isPressed) {
       if (this.buttonPlatform.y < targetY) {
@@ -122,6 +138,12 @@ export class Button {
     }
   }
 
+  /**
+   * The function `updateButtonHorizontal` decreases the x position of a button platform if it is pressed
+   * and updates the player's ground position if they are on the platform.
+   * @param {Character} player - The `player` parameter is of type `Character`, which likely represents a
+   * character or object in the game that will be affected by the `updateButtonHorizontal` function.
+   */
   updateButtonHorizontal(player: Character) {
     if (this.isPressed) {
       if (this.buttonPlatform.x > targetX) {
@@ -133,6 +155,14 @@ export class Button {
     }
   }
 
+  /**
+   * The function `resetButtonPosition` adjusts the position of a button platform and a player character
+   * based on certain conditions.
+   * @param {Character} player - The `player` parameter is of type `Character`, which likely represents a
+   * character or object in a game. This function `resetButtonPosition` seems to be related to adjusting
+   * the position of a button platform and updating the player's position accordingly when the button
+   * platform is above a certain height on the canvas
+   */
   resetButtonPosition(player: Character) {
     if (this.buttonPlatform.y > CANVAS.height / 2 - 80) {
       this.buttonPlatform.y--;
@@ -143,6 +173,14 @@ export class Button {
     }
   }
 
+  /**
+   * The function `resetButtonHorizontal` moves a button platform horizontally and adjusts the player's
+   * position if they are on the platform.
+   * @param {Character} player - The `player` parameter in the `resetButtonHorizontal` function is of
+   * type `Character`. This function seems to be related to resetting the horizontal position of a button
+   * platform based on the player's position on the platform. If the button platform's x-coordinate is
+   * less than a certain threshold relative to another
+   */
   resetButtonHorizontal(player: Character) {
     if (this.buttonPlatform.x < BUTTON_LEVEL_2.button2.x - 200) {
       this.buttonPlatform.x++;
@@ -152,6 +190,17 @@ export class Button {
     }
   }
 
+  /**
+   * The function `handleButtonPlatform` checks if the positions of Fireboy and Watergirl intersect with
+   * a button platform and triggers a detection function accordingly.
+   * @param {Fireboy} fireboy - Fireboy is an object representing a character in a game. It likely has
+   * properties such as x and y coordinates, width, and height that are used to determine its position
+   * and interactions with other elements in the game.
+   * @param {Watergirl} watergirl - Watergirl is a character object representing a player or avatar in a
+   * game. In the provided code snippet, the `handleButtonPlatform` function takes two parameters:
+   * `fireboy` and `watergirl`, which are instances of the `Fireboy` and `Watergirl` classes
+   * respectively. These parameters
+   */
   handleButtonPlatform(fireboy: Fireboy, watergirl: Watergirl) {
     if (
       fireboy.x < this.buttonPlatform.x + this.buttonPlatform.w &&

@@ -22,6 +22,14 @@ export class Launchpad {
     this.swooshImage.src = swooshImg;
   }
 
+  /**
+   * The draw function in TypeScript draws an image on a canvas context with a specified global alpha
+   * value and also draws another image with a different alpha value.
+   * @param {CanvasRenderingContext2D} ctx - The `ctx` parameter in the `draw` function is of type
+   * `CanvasRenderingContext2D`, which is a built-in HTML5 object representing a two-dimensional
+   * rendering context. It is used to draw shapes, text, images, and other objects onto the canvas
+   * element in the HTML document.
+   */
   draw(ctx: CanvasRenderingContext2D) {
     ctx.drawImage(this.image, this.x, this.y, this.w, this.h);
     ctx.globalAlpha = 0.2;
@@ -29,6 +37,11 @@ export class Launchpad {
     ctx.globalAlpha = 1;
   }
 
+  /**
+   * The function `checkSwooshPosition` checks if a player's feet are within the boundaries of a swoosh
+   * object and updates the players accordingly.
+   * @param {Fireboy | Watergirl} player - Fireboy | Watergirl
+   */
   checkSwooshPosition(player: Fireboy | Watergirl) {
     if (
       player.feetX < SWOOSH.x + SWOOSH.w &&
@@ -40,6 +53,13 @@ export class Launchpad {
     }
   }
 
+  /**
+   * The function updates the position and velocity of a player object based on a target position.
+   * @param {Fireboy | Watergirl} player - The `player` parameter in the `updatePlayers` function seems
+   * to represent an object with properties related to a game character. In this case, it has properties
+   * such as `y`, `isJumping`, and `yVelocity`. The function updates the player's position and properties
+   * based on certain conditions
+   */
   updatePlayers(player: Fireboy | Watergirl) {
     if (player.y > playerTarget) {
       player.y -= 0.9;

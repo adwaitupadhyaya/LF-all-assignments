@@ -19,6 +19,14 @@ export class Fireboy extends Character {
     this.height = FIREBOY.DIMENSIONS.HEIGHT;
   }
 
+  /**
+   * The draw function in TypeScript draws the player sprite, legs, and a blue circle at a specified
+   * position on a canvas.
+   * @param {CanvasRenderingContext2D} context - The `context` parameter in the `draw` function is of
+   * type `CanvasRenderingContext2D`. This parameter represents the drawing context on the canvas where
+   * you can draw shapes, images, text, and more using various methods provided by the Canvas API. In the
+   * provided code snippet, the `drawImage
+   */
   draw(context: CanvasRenderingContext2D) {
     context.save();
     context.drawImage(
@@ -54,6 +62,10 @@ export class Fireboy extends Character {
     context.restore();
   }
 
+  /**
+   * The function `updateFireboyFrame` increments the frameX and legFrameX properties while resetting
+   * frameY and legFrameY to 1.
+   */
   updateFireboyFrame() {
     this.frameY = 1;
     this.legFrameY = 1;
@@ -61,6 +73,10 @@ export class Fireboy extends Character {
     this.legFrameX = (this.legFrameX + 1) % (this.maxFrame + 1);
   }
 
+  /**
+   * The `resetPosition` function sets the x and y coordinates of an object to specific values and
+   * calculates the position of its feet based on the playerDrawSize.
+   */
   resetPosition() {
     this.x = 55;
     this.y = 800;
@@ -68,6 +84,9 @@ export class Fireboy extends Character {
     this.feetY = this.y + playerDrawSize;
   }
 
+  /**
+   * The function `resetForLevel3` sets the x and y coordinates for a player character in a game.
+   */
   resetForLevel3() {
     this.x = 24;
     this.y = 24 * 2;

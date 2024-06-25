@@ -19,6 +19,14 @@ export class Pulley {
     this.isActive = false;
   }
 
+  /**
+   * The draw function in TypeScript sets the fill style and draws two rectangles on a canvas context
+   * representing pulley platforms.
+   * @param {CanvasRenderingContext2D} ctx - The `ctx` parameter in the `draw` function is of type
+   * `CanvasRenderingContext2D`, which is a built-in HTML5 object that provides a 2D rendering context
+   * for the drawing surface of a `<canvas>` element. This parameter is used to draw shapes, text,
+   * images, and
+   */
   draw(ctx: CanvasRenderingContext2D) {
     ctx.fillStyle = "rgb(197,197,197)";
     ctx.fillRect(
@@ -35,6 +43,16 @@ export class Pulley {
     );
   }
 
+  /**
+   * The `handlePulleyPlatform` function checks if Fireboy or Watergirl is on a pulley platform and
+   * triggers corresponding actions.
+   * @param {Fireboy} fireboy - The `handlePulleyPlatform` function takes two parameters `fireboy` and
+   * `watergirl`, which are objects representing characters in a game. The function checks if the
+   * `fireboy` or `watergirl` is colliding with specific pulley platforms (`pulleyPlatform1` and
+   * @param {Watergirl} watergirl - The `watergirl` parameter in the `handlePulleyPlatform` function
+   * represents an object of the `Watergirl` class. It is used to check for collision detection with the
+   * pulley platforms (`pulleyPlatform1` and `pulleyPlatform2`) in the game environment.
+   */
   handlePulleyPlatform(fireboy: Fireboy, watergirl: Watergirl) {
     if (
       fireboy.x < this.pulleyPlatform1.x + this.pulleyPlatform1.w &&
@@ -56,7 +74,12 @@ export class Pulley {
       pulleyPlatformDetect([this.pulleyPlatform2], watergirl);
     }
   }
-
+  /**
+   * The function `handleActiveCondition` adjusts the positions of two pulley platforms based on certain
+   * conditions and updates the watergirl's ground position accordingly.
+   * @param {Watergirl} watergirl - Watergirl is an object representing a character or entity in the
+   * game, likely a player-controlled character named Watergirl.
+   */
   handleActiveCondition(watergirl: Watergirl) {
     if (this.isActive) {
       if (this.pulleyPlatform1.y < pulley1Target) {
@@ -71,6 +94,10 @@ export class Pulley {
     }
   }
 
+  /**
+   * The `resetPosition` function sets the x and y coordinates of two pulley platforms to specific
+   * values.
+   */
   resetPosition() {
     this.pulleyPlatform1.x = 120;
     this.pulleyPlatform1.y = 150;

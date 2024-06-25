@@ -95,6 +95,10 @@ export class Lever {
     }
   }
 
+  /**
+   * The function `updatePlatformPosition` increases the y position of a platform if it is active and its
+   * current y position is less than a target y position.
+   */
   updatePlatformPosition() {
     if (this.isActive) {
       if (this.leverPlatform.y < targetY) {
@@ -103,6 +107,10 @@ export class Lever {
     }
   }
 
+  /**
+   * The function `resetLeverPlatform` resets the position of a lever platform and changes the image of a
+   * lever.
+   */
   resetLeverPlatform() {
     this.leverPlatform.y = CANVAS.height / 2 + 12;
     this.leverImage.src = leverRight;

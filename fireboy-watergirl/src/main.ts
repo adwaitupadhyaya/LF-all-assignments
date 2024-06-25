@@ -69,7 +69,7 @@ export const obstacleArrayLevel2: Array<Obstacle> = [];
 export const obstacleArrayLevel3: Array<Obstacle> = [];
 
 const music = document.getElementById("music") as HTMLAudioElement;
-// music.loop = true;
+music.loop = true;
 
 const gemsArrayLevel1: Array<Gems> = [];
 const gemsArrayLevel2: Array<Gems> = [];
@@ -172,6 +172,7 @@ backgroundImage.src = bg;
 
 const fireboy = new Fireboy(fireboyImageHead, fireboyImageLeg);
 const watergirl = new Watergirl(watergirlImageHead, watergirlImageLeg);
+
 const lever = new Lever(LEVER.leverPlatform, LEVER.leverController, leverRight);
 const buttonLevel1 = new Button(
   BUTTON_LEVEL_1.button1,
@@ -186,20 +187,19 @@ const buttonLevel2 = new Button(
   BUTTON_LEVEL_2.buttonPlatform
 );
 
+// define doors of each level
 const doorsLevel1 = new Door(
   DOOR.DOOR1,
   DOOR.DOOR2,
   redDoorImage,
   blueDoorImage
 );
-
 const doorsLevel2 = new Door(
   DOOR_LEVEL_2.DOOR1,
   DOOR_LEVEL_2.DOOR2,
   redDoorImage,
   blueDoorImage
 );
-
 const doorsLevel3 = new Door(
   DOOR_LEVEL_3.DOOR1,
   DOOR_LEVEL_3.DOOR2,
@@ -207,6 +207,7 @@ const doorsLevel3 = new Door(
   blueDoorImage
 );
 
+// launchpad for negative gravity in level 2
 const launchpad = new Launchpad(
   LAUNCHPAD.x,
   LAUNCHPAD.y,
@@ -215,9 +216,12 @@ const launchpad = new Launchpad(
   launchpadImg
 );
 
+/**
+ * The gameLoop function clears the canvas, plays music, and progresses through different levels of a
+ * game based on completion status.
+ */
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-
   music.play();
   if (currentLevel === 1) {
     let is1Complete = level1();
@@ -249,7 +253,12 @@ function gameLoop() {
   requestAnimationFrame(gameLoop);
 }
 
-// levels (export to classes when refactoring)
+/**
+ * The function `level1` handles the rendering of game elements, character movements, collisions, and
+ * completion conditions for level 1 of a game.
+ * @returns The function `level1()` is returning the value of `is1Completed`, which is a boolean
+ * indicating whether the level 1 is completed or not.
+ */
 function level1() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   const level1Image = new Image();
@@ -313,6 +322,13 @@ function level1() {
   }
 }
 
+/**
+ * The function `level2` in TypeScript handles the rendering and interactions for the second level of a
+ * game, including drawing elements, detecting collisions, and checking completion conditions.
+ * @returns The function `level2()` returns the value of the variable `is2Completed`, which is
+ * determined by whether the doors have been successfully collided with by both the `fireboy` and
+ * `watergirl` characters.
+ */
 function level2() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   const level2Image = new Image();
@@ -426,6 +442,13 @@ function level2() {
   }
 }
 
+/**
+ * The function `level3` in TypeScript handles the rendering and interactions of game elements for
+ * level 3, including characters, obstacles, gems, ponds, and pulleys.
+ * @returns The function `level3()` is returning the value of `is3Completed`, which is determined by
+ * checking if the gemsArrayLevel3 is empty and then calling the `checkDoorCollision()` method on the
+ * doorsLevel3 object with fireboy and watergirl as arguments.
+ */
 function level3() {
   ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   const level3Image = new Image();
@@ -532,7 +555,7 @@ gameLoop();
 // Object to keep track of the current state of each key
 const keyState: { [key: string]: boolean } = {};
 window.addEventListener("keydown", (event) => {
-  keyState[event.key] = true; // Set the key state to true (pressed)
+  keyState[event.key] = true;
   handleKeyPress(keyState, fireboy, watergirl);
 });
 window.addEventListener("keyup", (event) => {
@@ -567,11 +590,10 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-// Continuously update movement based on current key states
+// Continuously update movement
 function updateMovement() {
   handleKeyPress(keyState, fireboy, watergirl);
   requestAnimationFrame(updateMovement);
 }
 
-// Start the update loop
 updateMovement();

@@ -1,5 +1,5 @@
 import { Fireboy } from "../classes/fireboy";
-import { Pond } from "../classes/Ponds";
+import { Pond } from "../classes/ponds";
 import { Pulley } from "../classes/pulley";
 import { Watergirl } from "../classes/watergirl";
 export function pondCollisionLevel3(
