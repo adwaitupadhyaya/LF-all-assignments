@@ -62,8 +62,8 @@ export class Watergirl extends Character {
   }
 
   resetPosition() {
-    this.x = WATERGIRL.DIMENSIONS.INITIAL_POSITION.X;
-    this.y = WATERGIRL.DIMENSIONS.INITIAL_POSITION.Y;
+    this.x = 60;
+    this.y = 800;
     this.feetX = this.x + playerDrawSize / 2;
     this.feetY = this.y + playerDrawSize;
   }

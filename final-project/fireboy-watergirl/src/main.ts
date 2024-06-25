@@ -14,10 +14,8 @@ import {
 import bg from "/images/bg.png";
 import level1img from "/images/level1.png";
 import fireboyImageHead from "/images/fireboy_sprite.png";
-
 import fireboyImageLeg from "/images/fireboy_legs_sprite.png";
 import watergirlImageHead from "/images/watergirl_sprite.png";
-
 import watergirlImageLeg from "/images/watergirl_legs_sprite.png";
 import waterImage from "/images/water_pond.png";
 import fireImage from "/images/fire_pond.png";
@@ -44,6 +42,8 @@ import { Button } from "./classes/button";
 import { BUTTON_LEVEL_1, BUTTON_LEVEL_2 } from "./constants/buttonDimensions";
 import { DOOR, DOOR_LEVEL_2, DOOR_LEVEL_3 } from "./constants/doorPositions";
 import { Door } from "./classes/door";
+
+// other game elements
 import { WOOD } from "./constants/woodPosition";
 import {
   level1Ponds,
@@ -57,7 +57,11 @@ import { Pulley } from "./classes/pulley";
 import { PULLEY } from "./constants/pulleyDimensions";
 import { pondCollisionLevel3 } from "./utils/pondCollisionLevel3";
 import { Gems } from "./classes/gems";
-import { LEVEL_1_GEMS } from "./constants/gemPositions";
+import {
+  LEVEL_1_GEMS,
+  LEVEL_2_GEMS,
+  LEVEL_3_GEMS,
+} from "./constants/gemPositions";
 import { handleKeyPress } from "./utils/keyPress";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
@@ -73,7 +77,7 @@ const gemsArrayLevel3: Array<Gems> = [];
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 1;
+let currentLevel = 3;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -128,6 +132,40 @@ LEVEL_1_GEMS.forEach((element) => {
   );
   gemsArrayLevel1.push(gemObject);
 });
+LEVEL_2_GEMS.forEach((element) => {
+  let image: string;
+  if (element.id === "red") {
+    image = redGemImg;
+  } else {
+    image = blueGemImg;
+  }
+  const gemObject = new Gems(
+    element.x,
+    element.y,
+    element.w,
+    element.h,
+    image,
+    element.id
+  );
+  gemsArrayLevel2.push(gemObject);
+});
+LEVEL_3_GEMS.forEach((element) => {
+  let image: string;
+  if (element.id === "red") {
+    image = redGemImg;
+  } else {
+    image = blueGemImg;
+  }
+  const gemObject = new Gems(
+    element.x,
+    element.y,
+    element.w,
+    element.h,
+    image,
+    element.id
+  );
+  gemsArrayLevel3.push(gemObject);
+});
 
 const backgroundImage = new Image();
 backgroundImage.src = bg;
@@ -177,7 +215,6 @@ const launchpad = new Launchpad(
   launchpadImg
 );
 
-let reqId: number;
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -283,6 +320,12 @@ function level2() {
   ctx.drawImage(level2Image, 0, 0, canvas.width, canvas.height);
   doorsLevel2.draw(ctx);
 
+  gemsArrayLevel2.forEach((element) => {
+    element.draw(ctx);
+    element.detectCollision(fireboy, gemsArrayLevel2);
+    element.detectCollision(watergirl, gemsArrayLevel2);
+  });
+
   fireboy.draw(ctx);
   watergirl.draw(ctx);
   fireboy.update();
@@ -377,9 +420,10 @@ function level2() {
   launchpad.checkSwooshPosition(fireboy);
   launchpad.checkSwooshPosition(watergirl);
 
-  let is2Completed = doorsLevel2.checkDoorCollision(fireboy, watergirl);
-
-  return is2Completed;
+  if (gemsArrayLevel2.length === 0) {
+    let is2Completed = doorsLevel2.checkDoorCollision(fireboy, watergirl);
+    return is2Completed;
+  }
 }
 
 function level3() {
@@ -388,6 +432,12 @@ function level3() {
   level3Image.src = level3img;
   ctx.drawImage(level3Image, 0, 0, canvas.width, canvas.height);
   doorsLevel3.draw(ctx);
+
+  gemsArrayLevel3.forEach((element) => {
+    element.draw(ctx);
+    element.detectCollision(fireboy, gemsArrayLevel3);
+    element.detectCollision(watergirl, gemsArrayLevel3);
+  });
   fireboy.draw(ctx);
   watergirl.draw(ctx);
   fireboy.update();
@@ -471,22 +521,21 @@ function level3() {
     pulley
   );
 
-  let is3Completed = doorsLevel3.checkDoorCollision(fireboy, watergirl);
-  return is3Completed;
+  if (gemsArrayLevel3.length === 0) {
+    let is3Completed = doorsLevel3.checkDoorCollision(fireboy, watergirl);
+    return is3Completed;
+  }
 }
 
 gameLoop();
 
 // Object to keep track of the current state of each key
 const keyState: { [key: string]: boolean } = {};
-
 window.addEventListener("keydown", (event) => {
   keyState[event.key] = true; // Set the key state to true (pressed)
   handleKeyPress(keyState, fireboy, watergirl);
 });
-
 window.addEventListener("keyup", (event) => {
-  cancelAnimationFrame(reqId);
   keyState[event.key] = false;
   switch (event.key) {
     case "d":
