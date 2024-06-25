@@ -64,20 +64,20 @@ import {
 } from "./constants/gemPositions";
 import { handleKeyPress } from "./utils/keyPress";
 // import { playerDrawSize } from "./constants/constants";
+const music = document.getElementById("music") as HTMLAudioElement;
+music.loop = true;
+
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
 export const obstacleArrayLevel3: Array<Obstacle> = [];
-
-const music = document.getElementById("music") as HTMLAudioElement;
-music.loop = true;
 
 const gemsArrayLevel1: Array<Gems> = [];
 const gemsArrayLevel2: Array<Gems> = [];
 const gemsArrayLevel3: Array<Gems> = [];
 
-const canvas = document.getElementById("canvas") as HTMLCanvasElement;
-const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 1;
+export const canvas = document.getElementById("canvas") as HTMLCanvasElement;
+export const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
+export let currentLevel = 1;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -93,6 +93,7 @@ allObstacles1.forEach((element) => {
   );
   obstacleArrayLevel1.push(obstacleObj1);
 });
+
 allObstacles2.forEach((element) => {
   const obstacleObj2 = new Obstacle(
     element.x,
@@ -226,6 +227,7 @@ function gameLoop() {
   if (currentLevel === 1) {
     let is1Complete = level1();
     if (is1Complete) {
+      // create new fireboy watergirl for each level
       currentLevel = 2;
       fireboy.resetPosition();
       watergirl.resetPosition();
