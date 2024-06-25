@@ -14,10 +14,10 @@ import {
 import bg from "/images/bg.png";
 import level1img from "/images/level1.png";
 import fireboyImageHead from "/images/fireboy_sprite.png";
-import fireboyImageHeadRight from "/images/fireboy_sprite-right.png";
+
 import fireboyImageLeg from "/images/fireboy_legs_sprite.png";
 import watergirlImageHead from "/images/watergirl_sprite.png";
-import watergirlImageHeadRight from "/images/watergirl_sprite-right.png";
+
 import watergirlImageLeg from "/images/watergirl_legs_sprite.png";
 import waterImage from "/images/water_pond.png";
 import fireImage from "/images/fire_pond.png";
@@ -58,10 +58,14 @@ import { PULLEY } from "./constants/pulleyDimensions";
 import { pondCollisionLevel3 } from "./utils/pondCollisionLevel3";
 import { Gems } from "./classes/gems";
 import { LEVEL_1_GEMS } from "./constants/gemPositions";
+import { handleKeyPress } from "./utils/keyPress";
 // import { playerDrawSize } from "./constants/constants";
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
 export const obstacleArrayLevel3: Array<Obstacle> = [];
+
+const music = document.getElementById("music") as HTMLAudioElement;
+// music.loop = true;
 
 const gemsArrayLevel1: Array<Gems> = [];
 const gemsArrayLevel2: Array<Gems> = [];
@@ -177,6 +181,7 @@ let reqId: number;
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  music.play();
   if (currentLevel === 1) {
     let is1Complete = level1();
     if (is1Complete) {
@@ -477,7 +482,7 @@ const keyState: { [key: string]: boolean } = {};
 
 window.addEventListener("keydown", (event) => {
   keyState[event.key] = true; // Set the key state to true (pressed)
-  handleKeyPress();
+  handleKeyPress(keyState, fireboy, watergirl);
 });
 
 window.addEventListener("keyup", (event) => {
@@ -513,46 +518,9 @@ window.addEventListener("keyup", (event) => {
   }
 });
 
-function handleKeyPress() {
-  if (keyState["d"]) {
-    fireboy.updateFireboyFrame();
-    if (fireboy.feetX < CANVAS.width - 24) {
-      fireboy.x += fireboy.dx;
-    }
-    fireboy.spriteHead.src = fireboyImageHead;
-  }
-  if (keyState["a"]) {
-    fireboy.updateFireboyFrame();
-    if (fireboy.feetX > 24) {
-      fireboy.x -= fireboy.dx;
-    }
-    fireboy.spriteHead.src = fireboyImageHeadRight;
-  }
-  if (keyState["ArrowRight"]) {
-    watergirl.updateWatergirlFrame();
-    if (watergirl.feetX < CANVAS.width - 24) {
-      watergirl.x += watergirl.dx;
-    }
-    watergirl.spriteHead.src = watergirlImageHead;
-  }
-  if (keyState["ArrowLeft"]) {
-    watergirl.updateWatergirlFrame();
-    if (watergirl.feetX > 24) {
-      watergirl.x -= watergirl.dx;
-    }
-    watergirl.spriteHead.src = watergirlImageHeadRight;
-  }
-  if (keyState["w"]) {
-    fireboy.jump();
-  }
-  if (keyState["ArrowUp"]) {
-    watergirl.jump();
-  }
-}
-
 // Continuously update movement based on current key states
 function updateMovement() {
-  handleKeyPress();
+  handleKeyPress(keyState, fireboy, watergirl);
   requestAnimationFrame(updateMovement);
 }
 
