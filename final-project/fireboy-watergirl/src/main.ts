@@ -77,7 +77,7 @@ const gemsArrayLevel3: Array<Gems> = [];
 
 const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-let currentLevel = 3;
+let currentLevel = 1;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
