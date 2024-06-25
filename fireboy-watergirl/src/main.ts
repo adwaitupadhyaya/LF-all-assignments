@@ -64,6 +64,15 @@ import {
 } from "./constants/gemPositions";
 import { handleKeyPress } from "./utils/keyPress";
 // import { playerDrawSize } from "./constants/constants";
+
+const button = document.querySelector(".btn") as HTMLButtonElement;
+const game_info = document.querySelector(".game-info") as HTMLDivElement;
+
+button?.addEventListener("click", () => {
+  canvas.style.display = "block";
+  game_info.style.display = "none";
+});
+
 const music = document.getElementById("music") as HTMLAudioElement;
 music.loop = true;
 

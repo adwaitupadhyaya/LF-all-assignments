@@ -47,7 +47,7 @@ export const LEVEL_2_GEMS = [
     id: "red",
   },
   {
-    x: CANVAS.width / 2 - 250,
+    x: CANVAS.width / 2 - 250, // calculations meaning define.
     y: CANVAS.height - 50,
     w: 25,
     h: 25,
