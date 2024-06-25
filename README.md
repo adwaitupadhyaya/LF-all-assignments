@@ -45,17 +45,16 @@ This project is a simplified version of the classic Fireboy and Watergirl game, 
 ## Installation and Setup
 
 1. Clone the repository:
-git clone git@github.com:adwaitupadhyaya/LF-all-assignments.git
-
+```git clone git@github.com:adwaitupadhyaya/LF-all-assignments.git```
 
 2. Go to fireboy-watergirl file:
-cd fireboy-watergirl
+```cd fireboy-watergirl```
 
 3. Install Dependencies:
-npm i 
+```npm i``` 
 
 ## How to Run
-npm run dev
+```npm run dev```
 
 - This project was developed as a learning exercise by Adwait Upadhyaya
 
