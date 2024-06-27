@@ -57,7 +57,6 @@ export class Gems {
         player.y < this.y + this.h &&
         player.y + player.height > this.y
       ) {
-        console.log("red gem collected");
         gemsArray.forEach((element, index) => {
           if (element === this) {
             gemsArray.splice(index, 1);
@@ -72,7 +71,6 @@ export class Gems {
         player.y < this.y + this.h &&
         player.y + player.height > this.y
       ) {
-        console.log("blue gem collected");
         gemsArray.forEach((element, index) => {
           if (element === this) {
             gemsArray.splice(index, 1);

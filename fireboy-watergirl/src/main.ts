@@ -73,9 +73,6 @@ button?.addEventListener("click", () => {
   game_info.style.display = "none";
 });
 
-const music = document.getElementById("music") as HTMLAudioElement;
-music.loop = true;
-
 export const obstacleArrayLevel1: Array<Obstacle> = [];
 export const obstacleArrayLevel2: Array<Obstacle> = [];
 export const obstacleArrayLevel3: Array<Obstacle> = [];
@@ -86,7 +83,7 @@ const gemsArrayLevel3: Array<Gems> = [];
 
 export const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 export const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
-export let currentLevel = 1;
+export let currentLevel = 2;
 
 canvas.height = CANVAS.height;
 canvas.width = CANVAS.width;
@@ -232,7 +229,6 @@ const launchpad = new Launchpad(
  */
 function gameLoop() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  music.play();
   if (currentLevel === 1) {
     let is1Complete = level1();
     if (is1Complete) {
