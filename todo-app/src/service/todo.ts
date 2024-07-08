@@ -18,7 +18,7 @@ export function getTodoById(id: string) {
 }
 
 export function createTodo(body: ITodo) {
-  TodoModel.createTodo(body);
+  return TodoModel.createTodo(body);
 }
 
 export function updateTodo(id: string, body: ITodo) {
@@ -29,7 +29,14 @@ export function updateTodo(id: string, body: ITodo) {
       error: `Todo with id : ${id} doesnt exist`,
     };
   }
-  return TodoModel.updateTodo(id, body);
+
+  if (body.todo && body.dueDate && body.isCompleted) {
+    return TodoModel.updateTodo(id, body);
+  } else {
+    return {
+      error: `Body Needs all 3 attributes to update(todo,duedate,iscompleted)`,
+    };
+  }
 }
 
 export function deleteTodo(id: string) {

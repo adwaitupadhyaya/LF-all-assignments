@@ -15,9 +15,10 @@ export function getTodoById(req: Request, res: Response) {
 
 export function createTodo(req: Request, res: Response) {
   const { body } = req;
-  todoService.createTodo(body);
+  const data = todoService.createTodo(body);
   res.json({
     message: "Todo Created",
+    created: data,
   });
 }
 
@@ -30,10 +31,10 @@ export function updateTodo(req: Request, res: Response) {
 
 export function deleteTodo(req: Request, res: Response) {
   const { id } = req.params;
-  const data = todoService.deleteTodo(id);
+  const error = todoService.deleteTodo(id);
 
-  if (data) {
-    return res.json(data);
+  if (error) {
+    return res.json(error);
   }
   res.json({
     message: "Succesfully deleted",
